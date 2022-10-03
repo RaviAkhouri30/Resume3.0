@@ -1,1 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    /* background: #fcfcfc; */
+    background: #FFFFFF;
+}
+
+.inner-container {
+    text-align: left;
+    background: #FFFFFF !important;
+    margin: 10px 12%;
+    box-shadow: 0 5px 25px 0 rgb(0 0 0 / 20%);
+    padding: 3%;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media print {
+    .body {
+        overflow: auto;
+        height: auto;
+        background: #FFFFFF !important;
+    }
+
+    * {
+        overflow: visible !important;
+    }
+
+    .print {
+        page-break-after: always !important;
+    }
+
+    .inner-container {
+        text-align: left;
+        background: #FFFFFF !important;
+        margin: 0;
+        box-shadow: none;
+        padding: 0;
+        border-radius: 0;
+        border: none;
+        min-height: 200px;
+    }
+}

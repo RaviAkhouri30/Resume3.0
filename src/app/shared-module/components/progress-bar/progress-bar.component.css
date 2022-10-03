@@ -1,0 +1,14 @@
+.bar {
+    width: 100%;
+    background: #BBE1FA;
+    height: 5px;
+    position: relative;
+}
+
+.progress {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: #3282B8;
+    z-index: 99;
+}
