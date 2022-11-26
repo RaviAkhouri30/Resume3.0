@@ -7,16 +7,29 @@
     id="{{ exp.getUid() }}"
   >
     <div class="heading">
-      <h4>{{ exp.getTenure() }}</h4>
-      <h3>{{ exp.getCompanyName() }}</h3>
+      <div class="heading-container">
+        <h4>{{ exp.getTenure() }}</h4>
+        <h3>{{ exp.getCompanyName() }}</h3>
+      </div>
     </div>
     <div class="content-container" id="{{ '_cont' + exp.getUid() }}">
       <article class="content" id="{{ 'cont' + exp.getUid() }}">
         {{ exp.getDesc() }}
       </article>
       <div class="btn-container">
-        <a href="#" class="read-more" (click)="onReadMore(exp.getUid())"
+        <a
+          href="#"
+          class="read-more"
+          (click)="onReadMore(exp.getUid())"
+          *ngIf="isExpanded() !== exp.getUid()"
           >Read More</a
+        >
+        <a
+          href="#"
+          class="read-more"
+          (click)="onReadLess(exp.getUid())"
+          *ngIf="isExpanded() === exp.getUid()"
+          >Read Less</a
         >
       </div>
     </div>
