@@ -7,7 +7,8 @@ import { SharedModuleModule } from '../shared-module/shared-module.module';
 import { AboutMeComponent } from './about-me/about-me.component';
 import { ProfessionalSkillsComponent } from './professional-skills/professional-skills.component';
 import { ExperienceComponent } from './experience/experience.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { ExperienceComponent } from './experience/experience.component';
   imports: [
     CommonModule,
     ResumeRoutingModule,
-    SharedModuleModule
+    SharedModuleModule,
+    HttpClientModule,
+    FormsModule
   ]
 })
 export class ResumeModule { }
