@@ -60,4 +60,8 @@ export class HeadSectionComponent implements OnInit, ComponentModel<HeadSectionM
     }
   }
 
+  public onDownload = (): void => {
+    window.open('/assets/RAVI_RESUME.pdf')
+  }
+
 }
