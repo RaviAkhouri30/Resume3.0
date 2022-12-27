@@ -5,8 +5,8 @@
       <div class="image-container">
         <div class="ripple-image"></div>
       </div>
-      <h2 class="name" role="title">I'm Ravi Akhouri</h2>
-      <h3 class="intro-info" role="title-info">Web Developer, Angular UI Developer</h3>
+      <h2 class="name" role="title">I'm {{getData().getUserName()}}</h2>
+      <h3 class="intro-info" role="title-info">{{getData().getDesignation()}}, {{getData().getRole()}}</h3>
       <button class="resume-btn" role="button" tabindex="0">Download Resume</button>
     </div>
   </div>

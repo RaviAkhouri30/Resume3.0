@@ -10,7 +10,7 @@ import { ExperienceService } from './service/experience.service';
 export class ExperienceComponent implements OnInit {
 
   private workExpData: ExperienceModel[];
-  private expandedUid: string = ''
+  private expandedUid: string = '';
   private prevExpandedUid: string = ''
 
   constructor(
@@ -60,7 +60,16 @@ export class ExperienceComponent implements OnInit {
           _elementC.style.height = '100%';
           element.style.height = '130px';
         }
+        return;
       }
+      const element = document.getElementById(uid) as HTMLDivElement;
+          const _element = document.getElementById('cont' + uid) as HTMLDivElement;
+          _element.style[<any>'overflow-y'] = 'hidden';
+          _element.style[<any>'height'] = '100%';
+          const _elementC = document.getElementById('_cont' + uid) as HTMLDivElement;
+          _elementC.style.height = '100%';
+          element.style.height = '130px';
+          this.expandedUid = '';
     });
   }
 
