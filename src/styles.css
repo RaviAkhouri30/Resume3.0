@@ -35,6 +35,14 @@ body {
     color: #3282B8;
 }
 
+.align-text-center {
+    text-align: center;
+}
+
+.width-100 {
+    width: 100%;
+}
+
 @media print {
     .body {
         overflow: auto;

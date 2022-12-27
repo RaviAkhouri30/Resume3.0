@@ -15,7 +15,8 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
   ],
   exports : [
     HeaderComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    FooterComponent
   ]
 })
 export class SharedModuleModule { }

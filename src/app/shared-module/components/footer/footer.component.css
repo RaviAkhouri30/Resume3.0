@@ -1,0 +1,54 @@
+.head-container {
+    min-height: 300px;
+    background-color: #000000;
+    background-image: url('/assets/coding-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 50px;
+    width: 100%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.intro {
+    z-index: 2;
+    color: #FFFFFF;
+    display: block;
+    width: 100%;
+}
+
+.inner-flex {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 16px auto;
+}
+
+.inner-flex ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 12px;
+}
+
+.inner-flex ul>li {
+    margin: 16px auto;
+}
+
+.col {
+    width: 45%;
+    margin: 16px auto;
+}
+
+a {
+    color: #FFFFFF;
+}

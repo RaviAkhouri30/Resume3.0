@@ -1,0 +1,95 @@
+.container {
+    padding: 5% 3%;
+    color: #454a4e;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.inner-flex {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.education-awards-and-acheivement {
+    background: #FFFFFF !important;
+    margin: 10px 12%;
+    box-shadow: 0 5px 25px 0 rgb(0 0 0 / 20%);
+    padding: 3%;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.col-1 {
+    width: 60%;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.col-2 {
+    width: 40%;
+}
+
+.second-flex ul {
+    margin: 0;
+    padding: 0;
+}
+
+.second-flex ul li {
+    margin: 0px 0 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.info li {
+    font-weight: 600;
+}
+
+.second-flex {
+    display: flex;
+}
+
+.edu-cont {
+    margin-right: 40px;
+}
+
+.edu-cont ul,
+li {
+    line-height: 1;
+    margin: 16px auto;
+}
+
+.edu-cont
+p {
+    margin: 8px auto !important;
+}
+
+.pointer-event-disabled {
+    pointer-events: none;
+}
+
+.sub-heading {
+    color: #3282B8;
+}
+
+.awards-list {
+    font-size: 14px;
+}
+
+@media print {
+    .edu-cont {
+        width: 100%;
+        background: #FFFFFF !important;
+        margin: 0;
+        box-shadow: none;
+        padding: 0;
+        border-radius: 0;
+        border: none;
+    }
+}

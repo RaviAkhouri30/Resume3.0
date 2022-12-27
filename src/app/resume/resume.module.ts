@@ -9,6 +9,7 @@ import { ProfessionalSkillsComponent } from './professional-skills/professional-
 import { ExperienceComponent } from './experience/experience.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { EducationAwardsAndAcheivementComponent } from './education-awards-and-acheivement/education-awards-and-acheivement.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     ResumeContainerComponent,
     AboutMeComponent,
     ProfessionalSkillsComponent,
-    ExperienceComponent
+    ExperienceComponent,
+    EducationAwardsAndAcheivementComponent
   ],
   imports: [
     CommonModule,

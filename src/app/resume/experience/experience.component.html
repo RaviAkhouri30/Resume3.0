@@ -13,8 +13,8 @@
       </div>
     </div>
     <div class="content-container" id="{{ '_cont' + exp.getUid() }}">
-      <article class="content" id="{{ 'cont' + exp.getUid() }}">
-        {{ exp.getDesc() }}
+      <article class="content" id="{{ 'cont' + exp.getUid() }}" [innerHTML]="exp.getDesc()">
+        
       </article>
       <div class="btn-container">
         <a

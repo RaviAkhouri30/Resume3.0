@@ -1,13 +1,13 @@
 /**
- * @description Response Model of Generic Type.
+ * @description Response Model of Generic Type T.
  */
 export class ResponseModel<T> {
-    private statusCode: number;
+    private statusCode: statusCodeType;
     private data: T;
     private messasge: string;
 
-    constructor(data: T){
-        this.statusCode = 200;
+    constructor(data: T) {
+        this.statusCode = statusCodeType.success;
         this.data = data;
         this.messasge = 'Data has been fetched successfully';
     }
@@ -36,4 +36,8 @@ export class ResponseModel<T> {
         this.messasge = messasge;
     }
 
+}
+
+export enum statusCodeType {
+    success = 200
 }
