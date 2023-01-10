@@ -55,3 +55,8 @@ h1 {
         display: none;
     }
 }
+
+a {
+    text-decoration: none;
+    color: #FFFFFF;
+}

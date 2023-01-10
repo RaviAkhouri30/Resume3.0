@@ -64,4 +64,8 @@ export class HeadSectionComponent implements OnInit, ComponentModel<HeadSectionM
     window.open('/assets/RAVI_RESUME.pdf');
   }
 
+  public openLink = (link: string): void => {
+    window.open(link);
+  }
+
 }
