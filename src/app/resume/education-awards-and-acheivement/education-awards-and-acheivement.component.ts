@@ -6,9 +6,10 @@ import { EduAwardAcheivementModel } from './model/edu-award-acheivement-model';
 import { EduAwardAcheivementService } from './services/edu-award-acheivement.service';
 
 @Component({
-  selector: 'app-education-awards-and-acheivement',
-  templateUrl: './education-awards-and-acheivement.component.html',
-  styleUrls: ['./education-awards-and-acheivement.component.css']
+    selector: 'app-education-awards-and-acheivement',
+    templateUrl: './education-awards-and-acheivement.component.html',
+    styleUrls: ['./education-awards-and-acheivement.component.css'],
+    standalone: false
 })
 export class EducationAwardsAndAcheivementComponent implements OnInit, OnDestroy, ComponentModel<EduAwardAcheivementModel[]> {
 

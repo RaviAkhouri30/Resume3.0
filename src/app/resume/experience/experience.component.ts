@@ -3,9 +3,10 @@ import { ExperienceModel } from './model/experience-model';
 import { ExperienceService } from './service/experience.service';
 
 @Component({
-  selector: 'app-experience',
-  templateUrl: './experience.component.html',
-  styleUrls: ['./experience.component.css']
+    selector: 'app-experience',
+    templateUrl: './experience.component.html',
+    styleUrls: ['./experience.component.css'],
+    standalone: false
 })
 export class ExperienceComponent implements OnInit {
 
