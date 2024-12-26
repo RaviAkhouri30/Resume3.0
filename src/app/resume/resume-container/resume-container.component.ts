@@ -1,9 +1,10 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-resume-container',
-  templateUrl: './resume-container.component.html',
-  styleUrls: ['./resume-container.component.css']
+    selector: 'app-resume-container',
+    templateUrl: './resume-container.component.html',
+    styleUrls: ['./resume-container.component.css'],
+    standalone: false
 })
 export class ResumeContainerComponent implements OnInit {
 

@@ -5,9 +5,10 @@ import { HeadSectionModel } from './model/head-section-model';
 import { HeadSectionService } from './services/head-section.service';
 
 @Component({
-  selector: 'app-head-section',
-  templateUrl: './head-section.component.html',
-  styleUrls: ['./head-section.component.css']
+    selector: 'app-head-section',
+    templateUrl: './head-section.component.html',
+    styleUrls: ['./head-section.component.css'],
+    standalone: false
 })
 export class HeadSectionComponent implements OnInit, ComponentModel<HeadSectionModel>, OnDestroy {
   /** Variables */
