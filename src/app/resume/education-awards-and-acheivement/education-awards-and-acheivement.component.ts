@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ComponentModel } from 'src/app/shared-module/components/model/component-model';
-import { statusCodeType } from 'src/app/shared-module/models/response-model';
+// import { statusCodeType } from 'src/app/shared-module/models/response-model';
 import { EduAwardAcheivementModel } from './model/edu-award-acheivement-model';
 import { EduAwardAcheivementService } from './services/edu-award-acheivement.service';
 
@@ -37,15 +37,15 @@ export class EducationAwardsAndAcheivementComponent implements OnInit, OnDestroy
   }
 
   public fetchData = (): void => {
-    this.eduSubscribtion = this.eduAwardAcheivementService.getEducationAndAcheivementData().subscribe(res => {
-      if (res.getStatusCode() === statusCodeType.success) {
-        this.data = res.getData().map(e => new EduAwardAcheivementModel(e));
-      }
+    this.eduSubscribtion = this.eduAwardAcheivementService.getEducationAndAcheivementData().subscribe(_res => {
+      // if (res.getStatusCode() === statusCodeType.success) {
+      //   this.data = res.getData().map(e => new EduAwardAcheivementModel(e));
+      // }
     });
-    this.eduAwardAcheivementService.getAwardsAndAchievement().subscribe(res => {
-      if (res.getStatusCode() === statusCodeType.success) {
-        this.awardsData = [...res.getData()];
-      }
+    this.eduAwardAcheivementService.getAwardsAndAchievement().subscribe(_s => {
+      // if (res.getStatusCode() === statusCodeType.success) {
+      //   this.awardsData = [...res.getData()];
+      // }
     });
   };
 

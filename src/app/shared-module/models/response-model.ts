@@ -1,43 +1,43 @@
+import { IResponseModel } from "../interfaces/i-response-model";
+
 /**
  * @description Response Model of Generic Type T.
  */
-export class ResponseModel<T> {
-    private statusCode: statusCodeType;
-    private data: T;
-    private messasge: string;
+export class ResponseModel<T> implements IResponseModel<T> {
+    private _statusCode!: statusCodeType;
+    private _data: T;
+    private _messasge!: string;
 
     constructor(data: T) {
-        this.statusCode = statusCodeType.success;
-        this.data = data;
-        this.messasge = 'Data has been fetched successfully';
+        this._data = data;
+        this.setStatuscodeAndMessage();
     }
 
-    public getStatusCode(): number {
-        return this.statusCode;
+    public get statusCode(): statusCodeType {
+        return this._statusCode;
     }
 
-    public setStatusCode(statusCode: number): void {
-        this.statusCode = statusCode;
+    public get data(): T {
+        return this._data;
     }
 
-    public getData(): T {
-        return this.data;
+    public get message(): string {
+        return this._messasge;
     }
 
-    public setData(data: T): void {
-        this.data = data;
-    }
-
-    public getMessasge(): string {
-        return this.messasge;
-    }
-
-    public setMessasge(messasge: string): void {
-        this.messasge = messasge;
-    }
+    private setStatuscodeAndMessage = (): void => {
+        if (!this._data) {
+            this._statusCode = statusCodeType.failed;
+            this._messasge = 'Data not found';
+            return;
+        }
+        this._statusCode = statusCodeType.success;
+        this._messasge = 'Data has been fetched successfully';
+     }
 
 }
 
 export enum statusCodeType {
-    success = 200
+    success = 200,
+    failed = 400
 }

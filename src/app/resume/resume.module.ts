@@ -11,15 +11,21 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { EducationAwardsAndAcheivementComponent } from './education-awards-and-acheivement/education-awards-and-acheivement.component';
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         HeadSectionComponent,
         ResumeContainerComponent,
         AboutMeComponent,
         ProfessionalSkillsComponent,
         ExperienceComponent,
         EducationAwardsAndAcheivementComponent
-    ], imports: [CommonModule,
+    ],
+    imports: [
+        CommonModule,
         ResumeRoutingModule,
         SharedModuleModule,
-        FormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        FormsModule
+    ],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class ResumeModule { }

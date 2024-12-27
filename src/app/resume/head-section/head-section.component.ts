@@ -34,12 +34,12 @@ export class HeadSectionComponent implements OnInit, ComponentModel<HeadSectionM
    * @description To Fetch the Data.
    */
   public fetchData = (): void => {
-    this._subscribtion = this.headSectionService.getHeadData().subscribe(res => {
-      if (res.getStatusCode() === 200) {
-        this.data.setDesignation(res.getData().getDesignation());
-        this.data.setRole(res.getData().getRole());
-        this.data.setUserName(res.getData().getUserName());
-      }
+    this._subscribtion = this.headSectionService.getHeadData().subscribe(_res => {
+      // if (res.getStatusCode() === 200) {
+      //   this.data.setDesignation(res.getData().getDesignation());
+      //   this.data.setRole(res.getData().getRole());
+      //   this.data.setUserName(res.getData().getUserName());
+      // }
     })
   }
 

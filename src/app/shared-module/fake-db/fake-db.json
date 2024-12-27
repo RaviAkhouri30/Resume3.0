@@ -1,0 +1,21 @@
+{
+  "about-me": {
+	"name": "Ravi Akhouri",
+    "email": "contact@raviakhouri.in",
+    "phone": "+91 8804804868",
+    "address": "",
+    "city": "string",
+    "state": "string",
+    "zip": "string",
+    "country": "India",
+    "summary": "Hello! I'm Ravi Akhouri. I am very much passionate about coding. I'm working as a Frontend Developer Angular in IT Industries and also acheived recognitions for my Work. \nAlong with Angular, I have worked with HTML5, css, javaScript and typeScript. I have also used Bootstrap 4 and Angular Material.",
+    "linkedin": "",
+    "github": "",
+    "twitter": "",
+    "dateOfBirth": "1997-03-30",
+    "profilePic": "",
+    "resume": "",
+    "uid": "RS-1",
+    "skills": []
+  }
+}

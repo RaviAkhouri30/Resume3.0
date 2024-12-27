@@ -12,7 +12,6 @@ export class ExperienceComponent implements OnInit {
 
   private workExpData: ExperienceModel[];
   private expandedUid: string = '';
-  private prevExpandedUid: string = ''
 
   constructor(
     private experienceService: ExperienceService

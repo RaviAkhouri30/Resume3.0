@@ -1,16 +1,9 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  standalone: false
 })
-export class AppComponent {
-  title = 'ravi-resume-3';
-  
-  @HostListener('window:scroll')
-  onScroll(event: Event) {
-    console.log('scrolling');
-  }
-}
+export class AppComponent { }
