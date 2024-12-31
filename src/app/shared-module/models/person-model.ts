@@ -4,6 +4,7 @@ export class PersonModel implements IPerson {
     private _name: string;
     private _email: string;
     private _phone: string;
+    private _jobTitle: string;
     private _address: string;
     private _city: string;
     private _state: string;
@@ -23,6 +24,7 @@ export class PersonModel implements IPerson {
         this._name = '';
         this._email = '';
         this._phone = '';
+        this._jobTitle = ''
         this._address = '';
         this._city = '';
         this._state = '';
@@ -61,6 +63,14 @@ export class PersonModel implements IPerson {
 
     set phone(value: string) {
         this._phone = value;
+    }
+
+    get jobTitle(): string {
+        return this._jobTitle;
+    }
+
+    set jobTitle(value: string) {
+        this._jobTitle = value;
     }
 
     get address(): string {

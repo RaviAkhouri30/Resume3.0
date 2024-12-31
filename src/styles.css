@@ -11,6 +11,7 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     background: #FFFFFF;
+    color: #FFFFFF;
 }
 
 .inner-container {
@@ -69,3 +70,5 @@ body {
         min-height: 200px;
     }
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

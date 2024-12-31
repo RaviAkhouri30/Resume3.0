@@ -1,5 +1,5 @@
 export interface INotification {
-    showMessage(message: number): void;
+    showMessage(message: string, action: string): void;
     showSuccess(message: number): void;
-    showError(message: number): void;
+    showError(errorCode: number, message: string): void;
 }

@@ -1,37 +1,28 @@
-import { Component, Injector, OnDestroy } from '@angular/core';
-import { HanldeErrorFactory } from '../../factories/hanlde-error-factory';
+import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IViewModel } from '../../interfaces/i-view-model';
 
 @Component({
   selector: 'app-base',
-  template: ''
+  template: '',
+  standalone: false
 })
-export class BaseComponent implements OnDestroy {
-  private _hanldeErrorFactory: HanldeErrorFactory;
-  private _model!: IViewModel;
+export class BaseComponent<T> implements OnDestroy {
+  private _model!: IViewModel<T>;
   private subscription!: Subscription;
-
-  constructor(protected injector: Injector) {
-    this._hanldeErrorFactory = this.injector.get(HanldeErrorFactory);
-  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  autoUnsubscribe = () => {
-    this.subscription = this.handleHttpError().subscribe();
-    this.subscription.unsubscribe();
-  }
+  autoUnsubscribe = () => this.subscription = this.model.inIt().subscribe();
 
-  set model(value: IViewModel) {
+  set model(value: IViewModel<T>) {
     this._model = value;
   }
 
-  get model(): IViewModel {
+  get model(): IViewModel<T> {
     return this._model;
   }
 
-  private handleHttpError = () => this._hanldeErrorFactory.handleHttpsError(this._model.inIt());
 }

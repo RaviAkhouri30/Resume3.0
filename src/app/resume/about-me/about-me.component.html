@@ -1,4 +1,4 @@
-<section class="container">
+<!-- <section class="container">
   <div class="about-me">
     <div class="inner-flex">
       <div class="col-1" role="About Me" aria-labelledby="about-me-r">
@@ -35,4 +35,44 @@
       </div>
     </div>
   </div>
+</section> -->
+
+<section class="about-me">
+
+  <div class="person-info">
+    @if (model.data) {
+    <div class="person-name">
+      <h1>I'm {{model.data.name}}</h1>
+    </div>
+    <div class="person-title">
+      <h3>{{model.data.jobTitle}}</h3>
+    </div>
+    <div class="person-contact">
+      <div class="contact" [cdkCopyToClipboard]="model.data.phone" (click)="onCopy(model.data.phone, 'Phone number')">
+        <mat-icon class="icon">phone</mat-icon>
+        <span class="phone">{{model.data.phone}}</span>
+      </div>
+      <div class="contact" [cdkCopyToClipboard]="model.data.email" (click)="onCopy(model.data.phone, 'Email')">
+        <mat-icon class="icon">email</mat-icon>
+        <span><a href="mailto:{{model.data.email}}">{{model.data.email}}</a></span>
+        <span>
+        </span>
+      </div>
+      <div class="description">
+        <p>{{model.data.summary}}</p>
+      </div>
+      <div class="social">
+        <div class="social-icon-container">
+          <img src="/assets/github.svg" alt="github-link" class="social-icon" tabindex="0"
+            (click)="openLink(model.data.github)" />
+        </div>
+        <div class="social-icon-container">
+          <img src="/assets/linkedin.svg" alt="linkedin-link" class="social-icon" tabindex="0"
+            (click)="openLink(model.data.linkedin)" />
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
 </section>

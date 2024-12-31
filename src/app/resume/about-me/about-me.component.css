@@ -1,4 +1,4 @@
-.container {
+/* .container {
     padding: 5% 3%;
     color: #1B262C;
     font-size: 16px;
@@ -70,8 +70,77 @@
         background: #FFFFFF !important;
         margin: 0;
         box-shadow: none;
-        padding: 0;
-        border-radius: 0;
+        padding: 0;ss        border-radius: 0;
         border: none;
     }
+} */
+
+.about-me {
+    width: 100%;
+    display: flex;
+}
+
+.person-info {
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.person-name,
+.person-title {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 5px auto 0px;
+}
+
+.person-title {
+    margin: -15px auto 0;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.contact {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+.phone:hover {
+    cursor: copy;
+}
+
+a {
+    color: #fff;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+}
+
+.social-icon-container:hover {
+    box-shadow: 0 0 6px 6px rgba(255, 255, 255, 0.4)
+}
+
+.social-icon-container {
+    box-sizing: border-box;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: #000;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.description {
+    margin: 10px auto 20px;
+    text-align: center;
+    line-height: 1.5;
 }

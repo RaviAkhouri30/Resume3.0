@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ComponentModel } from 'src/app/shared-module/components/model/component-model';
 import { HeadSectionModel } from './model/head-section-model';
-import { HeadSectionService } from './services/head-section.service';
+// import { HeadSectionService } from './services/head-section.service';
 
 @Component({
     selector: 'app-head-section',
@@ -17,7 +17,7 @@ export class HeadSectionComponent implements OnInit, ComponentModel<HeadSectionM
 
   /** Constructor */
   constructor(
-    private headSectionService: HeadSectionService
+    // private headSectionService: HeadSectionService
   ) {
     this.data = new HeadSectionModel();
   }
@@ -34,13 +34,13 @@ export class HeadSectionComponent implements OnInit, ComponentModel<HeadSectionM
    * @description To Fetch the Data.
    */
   public fetchData = (): void => {
-    this._subscribtion = this.headSectionService.getHeadData().subscribe(_res => {
+    // this._subscribtion = this.headSectionService.getHeadData().subscribe(_res => {
       // if (res.getStatusCode() === 200) {
       //   this.data.setDesignation(res.getData().getDesignation());
       //   this.data.setRole(res.getData().getRole());
       //   this.data.setUserName(res.getData().getUserName());
       // }
-    })
+    // })
   }
 
   /**

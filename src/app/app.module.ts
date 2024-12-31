@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IFakeHttps } from './shared-module/interfaces/i-fake-https';
 import { ServiceProviderFactory } from './shared-module/factories/service-provider-factory';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ServiceProviderFactory } from './shared-module/factories/service-provid
       provide: IFakeHttps,
       useFactory: ServiceProviderFactory.httpsServiceFactory,
       deps: [HttpHandler]
-    }
+    },
+    provideAnimationsAsync()
   ]
 })
 export class AppModule { }

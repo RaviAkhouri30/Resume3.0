@@ -1,12 +1,8 @@
 import { merge, Observable } from "rxjs";
 import { IViewModel } from "../interfaces/i-view-model";
 
-export abstract class ViewModel<T> implements IViewModel {
-    private _data: T;
-
-    constructor() {
-        this._data = {} as T;
-    }
+export abstract class ViewModel<T> implements IViewModel<T> {
+    private _data!: T;
 
     /**
      * @discription This method is used to initialize the view model
