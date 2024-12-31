@@ -1,28 +1,28 @@
+/* Container styling */
 .container {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background: url('./../../../assets/background.png') no-repeat center center fixed;
-    background-size: cover
 }
 
+/* Row styling for flex layout */
 .row {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 0 auto;
     padding: 0 10px;
-    overflow: hidden;
 }
 
+/* Column styling */
 .col-4 {
     width: 30%;
-    min-height: 660px;
+    min-height: 700px;
     min-width: 30%;
     padding: 10px 15px;
-    overflow: hidden;
 }
 
+/* Horizontal rule styling */
 hr {
     border-style: dotted none none;
     width: 7%;
@@ -31,6 +31,7 @@ hr {
     margin: 5px auto;
 }
 
+/* Overlay styling */
 .overlay {
     position: absolute;
     top: 0;
@@ -43,6 +44,7 @@ hr {
     background: rgba(0, 0, 0, 0.8);
 }
 
+/* Person image styling */
 .person-image {
     width: 200px;
     height: 200px;
@@ -53,6 +55,7 @@ hr {
     box-shadow: 0 0 6px 6px rgba(255, 255, 255, 0.4);
 }
 
+/* Profile picture styling */
 .profile-pic {
     position: relative;
     width: 300px;
@@ -62,6 +65,7 @@ hr {
     margin: -4px 0 0 -60px;
 }
 
+/* Print media query */
 @media print {
     .container {
         overflow: hidden;

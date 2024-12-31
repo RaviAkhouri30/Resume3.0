@@ -46,10 +46,12 @@ export class FakeHttpsService implements IFakeHttps {
    * @returns {HttpResponse<T>} - The simulated HTTP response.
    * @private
    */
-  private getResponse = <T>(url: string): HttpResponse<T> => {
+  private getResponse = <T>(_url: string): HttpResponse<T> => {
     let res: T;
     let statusText: string;
     let status: number;
+    let SplitUrl = _url.split('/');
+    let url = SplitUrl[SplitUrl.length - 1] as string;
 
     if (!db[url]) {
       res = {} as T;

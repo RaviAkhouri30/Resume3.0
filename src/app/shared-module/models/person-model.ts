@@ -1,6 +1,7 @@
 import { IPerson } from "../interfaces/i-person-model";
 
 export class PersonModel implements IPerson {
+    // Private properties
     private _name: string;
     private _email: string;
     private _phone: string;
@@ -21,6 +22,7 @@ export class PersonModel implements IPerson {
     private _skills: string[];
 
     constructor() {
+        // Initialize properties with default values
         this._name = '';
         this._email = '';
         this._phone = '';
@@ -41,6 +43,7 @@ export class PersonModel implements IPerson {
         this._skills = [];
     }
 
+    // Getter and setter methods for each property
     get name(): string {
         return this._name;
     }

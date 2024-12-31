@@ -13,7 +13,9 @@ import { AboutMeService } from './services/about-me.service';
 })
 export class AboutMeComponent extends BaseComponent<IPerson> implements OnInit {
 
-  private readonly context = ViewModelContext.AboutMeComponent;
+  // Define the context for the ViewModel
+  private readonly _context = ViewModelContext.AboutMeComponent;
+  // Inject the AboutMeService
   private readonly _aboutMeService: AboutMeService = inject(AboutMeService);
 
   constructor(
@@ -23,14 +25,25 @@ export class AboutMeComponent extends BaseComponent<IPerson> implements OnInit {
   }
 
   ngOnInit(): void {
-    this.model = ViewModelFactory.getViewModelInstance(this.context, this.injector);
+    // Initialize the model using the ViewModelFactory
+    this.model = ViewModelFactory.getViewModelInstance(this._context, this.injector);
+    // Automatically unsubscribe from observables to prevent memory leaks
     this.autoUnsubscribe();
   }
 
+  /**
+   * Copies the provided data to the clipboard and shows a message.
+   * @param data The data to be copied.
+   * @param message The message to be displayed.
+   */
   public onCopy(data: string, message: string): void {
     this._aboutMeService.copyCommand(data, message);
   }
 
+  /**
+   * Opens the provided link in a new window.
+   * @param link The URL to be opened.
+   */
   public openLink = (link: string): void => {
     window.open(link);
   }

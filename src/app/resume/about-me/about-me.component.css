@@ -1,146 +1,82 @@
-/* .container {
-    padding: 5% 3%;
-    color: #1B262C;
-    font-size: 16px;
-    line-height: 1.5;
-}
-
-.inner-flex {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 30px;
-}
-
-.about-me {
-    background: #FFFFFF !important;
-    margin: 10px 12%;
-    box-shadow: 0 5px 25px 0 rgb(0 0 0 / 20%);
-    padding: 3%;
-    border-radius: 4px;
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.col-1 {
-    width: 50%;
-}
-
-.title {
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 30px;
-}
-
-.col-2 {
-    width: 50%;
-}
-
-.second-flex ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.second-flex ul li {
-    margin: 0px 0 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.info li {
-    font-weight: 600;
-}
-
-.second-flex {
-    display: flex;
-}
-
-.about-me-cont {
-    margin-right: 40px;
-}
-
-.pointer-event-disabled {
-    pointer-events: none;
-}
-
-@media print {
-    .about-me {
-        width: 100%;
-        background: #FFFFFF !important;
-        margin: 0;
-        box-shadow: none;
-        padding: 0;ss        border-radius: 0;
-        border: none;
-    }
-} */
-
+/* Container for the about-me section */
 .about-me {
     width: 100%;
     display: flex;
 }
 
+/* Container for personal information */
 .person-info {
     width: 100%;
     padding: 10px 20px;
 }
 
+/* Styling for name and title */
 .person-name,
 .person-title {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin: 5px auto 0px;
+    margin: 5px auto 0px; /* Center align with margin */
 }
 
+/* Adjust margin for the title */
 .person-title {
-    margin: -15px auto 0;
+    margin: -15px auto 0; /* Negative margin to overlap with previous element */
 }
 
+/* Icon styling */
 .icon {
-    font-size: 20px;
+    font-size: 20px; /* Set font size for icons */
 }
 
+/* Contact section styling */
 .contact {
     display: flex;
     justify-content: center;
-    margin: 10px auto;
+    margin: 10px auto; /* Center align with margin */
 }
 
+/* Change cursor on hover for phone element */
 .phone:hover {
-    cursor: copy;
+    cursor: copy; /* Change cursor to indicate copy action */
 }
 
+/* Link styling */
 a {
-    color: #fff;
+    color: #fff; /* Set link color to white */
 }
 
+/* Social media section styling */
 .social {
     display: flex;
     justify-content: center;
+    padding: 20px 0; /* Padding for spacing */
 }
 
+/* Add shadow effect on hover for social icons */
 .social-icon-container:hover {
-    box-shadow: 0 0 6px 6px rgba(255, 255, 255, 0.4)
+    box-shadow: 0 0 6px 6px rgba(255, 255, 255, 0.4); /* Shadow effect */
 }
 
+/* Container for social icons */
 .social-icon-container {
     box-sizing: border-box;
     position: relative;
     width: 60px;
     height: 60px;
-    background: #000;
-    border-radius: 50%;
+    background: #000; /* Background color */
+    border-radius: 50%; /* Circular shape */
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 15px;
-    cursor: pointer;
+    margin: 0 15px; /* Spacing between icons */
+    cursor: pointer; /* Pointer cursor on hover */
 }
 
+/* Description text styling */
 .description {
-    margin: 10px auto 20px;
-    text-align: center;
-    line-height: 1.5;
+    margin: 10px auto 20px; /* Margin for spacing */
+    text-align: center; /* Center align text */
+    line-height: 1.5; /* Line height for readability */
 }

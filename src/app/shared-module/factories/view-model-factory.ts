@@ -4,6 +4,7 @@ import { ViewModelContext } from "../enums/view-model-context";
 import { ViewModel } from "../models/view-model";
 
 export class ViewModelFactory {
+    // Factory method to get the appropriate ViewModel instance based on the context
     static getViewModelInstance = (viewContext: ViewModelContext, injector: Injector): ViewModel<any> => {
         switch (viewContext) {
             case 0 /* AboutMeComponent */:
