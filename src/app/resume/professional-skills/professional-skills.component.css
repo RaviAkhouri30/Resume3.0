@@ -1,10 +1,7 @@
-.inner-container {
-    padding: 10px 30px;
-}
-.title {
-    text-align: center;
-}
-
 .col-1 {
     margin: 10px auto;
+}
+
+.skill-title {
+    margin-bottom: 5px;
 }

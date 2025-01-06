@@ -3,20 +3,28 @@ import { CommonModule } from '@angular/common';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import {MatIconModule} from '@angular/material/icon';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { ShowMessageDialogComponent } from './components/show-message-dialog/show-message-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
     ProgressBarComponent,
+    ShowMessageDialogComponent
   ],
   imports: [
     CommonModule,
     MatIconModule,
-    ClipboardModule
+    ClipboardModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   exports : [
     ProgressBarComponent,
     MatIconModule,
-    ClipboardModule
+    ClipboardModule,
+    ShowMessageDialogComponent,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

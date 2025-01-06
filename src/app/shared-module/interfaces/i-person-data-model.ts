@@ -1,4 +1,4 @@
-export interface IPerson {
+export interface IPersonDataModel {
     name: string;
     email: string;
     phone: string;
@@ -16,5 +16,6 @@ export interface IPerson {
     profilePic: string;
     resume: string;
     uid: string;
-    skills: string[];
+    hobbies: string[];
+    awardsAndAchievements: string[];
 }

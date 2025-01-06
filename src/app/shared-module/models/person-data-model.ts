@@ -1,4 +1,4 @@
-import { IPerson as IPersonDataModel } from "../interfaces/i-person-data-model";
+import { IPersonDataModel as IPersonDataModel } from "../interfaces/i-person-data-model";
 
 export class PersonDataModel implements IPersonDataModel {
     // Private properties
@@ -19,19 +19,20 @@ export class PersonDataModel implements IPersonDataModel {
     private _profilePic: string;
     private _resume: string;
     private _uid: string;
-    private _skills: string[];
+    private _hobbies: string[];
+    private _awardsAndAchievements: string[];
 
     constructor(data: IPersonDataModel) {
         // Initialize properties with default values
         this._name = data.name;
-        this._email =  data.email;
+        this._email = data.email;
         this._phone = data.phone;
         this._jobTitle = data.jobTitle;
         this._address = data.address;
         this._city = data.city;
         this._state = data.state;
         this._zip = data.zip;
-        this._country =     data.country;
+        this._country = data.country;
         this._summary = data.summary;
         this._linkedin = data.linkedin;
         this._github = data.github;
@@ -40,7 +41,8 @@ export class PersonDataModel implements IPersonDataModel {
         this._profilePic = data.profilePic;
         this._resume = data.resume;
         this._uid = data.uid;
-        this._skills = data.skills;
+        this._hobbies = data.hobbies;
+        this._awardsAndAchievements = data.awardsAndAchievements;
     }
 
     // Getter and setter methods for each property
@@ -176,11 +178,19 @@ export class PersonDataModel implements IPersonDataModel {
         return this._uid;
     }
 
-    get skills(): string[] {
-        return this._skills;
+    get hobbies(): string[] {
+        return this._hobbies;
     }
 
-    set skills(value: string[]) {
-        this._skills = value;
+    set hobbies(value: string[]) {
+        this._hobbies = value;
+    }
+
+    get awardsAndAchievements(): string[] {
+        return this._awardsAndAchievements;
+    }
+
+    set awardsAndAchievements(value: string[]) {
+        this._awardsAndAchievements = value;
     }
 }

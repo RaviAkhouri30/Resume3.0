@@ -16,7 +16,19 @@
     "dateOfBirth": "1997-03-30",
     "profilePic": "",
     "resume": "",
-    "uid": "RS-1"
+    "uid": "RS-1",
+    "hobbies": [
+      "Photography",
+      "Gaming",
+      "Coding",
+      "Electronics"
+    ],
+    "awardsAndAchievements": [
+      "Spot On MASTERMIND Award (in Mindtree) - 2 times",
+      "Spot On TEAM - A Award (in Mindtree) - 2 times",
+      "Award for Outstanding Performance in Q1(in Wipro)",
+      "Achieved 3rd Rank in Tech Fest for Robocar in 2018."
+    ]
   },
   "experience": [
     {
@@ -75,28 +87,40 @@
   ],
   "skills": [
     {
-      "personUid" : "RS-1",
-      "uid":"skill-1",
+      "personUid": "RS-1",
+      "uid": "skill-1",
       "skill": "Angular",
       "proficeincy": 90
     },
     {
-      "personUid" : "RS-1",
-      "uid":"skill-2",
+      "personUid": "RS-1",
+      "uid": "skill-2",
       "skill": "HTML",
       "proficeincy": 80
     },
     {
-      "personUid" : "RS-1",
-      "uid":"skill-3",
+      "personUid": "RS-1",
+      "uid": "skill-3",
       "skill": "CSS",
       "proficeincy": 75
     },
     {
-      "personUid" : "RS-1",
-      "uid":"skill-4",
+      "personUid": "RS-1",
+      "uid": "skill-4",
       "skill": "TypeScript",
       "proficeincy": 90
+    },
+    {
+      "personUid": "RS-1",
+      "uid": "skill-4",
+      "skill": "RxJs",
+      "proficeincy": 85
+    },
+    {
+      "personUid": "RS-1",
+      "uid": "skill-4",
+      "skill": "JavaScript",
+      "proficeincy": 65
     }
   ]
 }

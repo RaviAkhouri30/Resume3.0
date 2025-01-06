@@ -1,0 +1,12 @@
+<section>
+    <div class="title" aria-label="Awards and Achievements"><strong>Hobbies</strong></div>
+    <div class="inner-container">
+        <ul>
+            @for (item of model.data; track $index) {
+            <li>
+                {{item}}
+            </li>
+            }
+        </ul>
+    </div>
+</section>

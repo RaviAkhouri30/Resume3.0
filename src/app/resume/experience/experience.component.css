@@ -15,8 +15,8 @@
      * This is a vendor-prefixed property for older versions of WebKit browsers.
      */
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limits the number of lines to 3 */
-    line-clamp: 3; /* Limits the number of lines to 3 */
+    -webkit-line-clamp: 5; /* Limits the number of lines to 3 */
+    line-clamp: 5; /* Limits the number of lines to 3 */
     -webkit-box-orient: vertical; /* Sets the box orientation to vertical */
 
     /* Prevents content from overflowing its container */
@@ -45,3 +45,9 @@ h3 {
     background: #465b66;
     color: #fff;
 }
+
+@media only screen and (max-width: 700px) {
+    .experience {
+        padding: 10px 5px 20px;
+    }
+  }

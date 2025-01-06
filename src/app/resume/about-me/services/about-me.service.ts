@@ -6,7 +6,6 @@ import { HandleErrorFactory } from 'src/app/shared-module/factories/handle-error
 import { GetEndPointUrl } from 'src/app/shared-module/functions/get-end-point-url';
 import { IFakeHttps as IHttps } from 'src/app/shared-module/interfaces/i-fake-https';
 import { BaseService } from 'src/app/shared-module/services/base.service';
-// import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

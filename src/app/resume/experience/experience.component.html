@@ -18,7 +18,7 @@
               {{ item.desc }}
             </article>
             <div class="btn-container">
-              <button class="read-more">Read More</button>
+              <button class="read-more" (click)="onReadMore(item.companyName, item.desc)">Read More</button>
             </div>
           </div>
         </li>

@@ -7,7 +7,7 @@ import { ILoader } from '../interfaces/i-loader';
 })
 export class LoaderService implements ILoader {
   // BehaviorSubject to manage loading state
-  private _isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   // Getter to retrieve the current loading state
   get isLoading(): boolean {

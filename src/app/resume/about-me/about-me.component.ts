@@ -1,7 +1,7 @@
 import { Component, inject, Injector, OnInit } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
-import { IPerson } from 'src/app/shared-module/interfaces/i-person-data-model';
+import { IPersonDataModel } from 'src/app/shared-module/interfaces/i-person-data-model';
 import { AboutMeService } from './services/about-me.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { AboutMeService } from './services/about-me.service';
   styleUrls: ['./about-me.component.css'],
   standalone: false
 })
-export class AboutMeComponent extends BaseComponent<IPerson> implements OnInit {
+export class AboutMeComponent extends BaseComponent<IPersonDataModel> implements OnInit {
 
   // Define the context for the ViewModel
   protected readonly _context = ViewModelContext.AboutMeComponent;

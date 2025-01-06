@@ -14,10 +14,16 @@
 
 /* Column styling */
 .col-4 {
+    display: flex;
     position: relative;
+    flex-direction: column;
     width: 30%;
     min-width: 30%;
     padding: 10px 15px 20px;
+    border-radius: 30px;
+    box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.8);
+    margin: 10px;
 }
 
 /* Column styling */
@@ -28,27 +34,13 @@
     width: 65%;
     min-height: 300px;
     max-height: max-content;
-    min-width: 65%;
+    min-width: 60%;
     padding: 10px 15px;
     color: #465b66;
     background: #fffffff0;
     margin: 10px;
     border-radius: 30px;
     box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Overlay styling */
-.overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 10px;
-    border-radius: 30px;
-    box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.2);
-    background: rgba(0, 0, 0, 0.8);
-    min-height: max-content;
 }
 
 .overlay-white {
@@ -72,7 +64,7 @@
     position: relative;
     width: 300px;
     height: 300px;
-    background: url('../../../assets/profilepic.png');
+    background: url('src/assets/profilepic.png');
     background-size: 300px;
     margin: -4px 0 0 -60px;
 }
@@ -83,3 +75,61 @@ hr {
     border-color: #465b66;
     margin: 5px auto;
 }
+
+.hr-border {
+    border-color: #3282B8
+}
+
+@media only screen and (max-width: 1200px) {
+    .col-8 {
+        min-width: 55%;
+    }
+  }
+
+@media only screen and (max-width: 1024px) {
+    .col-8 {
+        min-width: 50%;
+    }
+
+    .col-4 {
+        min-width: 40%;
+    }
+  }
+
+@media only screen and (max-width: 700px) {
+    .row {
+        flex-direction: column;
+        flex-wrap: wrap;
+        overflow-x: hidden;
+        padding: 0;
+    }
+    .col-8 {
+        min-width: 90%;
+        margin: 0 auto;
+        padding: 0;
+        margin: 5px auto 10px;
+    }
+
+    .overlay {
+        margin: 0;
+    }
+    
+    .col-4 {
+        min-width: 90%;
+        min-height: max-content;
+        height: max-content;
+        margin: 10px auto 5px;
+        padding: 0;
+    }
+  }
+
+  @media only screen and (max-width: 700px) {
+    .col-4, .col-8 {
+        min-width: 100%;
+        margin: 0;
+        border-radius: 0;
+    }
+    .overlay {
+        border-radius: 0;
+    }
+  }

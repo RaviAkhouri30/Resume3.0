@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { IFakeHttps } from './shared-module/interfaces/i-fake-https';
 import { ServiceProviderFactory } from './shared-module/factories/service-provider-factory';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),

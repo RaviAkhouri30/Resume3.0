@@ -9,6 +9,8 @@ import { ExperienceComponent } from './experience/experience.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { EducationComponent } from './education/education.component';
+import { AwardsAndAchievementsComponent } from './awards-and-achievements/awards-and-achievements.component';
+import { HobbiesComponent } from './hobbies/hobbies.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +18,9 @@ import { EducationComponent } from './education/education.component';
         AboutMeComponent,
         ProfessionalSkillsComponent,
         ExperienceComponent,
-        EducationComponent
+        EducationComponent,
+        AwardsAndAchievementsComponent,
+        HobbiesComponent
     ],
     imports: [
         CommonModule,
