@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   fakeBackend: true,
-  baseUrl: 'http://fake-api-url',
+  baseUrl: 'http://fake-api-url'
 };
 
 /*
