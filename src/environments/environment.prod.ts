@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  fakeBackend: true,
+  baseUrl: 'http://fake-api-url'
 };
