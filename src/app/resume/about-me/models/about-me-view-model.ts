@@ -1,8 +1,9 @@
 import { Injector } from "@angular/core";
 import { map, Observable, tap } from "rxjs";
-import { IPerson } from "src/app/shared-module/interfaces/i-person-model";
+import { IPerson } from "src/app/shared-module/interfaces/i-person-data-model";
 import { ViewModel } from "src/app/shared-module/models/view-model";
 import { AboutMeService } from "../services/about-me.service";
+import { PersonDataModel } from "src/app/shared-module/models/person-data-model";
 
 export class AboutMeViewModel extends ViewModel<IPerson> {
 
@@ -17,17 +18,17 @@ export class AboutMeViewModel extends ViewModel<IPerson> {
     }
 
     // Method to attach view handler and fetch data from the API
-    public attachViewHandler = (): Observable<void> => {
+    protected override attachViewHandler = (): Observable<void> => {
         return this._aboutMeService.attachViewApiHandler<IPerson>().pipe(
             // Use tap to assign the result to the data property
-            tap(result => this.data = result),
+            tap(result => this.data = new PersonDataModel(result)),
             // Map the result to void
             map(() => { })
         );
     }
 
     // Method to attach command handler and execute commands via the API
-    public attachCommandHandler = (): Observable<void> => {
+    protected override attachCommandHandler = (): Observable<void> => {
         return this._aboutMeService.attachCommandApiHandler<string>().pipe(
             // Map the result to void
             map(() => { })

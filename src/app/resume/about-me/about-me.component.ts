@@ -1,8 +1,7 @@
 import { Component, inject, Injector, OnInit } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
-import { ViewModelFactory } from 'src/app/shared-module/factories/view-model-factory';
-import { IPerson } from 'src/app/shared-module/interfaces/i-person-model';
+import { IPerson } from 'src/app/shared-module/interfaces/i-person-data-model';
 import { AboutMeService } from './services/about-me.service';
 
 @Component({
@@ -14,21 +13,18 @@ import { AboutMeService } from './services/about-me.service';
 export class AboutMeComponent extends BaseComponent<IPerson> implements OnInit {
 
   // Define the context for the ViewModel
-  private readonly _context = ViewModelContext.AboutMeComponent;
+  protected readonly _context = ViewModelContext.AboutMeComponent;
   // Inject the AboutMeService
   private readonly _aboutMeService: AboutMeService = inject(AboutMeService);
 
   constructor(
-    protected injector: Injector
+    protected override injector: Injector
   ) {
-    super();
+    super(injector);
   }
 
   ngOnInit(): void {
-    // Initialize the model using the ViewModelFactory
-    this.model = ViewModelFactory.getViewModelInstance(this._context, this.injector);
-    // Automatically unsubscribe from observables to prevent memory leaks
-    this.autoUnsubscribe();
+    this.intializeModel();
   }
 
   /**

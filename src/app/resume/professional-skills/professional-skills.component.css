@@ -1,23 +1,10 @@
-.container {
-    padding: 5% 3%;
-    color: #1B262C;
-    font-size: 16px;
-    line-height: 1.5;
+.inner-container {
+    padding: 10px 30px;
+}
+.title {
     text-align: center;
 }
 
-.title {
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 30px !important;
-}
-
 .col-1 {
-    width: 45%;
-    margin-top: 10px;
-}
-
-.skill-title {
-    color: #3282B8;
-    margin-bottom: 15px;
+    margin: 10px auto;
 }

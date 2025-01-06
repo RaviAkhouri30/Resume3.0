@@ -1,0 +1,26 @@
+<section class="experience">
+    <div class="title" aria-label="Work Experience">
+        <h3> Education</h3>
+    </div>
+    <div class="experience-container">
+        <div class="experience">
+            @for (item of model.data; track $index) {
+            <ul>
+                <li>
+                    <div class="heading">
+                        <div class="heading-container">
+                            <h4>{{ item.instituteName }} ( {{item.university}} ) </h4>
+                            <h3>{{ item.degree }} @if(item.major){({{item.major}})}</h3>
+                        </div>
+                    </div>
+                    <div class="content-container">
+                        <article class="content">
+                            Grade: {{item.grade}} ({{item.graduationYear}})
+                        </article>
+                    </div>
+                </li>
+            </ul>
+            }
+        </div>
+    </div>
+</section>

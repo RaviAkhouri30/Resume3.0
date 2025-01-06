@@ -2,6 +2,9 @@ import { Injector } from "@angular/core";
 import { AboutMeViewModel } from "src/app/resume/about-me/models/about-me-view-model";
 import { ViewModelContext } from "../enums/view-model-context";
 import { ViewModel } from "../models/view-model";
+import { ExperienceViewModel } from "src/app/resume/experience/models/experience-view-model";
+import { EducationViewModel } from "src/app/resume/education/models/education-view-model";
+import { ProfessionalSkillsViewModel } from "src/app/resume/professional-skills/models/professional-skills-view-model";
 
 export class ViewModelFactory {
     // Factory method to get the appropriate ViewModel instance based on the context
@@ -9,6 +12,12 @@ export class ViewModelFactory {
         switch (viewContext) {
             case 0 /* AboutMeComponent */:
                 return new AboutMeViewModel(injector);
+            case 1 /* ExperienceComponent */:
+                return new ExperienceViewModel(injector);
+            case 2 /* EducationComponent */:
+                return new EducationViewModel(injector);
+            case 3 /* ProfessionalSkillsComponent */:
+                return new ProfessionalSkillsViewModel(injector);
             default:
                 throw new Error('Invalid ViewModel Context');
         }

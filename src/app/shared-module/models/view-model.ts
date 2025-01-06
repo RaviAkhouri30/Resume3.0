@@ -12,8 +12,8 @@ export abstract class ViewModel<T> implements IViewModel<T> {
         return this.observe();
     }
 
-    abstract attachViewHandler: () => Observable<void>;
-    abstract attachCommandHandler: () => Observable<void>;
+    protected abstract attachViewHandler: () => Observable<any>;
+    protected abstract attachCommandHandler: () => Observable<any>;
 
     get data(): T {
         return this._data;
@@ -27,7 +27,7 @@ export abstract class ViewModel<T> implements IViewModel<T> {
      * @description This method is used to observe the view model
      * @returns Observable<void>
      */
-    private observe = (): Observable<void> => {
+    private observe = (): Observable<any> => {
         return merge(this.attachViewHandler(), this.attachCommandHandler());
     }
 

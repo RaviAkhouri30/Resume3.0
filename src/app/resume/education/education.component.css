@@ -3,7 +3,7 @@
  * This CSS file is associated with the Experience component of the Resume application.
  */
 
-.experience {
+ .experience {
     display: flex;
     padding: 10px 20px 20px;
     flex-direction: column;

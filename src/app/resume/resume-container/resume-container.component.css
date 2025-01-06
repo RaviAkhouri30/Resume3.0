@@ -8,27 +8,33 @@
 /* Row styling for flex layout */
 .row {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 0 auto;
     padding: 0 10px;
+    flex-direction: row;
 }
 
 /* Column styling */
 .col-4 {
+    position: relative;
     width: 30%;
-    min-height: 700px;
     min-width: 30%;
-    padding: 10px 15px;
+    padding: 10px 15px 20px;
 }
 
-/* Horizontal rule styling */
-hr {
-    border-style: dotted none none;
-    width: 7%;
-    border-width: 0.25rem;
-    border-color: #0F4C75;
-    margin: 5px auto;
+/* Column styling */
+.col-8 {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 65%;
+    min-height: 300px;
+    max-height: max-content;
+    min-width: 65%;
+    padding: 10px 15px;
+    color: #465b66;
+    background: #fffffff0;
+    margin: 10px;
+    border-radius: 30px;
+    box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Overlay styling */
@@ -40,8 +46,14 @@ hr {
     right: 0;
     margin: 10px;
     border-radius: 30px;
-    box-shadow: 0 0 4px 4px rgba(255,255, 255, 0.2);
+    box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.2);
     background: rgba(0, 0, 0, 0.8);
+    min-height: max-content;
+}
+
+.overlay-white {
+    background: rgba(255, 255, 255, 0.8);
+    color: #000;
 }
 
 /* Person image styling */
@@ -65,10 +77,9 @@ hr {
     margin: -4px 0 0 -60px;
 }
 
-/* Print media query */
-@media print {
-    .container {
-        overflow: hidden;
-        background: #FFFFFF;
-    }
+/* Horizontal rule styling */
+hr {
+    width: 90%;
+    border-color: #465b66;
+    margin: 5px auto;
 }
