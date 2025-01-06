@@ -1,53 +1,13 @@
-<section class="container">
-  <div class="title" aria-label="Professional Skills">Professional Skills</div>
-  <div class="inner-container"> 
-    <div class="col-1">
-        <div class="skill-title">
-            Angular
+<section>
+    <div class="title" aria-label="Professional Skills"><strong>Professional Skills</strong></div>
+    <div class="inner-container">
+        @for (item of model.data; track $index) {
+        <div class="col-1">
+            <div class="skill-title">
+                {{item.skill}}
+            </div>
+            <app-progress-bar [progress]="item.proficeincy"></app-progress-bar>
         </div>
-        <app-progress-bar [progress]="90"></app-progress-bar>
+        }
     </div>
-    <div class="col-1">
-        <div class="skill-title">
-            HTML
-        </div>
-        <app-progress-bar [progress]="85"></app-progress-bar>
-    </div>
-    <div class="col-1">
-        <div class="skill-title">
-            CSS
-        </div>
-        <app-progress-bar [progress]="80"></app-progress-bar>
-    </div>
-    <div class="col-1">
-        <div class="skill-title">
-            typeScript
-        </div>
-        <app-progress-bar [progress]="85"></app-progress-bar>
-    </div>
-    <div class="col-1">
-        <div class="skill-title">
-            javaScript
-        </div>
-        <app-progress-bar [progress]="70"></app-progress-bar>
-    </div>
-    <div class="col-1">
-        <div class="skill-title">
-            Angular Material
-        </div>
-        <app-progress-bar [progress]="80"></app-progress-bar>
-    </div>
-    <div class="col-1">
-        <div class="skill-title">
-            Bootstrap
-        </div>
-        <app-progress-bar [progress]="50"></app-progress-bar>
-    </div>
-    <div class="col-1">
-        <div class="skill-title">
-            GIT
-        </div>
-        <app-progress-bar [progress]="50"></app-progress-bar>
-    </div>
-  </div>
 </section>

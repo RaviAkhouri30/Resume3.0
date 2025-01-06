@@ -1,12 +1,26 @@
-<app-header></app-header>
+<!-- <app-header></app-header> -->
 <div class="container">
-  <app-head-section></app-head-section>
-  <app-about-me id="about-me-sec"></app-about-me>
-  <hr>
-  <app-professional-skills id="skills-sec"></app-professional-skills>
-  <hr>
-  <app-experience id="work-exp-sec"></app-experience>
-  <hr>
-  <app-education-awards-and-acheivement id="education-sec"></app-education-awards-and-acheivement>
-  <app-footer></app-footer>
-</div>
+  <div class="row">
+    <div class="col-4">
+
+      <div class="person-image">
+        <div class="profile-pic">
+        </div>
+      </div>
+
+      <app-about-me></app-about-me>
+      <hr class="hr-border">
+      <app-professional-skills></app-professional-skills>
+      <hr class="hr-border">
+      <app-awards-and-achievements></app-awards-and-achievements>
+      <hr class="hr-border">
+      <app-hobbies></app-hobbies>
+    </div>
+
+    <div class="col-8">
+      <app-experience></app-experience>
+      <hr>
+      <app-education></app-education>
+    </div>
+
+  </div>

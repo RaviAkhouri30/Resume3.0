@@ -1,16 +1,18 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { LoaderService } from './shared-module/services/loader-service';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  standalone: false
 })
-export class AppComponent {
-  title = 'ravi-resume-3';
-  
-  @HostListener('window:scroll')
-  onScroll(event: Event) {
-    console.log('scrolling');
+export class AppComponent { 
+
+  public loaderService: LoaderService = inject(LoaderService);
+
+  public isLoaderActive(): boolean {
+    return this.loaderService.isLoading;
   }
+
 }

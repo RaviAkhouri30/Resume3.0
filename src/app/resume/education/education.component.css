@@ -1,0 +1,53 @@
+/* 
+ * Styles for the experience section of the resume.
+ * This CSS file is associated with the Experience component of the Resume application.
+ */
+
+ .experience {
+    display: flex;
+    padding: 10px 20px 20px;
+    flex-direction: column;
+}
+
+.content {
+    /* 
+     * Use -webkit-box to create a flexible box layout for the experience items.
+     * This is a vendor-prefixed property for older versions of WebKit browsers.
+     */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limits the number of lines to 3 */
+    line-clamp: 3; /* Limits the number of lines to 3 */
+    -webkit-box-orient: vertical; /* Sets the box orientation to vertical */
+
+    /* Prevents content from overflowing its container */
+    overflow: hidden;
+    margin: 5px auto;
+}
+
+ul {
+    margin: 0;
+}
+
+h3 {
+    margin: 10px 0 0 0;
+}
+
+.read-more {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border: 1px solid #465b66;;
+    color: #465b66;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.read-more:hover {
+    background: #465b66;
+    color: #fff;
+}
+
+@media only screen and (max-width: 700px) {
+    .experience {
+        padding: 10px 5px 20px;
+    }
+  }
