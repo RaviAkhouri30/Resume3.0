@@ -1,99 +1,53 @@
-.heading {
-    width: 30%;
-    height: 100%;
-    background: #0F4C75;
-    color: #FFFFFF;
-    text-align: center;
+/* 
+ * Styles for the experience section of the resume.
+ * This CSS file is associated with the Experience component of the Resume application.
+ */
+
+.experience {
+    display: flex;
+    padding: 10px 20px 20px;
+    flex-direction: column;
 }
 
 .content {
-    position: relative;
-    height: 90px;
+    /* 
+     * Use -webkit-box to create a flexible box layout for the experience items.
+     * This is a vendor-prefixed property for older versions of WebKit browsers.
+     */
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Limits the number of lines to 3 */
+    line-clamp: 5; /* Limits the number of lines to 3 */
+    -webkit-box-orient: vertical; /* Sets the box orientation to vertical */
+
+    /* Prevents content from overflowing its container */
     overflow: hidden;
-    padding: 10px 15px 0px;
+    margin: 5px auto;
+}
+
+ul {
+    margin: 0;
+}
+
+h3 {
+    margin: 10px 0 0 0;
 }
 
 .read-more {
-    font-size: 14px;
-    text-transform: lowercase;
-    border-radius: 24px;
-    border: 1px solid #1B262C;
-    padding: 3px 5px;
-    text-decoration: none;
-    color: #FFFFFF;
-    position: relative;
-    display: block;
-    width: 70px;
-    margin: 10px auto 0;
-    text-align: center;
-    transition: all 300ms ease-in-out;
-    background-color: #0563a2;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border: 1px solid #465b66;;
+    color: #465b66;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .read-more:hover {
-    background-color: #0F4C75;
+    background: #465b66;
+    color: #fff;
 }
 
-.btn-container {
-    width: 100%;
-    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.9));
-    position: absolute;
-    bottom: 0px;
-    height: 50px;
-}
-
-.content-container {
-    width: 70%;
-    overflow: hidden;
-    max-height: 100%;
-    position: relative;
-}
-
-.inner-container-work {
-    text-align: left;
-    background: #FFFFFF !important;
-    margin: 10px 12%;
-    box-shadow: 0 5px 25px 0 #0F4C75;
-    border-radius: 4px;
-    box-sizing: border-box;
-    border: none;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    overflow: hidden;
-    height: 130px;
-    padding-right: 5px;
-}
-
-
-.container {
-    padding: 5% 3%;
-    font-size: 16px;
-    line-height: 1.5;
-    text-align: center;
-    color: #0563a2;
-}
-
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #0F4C75; 
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #0563a2; 
-  }
-
-  .heading-container {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
+@media only screen and (max-width: 700px) {
+    .experience {
+        padding: 10px 5px 20px;
+    }
   }

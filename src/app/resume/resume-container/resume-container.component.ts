@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-resume-container',
@@ -6,13 +6,4 @@ import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
     styleUrls: ['./resume-container.component.css'],
     standalone: false
 })
-export class ResumeContainerComponent implements OnInit {
-
-  private elementRef!: ElementRef
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class ResumeContainerComponent {}

@@ -1,37 +1,29 @@
-<section class="container">
-  <div class="title" aria-label="Work Experience">Work Experience</div>
-  <div
-    class="inner-container-work"
-    aria-label="Work Experience List"
-    *ngFor="let exp of getWorkExpData()"
-    id="{{ exp.getUid() }}"
-  >
-    <div class="heading">
-      <div class="heading-container">
-        <h4>{{ exp.getTenure() }}</h4>
-        <h3>{{ exp.getCompanyName() }}</h3>
-      </div>
-    </div>
-    <div class="content-container" id="{{ '_cont' + exp.getUid() }}">
-      <article class="content" id="{{ 'cont' + exp.getUid() }}" [innerHTML]="exp.getDesc()">
-        
-      </article>
-      <div class="btn-container">
-        <a
-          href="#"
-          class="read-more"
-          (click)="onReadMore(exp.getUid())"
-          *ngIf="isExpanded() !== exp.getUid()"
-          >Read More</a
-        >
-        <a
-          href="#"
-          class="read-more"
-          (click)="onReadLess(exp.getUid())"
-          *ngIf="isExpanded() === exp.getUid()"
-          >Read Less</a
-        >
-      </div>
+<section class="experience">
+  <div class="title" aria-label="Work Experience">
+    <h3> Work Experience</h3>
+  </div>
+  <div class="experience-container">
+    <div class="experience">
+      @for (item of model.data; track $index) {
+      <ul>
+        <li>
+          <div class="heading">
+            <div class="heading-container">
+              <h4>{{ item.tenure }}</h4>
+              <h3>{{ item.companyName }}</h3>
+            </div>
+          </div>
+          <div class="content-container">
+            <article class="content">
+              {{ item.desc }}
+            </article>
+            <div class="btn-container">
+              <button class="read-more" (click)="onReadMore(item.companyName, item.desc)">Read More</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+      }
     </div>
   </div>
 </section>
