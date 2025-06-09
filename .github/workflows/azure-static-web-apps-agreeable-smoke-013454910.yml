@@ -44,7 +44,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: "/"  #Correct if you're not using a subfolder
-          output_location: "./"  #Confirm this matches your output folder
+          output_location: "dist/ravi-resume-3/browser"  #Confirm this matches your output folder
           skip_app_build: true
 
   close_pull_request_job:
