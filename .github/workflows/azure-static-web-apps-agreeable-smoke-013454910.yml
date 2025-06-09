@@ -43,8 +43,8 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_SMOKE_013454910 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/"  # ✅ Correct if you're not using a subfolder
-          output_location: "dist/ravi-resume-3/browser"  # ✅ Confirm this matches your output folder
+          app_location: ""  # ✅ Correct if you're not using a subfolder
+          output_location: "/home/runner/work/Resume3.0/Resume3.0/dist/ravi-resume-3"  # ✅ Confirm this matches your output folder
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
