@@ -17,15 +17,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
           lfs: false
 
-      - name: Set up Node.js 22.12
+      - name: Set up Node.js 20.19
         uses: actions/setup-node@v4
         with:
-          node-version: '22.12'  # ✅ Cleaned string, avoid hidden characters
+          node-version: '20.19'  # ✅ Cleaned string, avoid hidden characters
 
       - name: Install dependencies
         run: npm ci
