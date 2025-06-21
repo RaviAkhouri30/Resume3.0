@@ -55,8 +55,8 @@
     margin: 25px auto 0px;
     overflow: hidden;
     border-radius: 50%;
-    border: 2px solid#888686;
-    box-shadow: 0 0 6px 6px rgba(255, 255, 255, 0.4);
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 5px 1px rgb(255, 255, 255, 0.4);
 }
 
 /* Profile picture styling */
