@@ -36,9 +36,14 @@
     margin: 10px auto; /* Center align with margin */
 }
 
+.contact:hover{
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Add text shadow for glowing effect */
+}
+
 /* Change cursor on hover for phone element */
 .phone:hover {
     cursor: copy; /* Change cursor to indicate copy action */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Add text shadow for glowing effect */
 }
 
 /* Link styling */
@@ -79,4 +84,32 @@ a {
     margin: 10px auto 20px; /* Margin for spacing */
     text-align: center; /* Center align text */
     line-height: 1.5; /* Line height for readability */
+}
+
+.icon-copy {
+    font-size: 16px;
+    padding-block: 2px;
+    padding-inline: 4px;
+    cursor: pointer;
+}
+
+.download-resume{
+    display: flex;
+    justify-content: center;
+    margin: 20px auto; /* Center align with margin */
+}
+
+.download-resume button {
+    background-color: rgba(255, 255, 255, 0.1); /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding for button */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size for button text */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+}
+.download-resume button:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Darker shade on hover */
 }

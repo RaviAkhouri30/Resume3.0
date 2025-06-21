@@ -8,16 +8,21 @@
     <div class="person-title">
       <h3>{{model.data.jobTitle}}</h3>
     </div>
+    <div class="download-resume">
+      <button (click)="downloadResume()">Download Resume</button>
+    </div>
     <div class="person-contact">
       <div class="contact" [cdkCopyToClipboard]="model.data.phone" (click)="onCopy(model.data.phone, 'Phone number')">
         <mat-icon class="icon">phone</mat-icon>
         <span class="phone">{{model.data.phone}}</span>
+        <mat-icon class="icon-copy">file_copy</mat-icon>
       </div>
       <div class="contact" [cdkCopyToClipboard]="model.data.email" (click)="onCopy(model.data.phone, 'Email')">
         <mat-icon class="icon">email</mat-icon>
         <span><a href="mailto:{{model.data.email}}">{{model.data.email}}</a></span>
         <span>
         </span>
+        <mat-icon class="icon-copy">file_copy</mat-icon>
       </div>
       <div class="description">
         <p>{{model.data.summary}}</p>
