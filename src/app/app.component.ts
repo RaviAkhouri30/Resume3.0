@@ -9,7 +9,7 @@ import { LoaderService } from './shared-module/services/loader-service';
 })
 export class AppComponent { 
 
-  public loaderService: LoaderService = inject(LoaderService);
+  private loaderService: LoaderService = inject(LoaderService);
 
   public isLoaderActive(): boolean {
     return this.loaderService.isLoading;

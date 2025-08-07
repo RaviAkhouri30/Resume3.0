@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ShowMessageDialogComponent {
 
-  public readonly data: DialogMessage = inject(MAT_DIALOG_DATA)
+  public readonly data: DialogMessage = inject(MAT_DIALOG_DATA);
 
 }
 
