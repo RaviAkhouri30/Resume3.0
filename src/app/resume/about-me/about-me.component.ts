@@ -16,7 +16,7 @@ export class AboutMeComponent extends BaseComponent<IPersonDataModel> implements
   protected readonly _context = ViewModelContext.AboutMeComponent;
   // Inject the AboutMeService
   private readonly _aboutMeService: AboutMeService = inject(AboutMeService);
-  
+
   constructor(
     protected override injector: Injector
   ) {
@@ -46,8 +46,8 @@ export class AboutMeComponent extends BaseComponent<IPersonDataModel> implements
 
   public downloadResume = (): void => {
     const link = document.createElement('a');
-    link.href = 'assets/RaviA_Updated.pdf';
-    link.download = 'RaviA_Updated.pdf';
+    link.href = 'assets/MyResumeDec2025.pdf';
+    link.download = 'MyResumeDec2025.pdf';
     link.click();
   }
 
