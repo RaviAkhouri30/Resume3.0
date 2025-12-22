@@ -4,4 +4,5 @@ export interface IExperienceDataModel {
     companyName: string;
     tenure: string;
     desc: string;
+    descList: string[];
 }

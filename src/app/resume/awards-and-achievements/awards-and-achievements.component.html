@@ -4,7 +4,8 @@
         <ul>
             @for (item of model.data; track $index) {
             <li>
-                {{item}}
+                <strong> {{item.title}} </strong> <br>
+                <p> {{item.desc}} </p>
             </li>
             }
         </ul>

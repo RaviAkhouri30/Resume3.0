@@ -21,7 +21,7 @@ export class ExperienceComponent extends BaseComponent<IExperienceDataModel[]> i
     this.intializeModel();
   }
 
-  public onReadMore = (title: string, message: string): void => {
+  public onReadMore = (title: string, message: string[]): void => {
     this.dialog.open(ShowMessageDialogComponent, { data: { title, message } });
   }
 

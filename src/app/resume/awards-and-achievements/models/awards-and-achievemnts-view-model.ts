@@ -1,9 +1,10 @@
 import { Injector } from "@angular/core";
 import { EMPTY, Observable, tap } from "rxjs";
+import { IAwardAchievements } from "src/app/shared-module/interfaces/i-awards-achievements";
 import { ViewModel } from "src/app/shared-module/models/view-model";
 import { CommonService } from "src/app/shared-module/services/common.service";
 
-export class AwardsAndAchievemntsViewModel extends ViewModel<string[]> {
+export class AwardsAndAchievemntsViewModel extends ViewModel<IAwardAchievements[]> {
     private _commonService: CommonService;
 
     constructor(protected injector: Injector) {

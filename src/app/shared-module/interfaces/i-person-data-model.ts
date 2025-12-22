@@ -1,3 +1,5 @@
+import { IAwardAchievements } from "./i-awards-achievements";
+
 export interface IPersonDataModel {
     name: string;
     email: string;
@@ -17,5 +19,5 @@ export interface IPersonDataModel {
     resume: string;
     uid: string;
     hobbies: string[];
-    awardsAndAchievements: string[];
+    awardsAndAchievements: IAwardAchievements[];
 }

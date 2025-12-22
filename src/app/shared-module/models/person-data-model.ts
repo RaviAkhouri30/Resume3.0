@@ -1,3 +1,4 @@
+import { IAwardAchievements } from "../interfaces/i-awards-achievements";
 import { IPersonDataModel as IPersonDataModel } from "../interfaces/i-person-data-model";
 
 export class PersonDataModel implements IPersonDataModel {
@@ -20,7 +21,7 @@ export class PersonDataModel implements IPersonDataModel {
     private _resume: string;
     private _uid: string;
     private _hobbies: string[];
-    private _awardsAndAchievements: string[];
+    private _awardsAndAchievements: IAwardAchievements[];
 
     constructor(data: IPersonDataModel) {
         // Initialize properties with default values
@@ -186,11 +187,11 @@ export class PersonDataModel implements IPersonDataModel {
         this._hobbies = value;
     }
 
-    get awardsAndAchievements(): string[] {
+    get awardsAndAchievements(): IAwardAchievements[] {
         return this._awardsAndAchievements;
     }
 
-    set awardsAndAchievements(value: string[]) {
+    set awardsAndAchievements(value: IAwardAchievements[]) {
         this._awardsAndAchievements = value;
     }
 }

@@ -15,10 +15,14 @@
           </div>
           <div class="content-container">
             <article class="content">
-              {{ item.desc }}
+              <ul>
+                @for (descList of item.descList; track $index) {
+                <li> {{descList}} </li>
+                }
+              </ul>
             </article>
             <div class="btn-container">
-              <button class="read-more" (click)="onReadMore(item.companyName, item.desc)">Read More</button>
+              <button class="read-more" (click)="onReadMore(item.companyName, item.descList)">Read More</button>
             </div>
           </div>
         </li>

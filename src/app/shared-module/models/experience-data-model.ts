@@ -6,6 +6,7 @@ export class ExperienceDataModel implements IExperienceDataModel {
     private _companyName: string;
     private _tenure: string;
     private _desc: string;
+    private _descList: string[];
 
     constructor(data: IExperienceDataModel) {
         this._personUid = data.personUid;
@@ -13,6 +14,7 @@ export class ExperienceDataModel implements IExperienceDataModel {
         this._companyName = data.companyName;
         this._tenure = data.tenure;
         this._desc = data.desc;
+        this._descList = data.descList;
     }
 
     get personUid(): string {
@@ -45,6 +47,14 @@ export class ExperienceDataModel implements IExperienceDataModel {
 
     set desc(value: string) {
         this._desc = value;
+    }
+
+    get descList(): string[] {
+        return this._descList;
+    }
+
+    set descList(value: string[]) {
+        this._descList = value;
     }
 
 }
