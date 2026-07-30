@@ -4,6 +4,7 @@
     "email": "contact@raviakhouri.in",
     "phone": "+91 880-480-4868",
     "jobTitle": "Senior Angular Developer building scalable, enterprise-grade frontend architectures",
+    "secondaryEmail": "ravi.akhouri@gmail.com",
     "address": "",
     "city": "string",
     "state": "string",
@@ -35,57 +36,71 @@
       {
         "title": "Top Performer Award – Wipro ",
         "desc": "Honored for outstanding project-specific performance and high-quality delivery."
+      },
+      {
+        "title": "Good Job Appreciation – Quorum Software",
+        "desc": "Received recognition for successfully resolving multiple issues and delivering quality improvements."
       }
     ]
   },
   "experience": [
     {
       "personUid": "RS-1",
+      "uid": "work-exp-4",
+      "companyName": "Quorum Software (Octaserve Pvt Ltd)",
+      "tenure": "January 2021 - January 2023",
+      "responsibilities": [
+        "Worked on ECCT (Energy Component Configuration Tool) and CME (Class Model Editor), Excel-like applications used for configuration and data management workflows.",
+        "Enhanced the ECCT user experience by redesigning the UI and consolidating functionality from multiple pages into a single-page, tab-based interface, improving usability and navigation efficiency.",
+        "Delivered multiple bug fixes, enhancements, and feature improvements across both ECCT and CME, contributing to increased application stability and user satisfaction.",
+        "Received a 'Good Job' appreciation token in recognition of successfully resolving multiple issues and delivering quality improvements.",
+        "Contributed to EC (Energy Component), a legacy application built using Java and PL/SQL, by delivering multiple user stories and enhancements.",
+        "Leveraged Agentic AI workflows to accelerate development tasks, including implementing Java business logic changes, creating and updating PL/SQL triggers, and managing database changes through Flyway migrations."
+      ]
+    },
+    {
+      "personUid": "RS-1",
       "uid": "work-exp-3",
       "companyName": "Siemens Technology and Services Pvt Ltd",
-      "tenure": "February 2023 - Present",
-      "descList": [
-        "Enhanced front-end interfaces for SystemOne project, contributing to multiple applications including ABTSite, ABTGo, BOSS Project Conversion & Performance Dashboard.",
-        "Led development and optimization of ABTSite modules such as View Favorites, KNX PL-Link, MBus & Function Configuration & built the Plant Configurator module from inception.",
-        "Executed UI enhancements & code refactoring for the Query Generator project, improving performance by applying SOLID principles, OOP concepts & RxJS patterns",
-        "Refactored the QueryGenerator (Building X) module, achieving 30% reduction in technical debt, improved code modularity and increased overall developer productivity.",
-        "Developed an AI-powered chatbot using GPT-4 Copilot, showcasing advanced task management features and emotion-aware user interaction to enhance overall engagement.",
-        "Utilized AI-driven tools to produce technical documentation, including flowcharts, class diagrams, and sequence diagrams, resulting in 40% reduction in documentation effort.",
-        "Implemented automated, AI-generated unit test creation workflows, significantly improving test coverage and reducing manual test development time by 50%."
-      ],
-      "desc": "At Siemens, I began working on the SystemOne project, where I was responsible for developing the frontend using Angular.\nI contributed to multiple applications including ABTSite, ABTGo, BOSS Project Conversion, and the Performance Dashboard. My primary focus was on the ABTSite application, where I developed and enhanced key modules such as View Favorites, KNX PL-Link, MBus, Function Configuration, and built the Plant Configurator module completely from scratch.\nIn addition to this, I worked on the Query Generator project, focusing on UI enhancements and extensive code refactoring. I effectively applied SOLID principles and OOP concepts to improve code quality and maintainability. Specifically, I refactored the QueryGenerator (Building X) module by leveraging SOLID principles, RxJS, and OOP methodologies.\nI also showcased the power of AI by demonstrating a chatbot application built using GPT-4.0 Copilot, which not only manages tasks interactively but also understands and responds to user emotions. During this presentation, I highlighted how SOLID principles can be applied to improve code quality and enable future enhancements without disrupting existing functionality.\nFurthermore, I demonstrated how AI can assist in generating comprehensive documentation, including flow diagrams, class diagrams, and sequence diagrams. I also utilized AI to automatically generate unit test cases, significantly accelerating the development process."
+      "tenure": "February 2023 - January 2026",
+      "responsibilities": [
+        "Worked on ECCT (Energy Component Configuration Tool) and CME (Class Model Editor), enterprise Excel-like applications used for complex configuration and data management workflows.",
+        "Redesigned the ECCT user interface by consolidating multiple workflows into a modern single-page, tab-based experience, significantly improving usability and navigation efficiency.",
+        "Delivered multiple bug fixes, feature enhancements, and performance improvements across ECCT and CME, increasing application stability and user satisfaction.",
+        "Received a 'Good Job' appreciation award for successfully resolving critical issues and consistently delivering high-quality solutions.",
+        "Contributed to the legacy EC (Energy Component) application by implementing Java business logic, developing PL/SQL enhancements, and delivering multiple customer-requested features.",
+        "Leveraged Agentic AI workflows to accelerate software development, including Java implementation, PL/SQL trigger generation, Flyway database migrations, documentation, and code assistance."
+      ]
     },
     {
       "personUid": "RS-1",
       "uid": "work-exp-2",
       "companyName": "Mindtree Ltd",
       "tenure": "August 2021 - January 2023",
-      "descList": [
-        "Developed frontend applications from the ground up for client projects, managing complex business logic and ensuring seamless user experience.",
-        "Implemented robust authentication mechanisms, form validations, and responsive UI designs across desktop and mobile platforms, with strong focus on REST API integration.",
-        "Contributed to design discussions and requirement analysis, aligning application functionality with business goals and project deliverables.",
-        "Delivered high-quality solutions while maintaining code standards, maintainability, and performance best practices."
-      ],
-      "desc": "I worked with Aflac Business Services, an American insurance company, where my role and responsibilities closely mirrored those of my previous projects.\nI also contributed significantly to the TVS Motors PIP App — a product-based company specializing in two- and three-wheeler vehicles. We were tasked with building the frontend application entirely from scratch. My responsibilities included implementing the login authentication, business logic, interceptors, validations, and designing a responsive UI for both desktop and mobile views. I integrated REST APIs seamlessly and applied OOP concepts to ensure the code was reliable, readable, and maintainable.\nThe Profit Improvement Plan (PIP) application enables employees to submit suggestions aimed at reducing production costs and increasing profits. These suggestions undergo a rigorous approval process, including finance and departmental reviews.\nPrior to this, I worked on the Sennheiser-EPOS Manager project, a leading company in audio devices such as headphones and earphones. Here, I played a key role in migrating the legacy application from AngularJS 1.x to Angular 11. My responsibilities included implementing business logic, integrating REST APIs, adding validations, applying OOP principles, performing unit testing with Jasmine and Karma, and creating interactive data visualizations using Highcharts."
+      "responsibilities": [
+        "Developed enterprise-grade Angular applications from the ground up, delivering scalable, responsive, and maintainable frontend solutions for global clients.",
+        "Implemented complex business logic, secure authentication, form validations, and seamless REST API integrations to build robust business applications.",
+        "Designed responsive and cross-browser compatible user interfaces, ensuring a consistent user experience across desktop and mobile platforms.",
+        "Collaborated with business stakeholders, designers, and backend teams during requirement analysis, solution design, and implementation to deliver high-quality features.",
+        "Applied Object-Oriented Programming (OOP), reusable component architecture, and Angular best practices to improve code maintainability and scalability.",
+        "Maintained high coding standards through code reviews, performance optimization, bug fixing, and continuous feature enhancements.",
+        "Contributed throughout the Software Development Life Cycle (SDLC), including development, testing, deployment, and production support, ensuring timely project delivery."
+      ]
     },
     {
       "personUid": "RS-1",
       "uid": "work-exp-1",
       "companyName": "Wipro Ltd",
       "tenure": "October 2019 - August 2021",
-      "descList": [
-        "Implemented complex business logic, client-side validations, and RESTful API integration to enhance application functionality and improve end-user experience.",
-        "Led the module team, coordinating tasks, tracking progress, and ensuring timely delivery of all functionalities, resulting in successful UAT and SIT releases.",
-        "Collaborated with Release Management teams to streamline deployments, ensuring zero downtime and smooth rollouts across SIT and UAT environments.",
-        "Transitioned from Prototype Developer to full-stack Angular Developer, contributing to key modules including PVU, Budget, EDP, and leading the DDO module.",
-        "Developed and optimized user interfaces for the ROP sub-module, enhancing user engagement and reducing error rates by 15%.",
-        "Designed and implemented reusable components and directives in the Budget module, improving development efficiency by 25% and minimizing code redundancy.",
-        "Enhanced workflow automation and resolved high-priority issues within the EDP module, enabling timely UAT completion with a 99% defect closure rate.",
-        "Supervised development and release cycles for the DDO module, driving coordination across cross-functional teams to meet delivery timelines and uphold quality benchmarks.",
-        "Designed configurable UI framework that decouples screen layouts into modular components, supporting dynamic actions such as conditional field visibility, validation rules and default value assignment.",
-        "Built a centralized configuration service to adjust UI logic and DOM structures based on contextual view parameters."
-      ],
-      "desc": "As an Angular Developer, I have been responsible for implementing business logic, validations, and integrating REST APIs. Additionally, I took on the role of Module Lead, coordinating the team to ensure smooth progress towards completing modules, functionalities, and successful UAT/SIT releases. I also liaised with the Release Team to manage deployments on SIT and UAT environments.\nI started as a Prototype Developer and quickly transitioned into full development roles. Over time, I have worked on several key modules including PVU, Budget, EDP, and currently lead the DDO module.\nIn the PVU module, I developed screens for the ROP sub-module. Moving to the Budget module, I created numerous common, reusable components and directives, significantly improving development efficiency and reducing complexity.\nfor the EDP module, I handled workflow integration and bug resolution, ensuring timely UAT sign-off. Currently, as the Module Lead for the DDO module, I coordinate efforts to complete the module and manage releases through SIT and UAT stages.\nTo handle screens with similar layouts but varying functionalities, I designed a configuration layer that breaks each section into separate components, along with a common configuration container. This setup dynamically manages different behaviors such as default field values, conditional field visibility, section addition/removal, and DOM content changes. A dedicated configuration service dynamically adjusts behavior based on view/edit modes, field validations, and access control.\nI applied OOP principles such as encapsulation, abstraction, and inheritance to reduce code redundancy and improve maintainability. Robust validations were implemented to cover both “save as draft” and “submit” scenarios. I also modeled data efficiently and built complete module structures from scratch.\nThanks to the reusable common code structure and OOP practices, development time was significantly reduced, code errors minimized, and debugging became more straightforward. Using advanced debugging techniques, I resolved SIT bugs promptly, facilitating faster releases.\nI also implemented state management within the service layer using RxJS BehaviorSubject, enhancing reactive data flow.\nIn addition to development, I actively participate in technical interview rounds for Angular developer recruitment."
+      "responsibilities": [
+        "Developed and enhanced enterprise financial applications using Angular, implementing complex business logic, client-side validations, and REST API integrations.",
+        "Progressed from Prototype Developer to Module Lead, taking ownership of critical modules including PVU, Budget, EDP, DDO, and ROP within the IFMS project.",
+        "Led module development by coordinating cross-functional teams, tracking deliverables, resolving technical challenges, and ensuring successful UAT and SIT releases.",
+        "Designed and developed reusable Angular components, directives, and configurable UI frameworks, significantly improving development efficiency and reducing code duplication.",
+        "Built a centralized configuration-driven architecture that dynamically controlled UI layouts, validation rules, field visibility, and default values without requiring code changes.",
+        "Resolved critical issues and delivered high-priority enhancements, contributing to improved application stability.",
+        "Applied Object-Oriented Programming (OOP), Angular best practices, and modular architecture principles to build scalable and maintainable enterprise applications."
+      ]
     }
   ],
   "education": [

@@ -16,13 +16,13 @@
           <div class="content-container">
             <article class="content">
               <ul>
-                @for (descList of item.descList; track $index) {
-                <li> {{descList}} </li>
+                @for (responsibility of item.responsibilities; track $index) {
+                <li>{{ responsibility }}</li>
                 }
               </ul>
             </article>
             <div class="btn-container">
-              <button class="read-more" (click)="onReadMore(item.companyName, item.descList)">Read More</button>
+              <button class="read-more" (click)="onReadMore(item.companyName, item.responsibilities)">Read More</button>
             </div>
           </div>
         </li>
