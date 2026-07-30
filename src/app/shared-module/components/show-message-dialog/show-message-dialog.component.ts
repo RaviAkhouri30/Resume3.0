@@ -15,5 +15,5 @@ export class ShowMessageDialogComponent {
 
 export interface DialogMessage {
   title: string;
-  message: string;
+  message: string[];
 }

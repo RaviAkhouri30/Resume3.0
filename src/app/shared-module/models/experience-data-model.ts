@@ -5,16 +5,14 @@ export class ExperienceDataModel implements IExperienceDataModel {
     private _uid: string;
     private _companyName: string;
     private _tenure: string;
-    private _desc: string;
-    private _descList: string[];
+    private _responsibilities: string[];
 
     constructor(data: IExperienceDataModel) {
         this._personUid = data.personUid;
         this._uid = data.uid;
         this._companyName = data.companyName;
         this._tenure = data.tenure;
-        this._desc = data.desc;
-        this._descList = data.descList;
+        this._responsibilities = [...data.responsibilities].map(responsibility => responsibility as string);
     }
 
     get personUid(): string {
@@ -41,20 +39,12 @@ export class ExperienceDataModel implements IExperienceDataModel {
         this._tenure = value;
     }
 
-    get desc(): string {
-        return this._desc;
+    get responsibilities(): string[] {
+        return this._responsibilities;
     }
 
-    set desc(value: string) {
-        this._desc = value;
-    }
-
-    get descList(): string[] {
-        return this._descList;
-    }
-
-    set descList(value: string[]) {
-        this._descList = value;
+    set responsibilities(value: string[]) {
+        this._responsibilities = value;
     }
 
 }
