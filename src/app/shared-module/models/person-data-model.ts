@@ -5,6 +5,7 @@ export class PersonDataModel implements IPersonDataModel {
     // Private properties
     private _name: string;
     private _email: string;
+    private _secondaryEmail: string;
     private _phone: string;
     private _jobTitle: string;
     private _address: string;
@@ -27,6 +28,7 @@ export class PersonDataModel implements IPersonDataModel {
         // Initialize properties with default values
         this._name = data.name;
         this._email = data.email;
+        this._secondaryEmail = data.secondaryEmail;
         this._phone = data.phone;
         this._jobTitle = data.jobTitle;
         this._address = data.address;
@@ -177,6 +179,14 @@ export class PersonDataModel implements IPersonDataModel {
 
     get uid(): string {
         return this._uid;
+    }
+
+    get secondaryEmail(): string {
+        return this._secondaryEmail;
+    }
+
+    set secondaryEmail(value: string) {
+        this._secondaryEmail = value;
     }
 
     get hobbies(): string[] {

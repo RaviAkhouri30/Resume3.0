@@ -18,7 +18,7 @@ export class AboutMeService extends BaseService {
 
   // Constructor to initialize the base service with the context
   constructor() {
-    super(Context.aboutMe);
+    super(Context.AboutMe);
   }
 
   // Override method to attach view API handler

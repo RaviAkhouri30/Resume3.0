@@ -1,0 +1,32 @@
+<section class="project-experience">
+    <div class="title" aria-label="Projects Experience">
+        <h3> Projects Experience</h3>
+    </div>
+    <div class="experience-container">
+        <div class="experience">
+            @for (item of model.data; track $index) {
+            <ul>
+                <li>
+                    <div class="heading">
+                        <div class="heading-container">
+                            <h3>{{ item.projectName }}</h3>
+                        </div>
+                    </div>
+                    <div class="content-container">
+                        <article class="content">
+                            <ul>
+                                @for (responsibility of item.responsibilities; track $index) {
+                                <li>{{ responsibility }}</li>
+                                }
+                            </ul>
+                        </article>
+                        <!-- <div class="btn-container">
+              <button class="read-more" (click)="onReadMore(item.companyName, item.responsibilities)">Read More</button>
+            </div> -->
+                    </div>
+                </li>
+            </ul>
+            }
+        </div>
+    </div>
+</section>

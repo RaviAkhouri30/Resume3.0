@@ -15,9 +15,8 @@
      * This is a vendor-prefixed property for older versions of WebKit browsers.
      */
     display: -webkit-box;
-    -webkit-line-clamp: 5; /* Limits the number of lines to 3 */
-    line-clamp: 5; /* Limits the number of lines to 3 */
-    -webkit-box-orient: vertical; /* Sets the box orientation to vertical */
+    -webkit-box-orient: vertical;
+    /* Sets the box orientation to vertical */
 
     /* Prevents content from overflowing its container */
     overflow: hidden;
@@ -36,7 +35,8 @@ h3 {
     cursor: pointer;
     background: transparent;
     border: none;
-    border: 1px solid #465b66;;
+    border: 1px solid #465b66;
+    ;
     color: #465b66;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
@@ -50,4 +50,4 @@ h3 {
     .experience {
         padding: 10px 5px 20px;
     }
-  }
+}

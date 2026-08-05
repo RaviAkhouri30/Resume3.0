@@ -10,7 +10,7 @@ import { UrlConstants } from 'src/app/shared-module/constants/url-constants';
 @Injectable({
   providedIn: 'root'
 })
-export class ExperienceService extends BaseService{
+export class ExperienceService extends BaseService {
 
   // Inject dependencies
   private readonly _http: IHttps = inject(IHttps);
@@ -18,7 +18,7 @@ export class ExperienceService extends BaseService{
 
   // Constructor to initialize the base service with the context
   constructor() {
-    super(Context.experience);
+    super(Context.Experience);
   }
 
   // Override method to attach view API handler
@@ -30,5 +30,5 @@ export class ExperienceService extends BaseService{
       map((res) => res.body as T)
     );
   }
-  
+
 }

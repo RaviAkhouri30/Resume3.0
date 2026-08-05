@@ -10,7 +10,7 @@
     "state": "string",
     "zip": "string",
     "country": "India",
-    "summary": "6+ years of experience designing high-performance Angular applications using RxJS, SOLID principles, and AI-assisted workflows for faster delivery and better quality.",
+    "summary": "Results-driven Angular UI Developer with experience designing, developing, and improving complex frontend applications while using AI-driven solutions to enhance productivity & user experience. In pursuit of challenging opportunities in front-end development with ability in Angular, responsive UI design in a dynamic environment.",
     "linkedin": "https://www.linkedin.com/in/ravi-akhouri-6696071a7/",
     "github": "https://github.com/RaviAkhouri30",
     "twitter": "",
@@ -22,7 +22,7 @@
       "Photography",
       "Gaming",
       "Coding",
-      "Electronics"
+      "Guitar"
     ],
     "awardsAndAchievements": [
       {
@@ -100,6 +100,57 @@
         "Built a centralized configuration-driven architecture that dynamically controlled UI layouts, validation rules, field visibility, and default values without requiring code changes.",
         "Resolved critical issues and delivered high-priority enhancements, contributing to improved application stability.",
         "Applied Object-Oriented Programming (OOP), Angular best practices, and modular architecture principles to build scalable and maintainable enterprise applications."
+      ]
+    }
+  ],
+  "projects-experience": [
+    {
+      "personUid": "RS-1",
+      "uid": "project-1",
+      "projectName": "ABTSite (Smart Building – Automation Building Tools)",
+      "responsibilities": [
+        "Enhanced front-end of the ABTSite application using Angular, contributing to multiple applications including ABTGo, BOSS Project Conversion and Performance Dashboard.",
+        "Designed and implemented critical modules such as View Favorites, KNX PL-Link, MBus, Function Configuration, and Plant Configurator from start.",
+        "Executed UI enhancements and code refactoring for the Query Generator project, significantly improving maintainability, usability, and overall system performance.",
+        "Applied SOLID principles and OOP concepts to improve code quality, notably refactoring the QueryGenerator (Building X) module to increase modularity and scalability.",
+        "Leveraged RxJS and reactive programming to refine performance of the codebase.",
+        "Displayed innovation by developing an AI-powered chatbot using GPT-4 Copilot."
+      ]
+    },
+    {
+      "personUid": "RS-1",
+      "uid": "project-2",
+      "projectName": "TVS Motors – PIP Application",
+      "responsibilities": [
+        "Developed the frontend application from scratch, implementing complex business logic and secure login authentication for leading two- and three-wheeler vehicle manufacturers.",
+        "Designed and implemented a responsive user interface ensuring consistent functionality across desktop and mobile platforms.",
+        "Integrated REST APIs for data exchange, enhanced performance, & user experience.",
+        "Applied OOP principles and enabled organized workflow for profit-improvement suggestions, reforming reviews & approvals."
+      ]
+    },
+    {
+      "personUid": "RS-1",
+      "uid": "project-3",
+      "projectName": "IFMS (Integrated Finance Management System – Government of Gujarat)",
+      "responsibilities": [
+        "Developed and implemented business logic and validations for IFMS modules using Angular, enhancing application reliability and functionality.",
+        "Integrated REST APIs to ensure smooth communication with backend services.",
+        "Led module development as Module Lead, coordinating the team for successful UAT/SIT releases and managing deployment processes.",
+        "Transitioned from Prototype Developer to full-stack Angular Developer, delivering key modules including PVU, Budget, EDP & DDO.",
+        "Designed reusable components and directives for the Budget module, improving development efficiency and reducing code redundancy.",
+        "Managed workflow integration and resolved critical bugs in the EDP module."
+      ]
+    },
+    {
+      "personUid": "RS-1",
+      "uid": "project-4",
+      "projectName": "Sennheiser Migration to Angular 11 (EPOS Manager)",
+      "responsibilities": [
+        "Spearheaded the migration of a legacy AngularJS 1.x application to Angular 11.",
+        "Implemented business logic & REST API integration to improve application functionality.",
+        "Applied OOP principles & validations to ensure data integrity & improved user experience.",
+        "Executed unit testing with Jasmine & Karma, keeping high-quality standards.",
+        "Created dynamic, interactive data visualizations using Highcharts to present insights."
       ]
     }
   ],

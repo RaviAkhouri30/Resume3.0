@@ -3,6 +3,7 @@ import { IAwardAchievements } from "./i-awards-achievements";
 export interface IPersonDataModel {
     name: string;
     email: string;
+    secondaryEmail: string;
     phone: string;
     jobTitle: string;
     address: string;

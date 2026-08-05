@@ -1,3 +1,3 @@
 export enum ViewModelContext {
-    AboutMeComponent, ExperienceComponent, EducationComponent, ProfessionalSkillsComponent, AwardsAndAchievementsComponent, HobbiesComponent
+    AboutMeComponent, ExperienceComponent, EducationComponent, ProfessionalSkillsComponent, ProjectsExperienceComponent, AwardsAndAchievementsComponent, HobbiesComponent
 }

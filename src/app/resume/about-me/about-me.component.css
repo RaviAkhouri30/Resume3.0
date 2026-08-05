@@ -8,6 +8,7 @@
 .person-info {
     width: 100%;
     padding: 10px 20px;
+    font-family: Comic Sans MS, Comic Sans, cursive;
 }
 
 /* Styling for name and title */
@@ -119,7 +120,8 @@ a {
 }
 
 .download-resume button {
-    background-color: rgba(255, 255, 255, 0.1);
+    /* background-color: rgba(255, 255, 255, 0.1); */
+    background-color: #465b66b3;
     /* Button background color */
     color: white;
     /* Button text color */
@@ -137,6 +139,7 @@ a {
     /* Smooth transition for background color */
     border: 1px solid rgba(255, 255, 255, 0.2);
     /* Subtle border */
+    font-weight: 400;
 }
 
 .download-resume button:hover {

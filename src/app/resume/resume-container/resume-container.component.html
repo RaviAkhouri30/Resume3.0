@@ -3,24 +3,47 @@
   <div class="row">
     <div class="col-4">
 
-      <div class="person-image">
-        <div class="profile-pic">
+      <div class="card-data">
+        <div class="person-image">
+          <div class="profile-pic">
+          </div>
         </div>
+        <app-about-me></app-about-me>
       </div>
 
-      <app-about-me></app-about-me>
-      <hr class="hr-border">
-      <app-professional-skills></app-professional-skills>
+      <!-- <hr class="hr-border"> -->
+      <div class="card-info">
+        <app-professional-skills></app-professional-skills>
+      </div>
+
+      <div class="card-data">
+        <app-hobbies></app-hobbies>
+      </div>
+
+      <div class="card-info">
+        <app-education></app-education>
+      </div>
+
+      <div class="card-data">
+        <app-awards-and-achievements></app-awards-and-achievements>
+      </div>
+
     </div>
-    
+
     <div class="col-8">
-      <app-experience></app-experience>
-      <hr>
-      <app-education></app-education>
-      <hr>
-      <app-awards-and-achievements></app-awards-and-achievements>
-      <hr>
-      <app-hobbies></app-hobbies>
+
+      <div class="card-info">
+        <app-experience></app-experience>
+      </div>
+
+      <div class="card-data">
+        <app-projects-experience></app-projects-experience>
+      </div>
+      <!-- <hr> -->
+      <!-- <hr> -->
+
+      <!-- <hr> -->
+
     </div>
 
   </div>

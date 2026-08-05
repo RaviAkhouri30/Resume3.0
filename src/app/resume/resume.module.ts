@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { EducationComponent } from './education/education.component';
 import { AwardsAndAchievementsComponent } from './awards-and-achievements/awards-and-achievements.component';
 import { HobbiesComponent } from './hobbies/hobbies.component';
+import { ProjectsExperienceComponent } from './projects-experience/projects-experience.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { HobbiesComponent } from './hobbies/hobbies.component';
         ExperienceComponent,
         EducationComponent,
         AwardsAndAchievementsComponent,
-        HobbiesComponent
+        HobbiesComponent,
+        ProjectsExperienceComponent
     ],
     imports: [
         CommonModule,

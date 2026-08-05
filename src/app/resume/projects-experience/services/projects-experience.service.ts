@@ -8,25 +8,22 @@ import { IFakeHttps as IHttps } from 'src/app/shared-module/interfaces/i-fake-ht
 import { BaseService } from 'src/app/shared-module/services/base.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class EducationService extends BaseService {
-  // Inject dependencies
+export class ProjectsExperienceService extends BaseService {
+
   private readonly _http: IHttps = inject(IHttps);
   private readonly _handleErrorFactory: HandleErrorFactory = inject(HandleErrorFactory);
 
-  // Constructor to initialize the base service with the context
   constructor() {
-    super(Context.Education);
+    super(Context.ProjectsExperience);
   }
 
-  // Override method to attach view API handler
   override attachViewApiHandler<T>(): Observable<T> {
-    return this._handleErrorFactory.handleHttpsError(this._http.get<T>(GetEndPointUrl.getEndPointUrl(UrlConstants.education))).pipe(
-      // Filter the response to ensure it is okay and has a body
+    return this._handleErrorFactory.handleHttpsError(this._http.get<T>(GetEndPointUrl.getEndPointUrl(UrlConstants.projectsExperience))).pipe(
       filter((res) => res?.ok && res?.body !== null),
-      // Map the response body to the expected type
       map((res) => res.body as T)
     );
   }
+
 }
