@@ -17,13 +17,23 @@
         <span class="phone">{{model.data.phone}}</span>
         <mat-icon class="icon-copy">file_copy</mat-icon>
       </div>
-      <div class="contact" [cdkCopyToClipboard]="model.data.email" (click)="onCopy(model.data.phone, 'Email')">
+      <div class="contact" [cdkCopyToClipboard]="model.data.email" (click)="onCopy(model.data.email, 'Email')">
         <mat-icon class="icon">email</mat-icon>
         <span><a href="mailto:{{model.data.email}}">{{model.data.email}}</a></span>
         <span>
         </span>
         <mat-icon class="icon-copy">file_copy</mat-icon>
       </div>
+
+      <div class="contact" [cdkCopyToClipboard]="model.data.secondaryEmail"
+        (click)="onCopy(model.data.secondaryEmail, 'Secondary Email')">
+        <mat-icon class="icon">email</mat-icon>
+        <span><a href="mailto:{{model.data.secondaryEmail}}">{{model.data.secondaryEmail}}</a></span>
+        <span>
+        </span>
+        <mat-icon class="icon-copy">file_copy</mat-icon>
+      </div>
+
       <div class="description">
         <p>{{model.data.summary}}</p>
       </div>

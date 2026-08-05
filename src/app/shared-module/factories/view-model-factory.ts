@@ -7,6 +7,7 @@ import { EducationViewModel } from "src/app/resume/education/models/education-vi
 import { ProfessionalSkillsViewModel } from "src/app/resume/professional-skills/models/professional-skills-view-model";
 import { AwardsAndAchievemntsViewModel } from "src/app/resume/awards-and-achievements/models/awards-and-achievemnts-view-model";
 import { HobbiesViewModel } from "src/app/resume/hobbies/models/hobbies-view-model";
+import { ProjectsExperienceViewModel } from "src/app/resume/projects-experience/models/projects-experience-model";
 
 export class ViewModelFactory {
     // Factory method to get the appropriate ViewModel instance based on the context
@@ -20,9 +21,11 @@ export class ViewModelFactory {
                 return new EducationViewModel(injector);
             case 3 /* ProfessionalSkillsComponent */:
                 return new ProfessionalSkillsViewModel(injector);
-            case 4 /* AwardsAndAcheivementsComponents */:
+            case 4 /* ProjectsComponent */:
+                return new ProjectsExperienceViewModel(injector);
+            case 5 /* AwardsAndAcheivementsComponents */:
                 return new AwardsAndAchievemntsViewModel(injector);
-            case 5 /* HobbiesComponents */:
+            case 6 /* HobbiesComponents */:
                 return new HobbiesViewModel(injector);
             default:
                 throw new Error('Invalid ViewModel Context');

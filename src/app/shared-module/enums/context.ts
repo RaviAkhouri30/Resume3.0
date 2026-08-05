@@ -1,3 +1,3 @@
 export enum Context {
-    aboutMe, experience, education, ProfessionalSkills
+    AboutMe, Experience, Education, ProfessionalSkills, ProjectsExperience
 }

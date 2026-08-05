@@ -13,10 +13,10 @@ export abstract class BaseService implements IBaseService {
 
   // BehaviorSubject to handle copy commands
   private readonly _copyCommandHandler: BehaviorSubject<ICommand<any>>;
-  
+
   // Context of the service
   private _context: Context;
-  
+
   // Injected NotificationService instance
   private _notificationService: NotificationService = inject(NotificationService);
 

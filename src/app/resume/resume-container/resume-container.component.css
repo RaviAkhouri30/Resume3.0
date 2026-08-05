@@ -3,6 +3,7 @@
     width: 100%;
     height: 100%;
     overflow: auto;
+    line-height: 1.5;
 }
 
 /* Row styling for flex layout */
@@ -20,6 +21,9 @@
     width: 30%;
     min-width: 30%;
     padding: 10px 15px 20px;
+}
+
+.card-data {
     border-radius: 30px;
     box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.2);
     background: rgba(0, 0, 0, 0.8);
@@ -36,6 +40,9 @@
     max-height: max-content;
     min-width: 60%;
     padding: 10px 15px;
+}
+
+.card-info {
     color: #465b66;
     background: #fffffff0;
     margin: 10px;
@@ -56,7 +63,7 @@
     overflow: hidden;
     border-radius: 50%;
     border: 2px solid #ffffff;
-    box-shadow: 0 0 5px 1px rgb(255, 255, 255, 0.4);
+    box-shadow: 0 0 5px 10px rgba(111, 104, 104, 0.65);
 }
 
 /* Profile picture styling */
@@ -84,7 +91,7 @@ hr {
     .col-8 {
         min-width: 55%;
     }
-  }
+}
 
 @media only screen and (max-width: 1024px) {
     .col-8 {
@@ -94,7 +101,7 @@ hr {
     .col-4 {
         min-width: 40%;
     }
-  }
+}
 
 @media only screen and (max-width: 700px) {
     .row {
@@ -103,6 +110,7 @@ hr {
         overflow-x: hidden;
         padding: 0;
     }
+
     .col-8 {
         min-width: 90%;
         margin: 0 auto;
@@ -113,7 +121,7 @@ hr {
     .overlay {
         margin: 0;
     }
-    
+
     .col-4 {
         min-width: 90%;
         min-height: max-content;
@@ -121,15 +129,18 @@ hr {
         margin: 10px auto 5px;
         padding: 0;
     }
-  }
+}
 
-  @media only screen and (max-width: 700px) {
-    .col-4, .col-8 {
+@media only screen and (max-width: 700px) {
+
+    .col-4,
+    .col-8 {
         min-width: 100%;
         margin: 0;
         border-radius: 0;
     }
+
     .overlay {
         border-radius: 0;
     }
-  }
+}

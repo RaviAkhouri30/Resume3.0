@@ -46,7 +46,7 @@ export class AboutMeComponent extends BaseComponent<IPersonDataModel> implements
 
   public downloadResume = (): void => {
     const link = document.createElement('a');
-    link.href = 'MyResume14Jun26.pdf';
+    link.href = 'assets/MyResume14Jun26.pdf';
     link.download = 'MyResume14Jun26.pdf';
     link.click();
   }
