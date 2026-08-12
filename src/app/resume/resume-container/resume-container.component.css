@@ -240,4 +240,8 @@ a {
         display: flex;
         justify-content: center;
     }
+
+    .header ul {
+        display: none;
+    }
 }
