@@ -3,5 +3,7 @@ export enum UrlConstants {
     experience = 'experience',
     projectsExperience = 'projects-experience',
     education = 'education',
-    skills = 'skills'
+    skills = 'skills',
+    contactDetails = 'contact-details',
+    hobbies = 'hobbies'
 }

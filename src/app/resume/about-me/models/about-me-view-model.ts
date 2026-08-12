@@ -6,7 +6,7 @@ import { AboutMeService } from "../services/about-me.service";
 import { PersonDataModel } from "src/app/shared-module/models/person-data-model";
 import { CommonService } from "src/app/shared-module/services/common.service";
 
-export class AboutMeViewModel extends ViewModel<IPersonDataModel> {
+export class AboutMeViewModel extends ViewModel<PersonDataModel> {
 
     // Private property to hold the AboutMeService instance
     private readonly _aboutMeService: AboutMeService;
@@ -22,7 +22,7 @@ export class AboutMeViewModel extends ViewModel<IPersonDataModel> {
 
     // Method to attach view handler and fetch data from the API
     protected override attachViewHandler = (): Observable<void> => {
-        return this._aboutMeService.attachViewApiHandler<IPersonDataModel>().pipe(
+        return this._aboutMeService.attachViewDataHandler<IPersonDataModel>().pipe(
             // Use tap to assign the result to the data property
             tap(result => this.data = new PersonDataModel(result)),
             tap(result => this._commonService.aboutMeData = result),
@@ -33,7 +33,7 @@ export class AboutMeViewModel extends ViewModel<IPersonDataModel> {
 
     // Method to attach command handler and execute commands via the API
     protected override attachCommandHandler = (): Observable<void> => {
-        return this._aboutMeService.attachCommandApiHandler<string>().pipe(
+        return this._aboutMeService.attachCommandApiHandler<any>().pipe(
             // Map the result to void
             map(() => { })
         );

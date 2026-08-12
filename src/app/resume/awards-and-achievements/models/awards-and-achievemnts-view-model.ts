@@ -1,5 +1,5 @@
 import { Injector } from "@angular/core";
-import { EMPTY, Observable, tap } from "rxjs";
+import { EMPTY, map, Observable, tap } from "rxjs";
 import { IAwardAchievements } from "src/app/shared-module/interfaces/i-awards-achievements";
 import { ViewModel } from "src/app/shared-module/models/view-model";
 import { CommonService } from "src/app/shared-module/services/common.service";
@@ -12,9 +12,10 @@ export class AwardsAndAchievemntsViewModel extends ViewModel<IAwardAchievements[
         this._commonService = injector.get(CommonService);
     }
 
-    protected override attachViewHandler = (): Observable<any> => {
+    protected override attachViewHandler = (): Observable<IAwardAchievements[]> => {
         return this._commonService.aboutMeData.pipe(
-            tap(result => this.data = result.awardsAndAchievements)
+            tap(result => this.data = result.awardsAndAchievements),
+            map(result => result.awardsAndAchievements)
         );
     }
 

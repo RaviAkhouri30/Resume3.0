@@ -1,18 +1,18 @@
 <section class="experience">
   <div class="title" aria-label="Work Experience">
-    <h3> Work Experience</h3>
+    <h1> Work Experience</h1>
   </div>
   <div class="experience-container">
     <div class="experience">
       @for (item of model.data; track $index) {
-      <ul>
+      <ul class="timeline">
         <li>
           <div class="heading">
             <div class="heading-container">
-              <h4>{{ item.tenure }}</h4>
-              <h3>{{ item.companyName }}</h3>
+              <h6>{{ item.tenure }}</h6>
+              <h5>{{ item.companyName }}</h5>
             </div>
-          </div>
+          </div> 
           <div class="content-container">
             <article class="content">
               <ul>
@@ -21,9 +21,6 @@
                 }
               </ul>
             </article>
-            <!-- <div class="btn-container">
-              <button class="read-more" (click)="onReadMore(item.companyName, item.responsibilities)">Read More</button>
-            </div> -->
           </div>
         </li>
       </ul>

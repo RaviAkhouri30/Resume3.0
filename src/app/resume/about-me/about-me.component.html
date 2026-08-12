@@ -1,54 +1,19 @@
-<section class="about-me">
-
-  <div class="person-info">
-    @if (model.data) {
-    <div class="person-name">
-      <h1>I'm {{model.data.name}}</h1>
-    </div>
-    <div class="person-title">
-      <h3>{{model.data.jobTitle}}</h3>
-    </div>
-    <div class="download-resume">
-      <button (click)="downloadResume()">Download Resume</button>
-    </div>
-    <div class="person-contact">
-      <div class="contact" [cdkCopyToClipboard]="model.data.phone" (click)="onCopy(model.data.phone, 'Phone number')">
-        <mat-icon class="icon">phone</mat-icon>
-        <span class="phone">{{model.data.phone}}</span>
-        <mat-icon class="icon-copy">file_copy</mat-icon>
-      </div>
-      <div class="contact" [cdkCopyToClipboard]="model.data.email" (click)="onCopy(model.data.email, 'Email')">
-        <mat-icon class="icon">email</mat-icon>
-        <span><a href="mailto:{{model.data.email}}">{{model.data.email}}</a></span>
-        <span>
-        </span>
-        <mat-icon class="icon-copy">file_copy</mat-icon>
-      </div>
-
-      <div class="contact" [cdkCopyToClipboard]="model.data.secondaryEmail"
-        (click)="onCopy(model.data.secondaryEmail, 'Secondary Email')">
-        <mat-icon class="icon">email</mat-icon>
-        <span><a href="mailto:{{model.data.secondaryEmail}}">{{model.data.secondaryEmail}}</a></span>
-        <span>
-        </span>
-        <mat-icon class="icon-copy">file_copy</mat-icon>
-      </div>
-
-      <div class="description">
-        <p>{{model.data.summary}}</p>
-      </div>
-      <div class="social">
-        <div class="social-icon-container">
-          <img src="/assets/github.svg" alt="github-link" class="social-icon" tabindex="0"
-            (click)="openLink(model.data.github)" />
-        </div>
-        <div class="social-icon-container">
-          <img src="/assets/linkedin.svg" alt="linkedin-link" class="social-icon" tabindex="0"
-            (click)="openLink(model.data.linkedin)" />
-        </div>
-      </div>
-    </div>
-    }
-  </div>
-
+<section class="about-me-section">
+  <h1>About Me</h1>
+  @if(model.data) {
+  <p class="summary">{{model.data.summary}}</p>
+  }
+  <section class="experience-parameters">
+    <ul>
+      <li> <span class="years">6</span> &nbsp; <i class="bi bi-plus"></i> <br>
+        <p class="parameter-label">Years of Experience</p>
+      </li>
+      <li> <span class="years">10</span> &nbsp; <i class="bi bi-plus"></i> <br>
+        <p class="parameter-label">Projects</p>
+      </li>
+      <li> <span class="years">7</span> &nbsp; <i class="bi bi-plus"></i> <br>
+        <p class="parameter-label">Rewards and Achievements</p>
+      </li>
+    </ul>
+  </section>
 </section>

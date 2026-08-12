@@ -1,0 +1,31 @@
+<div class="contacts">
+    <ul>
+
+        @for (contact of model.data; track $index) {
+        <li>
+            <p>
+                @switch (contact.type) {
+                @case ("email") {
+                <a href="mailto:{{contact.details}}">
+                    <i class="{{contact.icon}}"></i> {{contact.details}}
+                </a>
+                }
+                @case ("mobile") {
+                <a href="tel:{{contact.details}}">
+                    <i class="{{contact.icon}}"></i> {{contact.details}}
+                </a>
+                }
+                }
+                <span class="action" (click)="onCopyDetails(contact)">
+                    @if(contact.isCopied){
+                    <i class="bi bi-clipboard-check-fill"></i>
+                    }@else {
+                    <i class="bi bi-clipboard"></i>
+                    }
+                </span>
+            </p>
+        </li>
+        }
+
+    </ul>
+</div>

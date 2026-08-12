@@ -1,9 +1,10 @@
 {
   "about-me": {
+    "firstName": "Ravi",
     "name": "Ravi Akhouri",
     "email": "contact@raviakhouri.in",
     "phone": "+91 880-480-4868",
-    "jobTitle": "Senior Angular Developer building scalable, enterprise-grade frontend architectures",
+    "jobTitle": "Senior Angular Developer",
     "secondaryEmail": "ravi.akhouri@gmail.com",
     "address": "",
     "city": "string",
@@ -18,12 +19,6 @@
     "profilePic": "",
     "resume": "",
     "uid": "RS-1",
-    "hobbies": [
-      "Photography",
-      "Gaming",
-      "Coding",
-      "Guitar"
-    ],
     "awardsAndAchievements": [
       {
         "title": "Star Award – Siemens",
@@ -43,6 +38,41 @@
       }
     ]
   },
+  "hobbies": [
+    {
+      "icon": "bi bi-camera-fill",
+      "hobby": "Photography"
+    },
+    {
+      "icon": "bi bi-playstation",
+      "hobby": "Gaming"
+    },
+    {
+      "icon": "bi bi-code-slash",
+      "hobby": "Coding"
+    },
+    {
+      "icon": "bi bi-music-note-beamed",
+      "hobby": "Guitar"
+    }
+  ],
+  "contact-details": [
+    {
+      "icon": "bi bi-envelope-fill",
+      "details": "contact@raviakhouri.in",
+      "type": "email"
+    },
+    {
+      "icon": "bi bi-envelope-fill",
+      "details": "ravi.akhouri@gmail.com",
+      "type": "email"
+    },
+    {
+      "icon": "bi bi-phone-fill",
+      "details": "+91-880 480 4868",
+      "type": "mobile"
+    }
+  ],
   "experience": [
     {
       "personUid": "RS-1",
@@ -64,12 +94,11 @@
       "companyName": "Siemens Technology and Services Pvt Ltd",
       "tenure": "February 2023 - January 2026",
       "responsibilities": [
-        "Worked on ECCT (Energy Component Configuration Tool) and CME (Class Model Editor), enterprise Excel-like applications used for complex configuration and data management workflows.",
-        "Redesigned the ECCT user interface by consolidating multiple workflows into a modern single-page, tab-based experience, significantly improving usability and navigation efficiency.",
-        "Delivered multiple bug fixes, feature enhancements, and performance improvements across ECCT and CME, increasing application stability and user satisfaction.",
-        "Received a 'Good Job' appreciation award for successfully resolving critical issues and consistently delivering high-quality solutions.",
-        "Contributed to the legacy EC (Energy Component) application by implementing Java business logic, developing PL/SQL enhancements, and delivering multiple customer-requested features.",
-        "Leveraged Agentic AI workflows to accelerate software development, including Java implementation, PL/SQL trigger generation, Flyway database migrations, documentation, and code assistance."
+        "Enhanced front-end interfaces for SystemOne project, contributing to multiple applications including ABTSite, ABTGo, BOSS Project Conversion & Performance Dashboard.",
+        "Led development and optimization of ABTSite modules such as View Favorites, KNX PL-Link, MBus & Function Configuration & built the Plant Configurator module from start.",
+        "Executed UI enhancements & code refactoring for the Query Generator project, improving performance by applying SOLID principles, OOP concepts & RxJS patterns.",
+        "Refactored the QueryGenerator (Building X) module, achieving 30% reduction in technical debt, improved code modularity, and increased overall developer productivity.",
+        "Developed an AI-powered chatbot using GPT-4 Copilot, displaying advanced task management features and emotion-aware user interaction to enhance overall engagement."
       ]
     },
     {

@@ -132,3 +132,6 @@ sequenceDiagram
 ## Additional Notes
 - Ensure that you have Node.js and Angular CLI installed on your system.
 - Replace the placeholder diagrams with actual diagrams to provide a better understanding of the application architecture.
+
+### Reference
+- color palattes ---- https://colorhunt.co/palette/0000001f150c412d15e1dcc9

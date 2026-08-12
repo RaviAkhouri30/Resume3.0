@@ -35,7 +35,7 @@ export class ExperienceViewModel extends ViewModel<IExperienceDataModel[]> {
      * @returns An observable that emits when the view handler is attached.
      */
     protected override attachViewHandler = (): Observable<void> => {
-        return this._experienceService.attachViewApiHandler<IExperienceDataModel[]>().pipe(
+        return this._experienceService.attachViewDataHandler<IExperienceDataModel[]>().pipe(
             tap(result => this.data = result.map(e => new ExperienceDataModel(e))),
             map(() => { })
         );

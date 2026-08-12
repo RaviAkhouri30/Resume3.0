@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
-import { IProjectsExperienceDataModel } from 'src/app/shared-module/interfaces/i-projects-experience-data-model';
+import { ProjectsExperienceDataModel } from 'src/app/shared-module/models/projects-experience-data-model';
 
 @Component({
   selector: 'app-projects-experience',
@@ -9,7 +9,7 @@ import { IProjectsExperienceDataModel } from 'src/app/shared-module/interfaces/i
   templateUrl: './projects-experience.component.html',
   styleUrl: './projects-experience.component.css',
 })
-export class ProjectsExperienceComponent extends BaseComponent<IProjectsExperienceDataModel[]> {
+export class ProjectsExperienceComponent extends BaseComponent<ProjectsExperienceDataModel[]> {
 
   protected override readonly _context: ViewModelContext = ViewModelContext.ProjectsExperienceComponent;
 

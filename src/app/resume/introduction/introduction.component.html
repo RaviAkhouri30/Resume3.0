@@ -1,0 +1,11 @@
+<div class="intro">
+    <span class="greeting">Hello<span class="color-orange">.</span> <br></span>
+    <span
+        class="decoration-line color-orange">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span class="name"> I'm {{model.data.firstName}} </span> <br>
+    <span class="designation"> {{model.data.jobTitle}}</span>
+
+    <div class="action">
+        <button type="button" class="custom-btn" matButton="outlined" (click)="downloadResume()">My Resume</button>
+    </div>
+</div>

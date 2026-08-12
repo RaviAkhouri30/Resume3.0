@@ -5,7 +5,7 @@ import { ProfessionalSkillsService } from "../services/professional-skills.servi
 import { Injector } from "@angular/core";
 import { ProfessionalSkillsDataModel } from "src/app/shared-module/models/professional-skills-data-model";
 
-export class ProfessionalSkillsViewModel extends ViewModel<IProfessionalSkillsDataModel[]> {
+export class ProfessionalSkillsViewModel extends ViewModel<ProfessionalSkillsDataModel[]> {
     private readonly _professionalSkillsService: ProfessionalSkillsService;
 
     constructor(protected injector: Injector) {
@@ -14,9 +14,10 @@ export class ProfessionalSkillsViewModel extends ViewModel<IProfessionalSkillsDa
     }
 
     protected override attachViewHandler = (): Observable<any> => {
-        return this._professionalSkillsService.attachViewApiHandler<IProfessionalSkillsDataModel[]>().pipe(
-            tap(result => this.data = result.map(e => new ProfessionalSkillsDataModel(e)))
-        );
+        return this._professionalSkillsService.attachViewDataHandler<IProfessionalSkillsDataModel[]>()
+            .pipe(
+                tap(result => this.data = result.map(e => new ProfessionalSkillsDataModel(e)))
+            );
     }
     protected override attachCommandHandler = (): Observable<any> => {
         return this._professionalSkillsService.attachCommandApiHandler().pipe();

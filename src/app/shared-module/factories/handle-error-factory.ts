@@ -60,6 +60,7 @@ export class HandleErrorFactory {
         this._loaderService = injector.get(LoaderService);
         this._notificationService = injector.get(NotificationService);
     }
+
     /**
      * Handles HTTP errors for the given HTTP request callback.
      * Shows a loader while the request is in progress, and hides it when the request completes.

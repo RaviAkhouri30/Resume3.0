@@ -1,0 +1,82 @@
+.intro {
+    padding: 100px 0;
+    line-height: 2;
+}
+
+.decoration-line {
+    text-decoration: underline;
+    text-decoration-color: rgb(255, 119, 0);
+    text-decoration-thickness: 4px;
+    text-underline-offset: 4px;
+}
+
+.greeting,
+.designation {
+    font-size: 48px;
+    font-weight: bold;
+    color: #E1DCC9;
+}
+
+.color-orange {
+    color: rgb(255, 119, 0);
+}
+
+.name {
+    font-size: 42px;
+    color: #E1DCC9;
+}
+
+.custom-btn {
+    border: 1px solid rgb(255, 119, 0);
+    color: rgb(255, 119, 0) !important;
+    padding: 10px 20px;
+    font-weight: 400;
+    box-shadow: 0 0 25px rgba(255, 119, 0, 0.5);
+    transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out;
+    font-weight: bold;
+}
+
+.custom-btn:hover {
+    background-color: rgb(255, 119, 0);
+    color: #E1DCC9 !important;
+}
+
+@media screen and (max-width: 500px) {
+    .color-orange {
+        display: none;
+    }
+
+    .name {
+        position: relative;
+        /* Keeps the line anchored to this text */
+        display: inline-block;
+    }
+
+    .name::after {
+        content: "";
+        position: absolute;
+        left: 25%;
+        bottom: -2px;
+        /* Sets the distance from the text */
+        height: 3px;
+        /* Sets the underline thickness */
+        width: 50%;
+        /* Sets the exact width of the underline */
+        background-color: rgb(255, 119, 0);
+        /* Sets the underline color */
+    }
+
+    .intro {
+        padding: 60px 0;
+        line-height: 2;
+    }
+
+    .greeting,
+    .designation {
+        font-size: 28px;
+    }
+
+    .name {
+        font-size: 32px;
+    }
+}
