@@ -1,49 +1,106 @@
-<!-- <app-header></app-header> -->
 <div class="container">
-  <div class="row">
-    <div class="col-4">
+  <header class="header" id="header">
+    <h3 class="title">Ravi Akhouri</h3>
+    <ul>
+      <li><a href="#introduction-section">Home</a></li>
+      <li><a href="#about-me-section">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contacts</a></li>
+    </ul>
+  </header>
+  <div class="row" id="introduction-section">
 
-      <div class="card-data">
-        <div class="person-image">
-          <div class="profile-pic">
-          </div>
+    <div class="col-sm-6" id="intro">
+      <app-introduction></app-introduction>
+    </div>
+
+    <div class="col-sm-6" id="profile-image-section">
+
+      <div class="profile-image-container">
+
+        <i class="bi bi-chevron-left"></i>
+        <i class="bi bi-chevron-right"></i>
+
+        <div class="outer-circle-design">
+          <img src="assets/IMG_2300.png" alt="Ravi Akhouri" class="profile-image">
         </div>
-        <app-about-me></app-about-me>
-      </div>
 
-      <!-- <hr class="hr-border"> -->
-      <div class="card-info">
-        <app-professional-skills></app-professional-skills>
-      </div>
-
-      <div class="card-data">
-        <app-hobbies></app-hobbies>
-      </div>
-
-      <div class="card-info">
-        <app-education></app-education>
-      </div>
-
-      <div class="card-data">
-        <app-awards-and-achievements></app-awards-and-achievements>
+        <div class="inner-circle-design">
+        </div>
       </div>
 
     </div>
+  </div>
 
-    <div class="col-8">
+  <div class="professional-skills-section" id="professional-skills-section">
+    <app-professional-skills></app-professional-skills>
+  </div>
 
-      <div class="card-info">
-        <app-experience></app-experience>
-      </div>
+  <div class="row" id="about-me-section">
 
-      <div class="card-data">
-        <app-projects-experience></app-projects-experience>
-      </div>
-      <!-- <hr> -->
-      <!-- <hr> -->
+    <div class="col-sm-6">
+      <app-awards-and-achievements></app-awards-and-achievements>
+    </div>
 
-      <!-- <hr> -->
-
+    <div class="col-sm-6">
+      <app-about-me></app-about-me>
     </div>
 
   </div>
+
+  <div class="row" id="experience">
+    <div class="col-sm-12">
+      <app-experience></app-experience>
+    </div>
+  </div>
+
+  <div class="row" id="projects">
+    <div class="col-sm-12">
+      <app-projects-experience></app-projects-experience>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <app-hobbies></app-hobbies>
+    </div>
+    <div class="col-sm-6">
+      <app-education></app-education>
+    </div>
+  </div>
+
+  <footer>
+    <div class="row">
+      <div class="col-sm-4">
+        <h5>
+          Contacts
+        </h5>
+        <div class="contact-details">
+          <app-contact></app-contact>
+        </div>
+      </div>
+      <div class="col-sm-4 developer">
+        <div>
+          <strong>Developed by me with love <i class="bi bi-heart-fill"></i> </strong> <br>
+          <p> <a href="">source code</a> </p>
+        </div>
+      </div>
+      <hr class="mob-hr">
+      <div class="col-sm-4">
+        <h5>
+          Contact me
+        </h5>
+        <div class="social-media" id="contact">
+          <app-contact-me></app-contact-me>
+        </div>
+      </div>
+      <hr>
+      <div class="col-sm-12 copyright">
+        <p>Copyright &copy; 2024 Ravi Akhouri</p>
+        <app-social-media></app-social-media>
+      </div>
+    </div>
+  </footer>
+
+</div>

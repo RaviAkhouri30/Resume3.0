@@ -1,146 +1,247 @@
-/* Container styling */
-.container {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    line-height: 1.5;
+.header {
+    padding: 15px 12px 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-/* Row styling for flex layout */
 .row {
-    display: flex;
-    padding: 0 10px;
-    flex-direction: row;
+    padding: 0 36px;
 }
 
-/* Column styling */
-.col-4 {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    width: 30%;
-    min-width: 30%;
-    padding: 10px 15px 20px;
+.title {
+    margin-top: 5px;
+    color: rgb(255, 119, 0);
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
 }
 
-.card-data {
-    border-radius: 30px;
-    box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.2);
-    background: rgba(0, 0, 0, 0.8);
-    margin: 10px;
+.title:hover {
+    color: #E1DCC9;
 }
 
-/* Column styling */
-.col-8 {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 65%;
-    min-height: 300px;
-    max-height: max-content;
-    min-width: 60%;
-    padding: 10px 15px;
-}
-
-.card-info {
-    color: #465b66;
-    background: #fffffff0;
-    margin: 10px;
-    border-radius: 30px;
-    box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
-}
-
-.overlay-white {
-    background: rgba(255, 255, 255, 0.8);
-    color: #000;
-}
-
-/* Person image styling */
-.person-image {
-    width: 200px;
-    height: 200px;
-    margin: 25px auto 0px;
+ul {
+    list-style-type: none;
+    padding: 5px 5px;
     overflow: hidden;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
-    box-shadow: 0 0 5px 10px rgba(111, 104, 104, 0.65);
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
 }
 
-/* Profile picture styling */
-.profile-pic {
+li {
+    float: left;
+    margin: 5px 10px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    color: #E1DCC9;
+}
+
+li:hover {
+    color: rgb(255, 119, 0);
+}
+
+.profile-image-container {
     position: relative;
-    width: 300px;
-    height: 300px;
-    background: url('src/assets/IMG_2300.png');
-    background-size: 300px;
-    margin: -50px 0 0 -40px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Horizontal rule styling */
-hr {
-    width: 90%;
-    border-color: #465b66;
-    margin: 5px auto;
+.outer-circle-design {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    border: 15px solid rgba(255, 119, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.hr-border {
-    border-color: #3282B8
+.inner-circle-design {
+    position: absolute;
+    width: 270px;
+    height: 270px;
+    border-radius: 50%;
+    box-shadow: 0 0 650px rgb(255, 119, 0);
+    background-color: rgba(255, 119, 0, 0.3);
 }
 
-@media only screen and (max-width: 1200px) {
-    .col-8 {
-        min-width: 55%;
-    }
+.container {
+    min-height: 100vh;
+    background: linear-gradient(90deg, #000000 0%, #1F150C 50%, #412D15 100%);
+    padding: 0
 }
 
-@media only screen and (max-width: 1024px) {
-    .col-8 {
-        min-width: 50%;
-    }
-
-    .col-4 {
-        min-width: 40%;
-    }
+.professional-skills-section {
+    padding: 10px 0;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-@media only screen and (max-width: 700px) {
-    .row {
+.profile-image {
+    width: 270px;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.bi-chevron-left {
+    position: absolute;
+    font-size: 150px;
+    color: rgb(255, 119, 0);
+    font-weight: 1000;
+    top: 0;
+    left: 0;
+}
+
+.bi-chevron-right {
+    position: absolute;
+    font-size: 150px;
+    color: rgb(255, 119, 0);
+    font-weight: 1000;
+    bottom: 0;
+    right: 0;
+}
+
+.experience-graph {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .header {
         flex-direction: column;
+        align-items: center;
+    }
+
+    .row {
+        padding: 0 12px;
+    }
+
+    .title {
+        margin-top: 10px;
+    }
+
+    ul {
+        justify-content: center;
         flex-wrap: wrap;
-        overflow-x: hidden;
-        padding: 0;
     }
 
-    .col-8 {
-        min-width: 90%;
-        margin: 0 auto;
-        padding: 0;
-        margin: 5px auto 10px;
-    }
-
-    .overlay {
-        margin: 0;
-    }
-
-    .col-4 {
-        min-width: 90%;
-        min-height: max-content;
-        height: max-content;
-        margin: 10px auto 5px;
-        padding: 0;
+    li {
+        margin: 5px 8px;
     }
 }
 
-@media only screen and (max-width: 700px) {
+footer {
+    padding: 36px 0;
+    color: #E1DCC9;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 
-    .col-4,
-    .col-8 {
-        min-width: 100%;
-        margin: 0;
-        border-radius: 0;
+.developer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: rgb(255, 119, 0);
+}
+
+.developer i {
+    color: rgb(173, 0, 0);
+}
+
+h5 {
+    color: rgb(255, 119, 0);
+}
+
+.copyright {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    flex-direction: column;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#introduction-section {
+    display: flex;
+}
+
+.mob-hr {
+    display: none;
+}
+
+@media screen and (max-width: 500px) {
+    #introduction-section {
+        text-align: center;
     }
 
-    .overlay {
-        border-radius: 0;
+    .profile-image-container {
+        background: transparent !important;
+        background-color: none;
+    }
+
+    .inner-circle-design {
+        box-shadow: none;
+    }
+
+    .outer-circle-design {
+        width: 200px;
+        height: 200px;
+    }
+
+    .profile-image-container {
+        min-height: 300px;
+    }
+
+    .bi-chevron-left {
+        position: absolute;
+        font-size: 80px;
+        color: rgb(255, 119, 0);
+        font-weight: 1000;
+        top: 0;
+        left: 0;
+    }
+
+    .bi-chevron-right {
+        position: absolute;
+        font-size: 80px;
+        color: rgb(255, 119, 0);
+        font-weight: 1000;
+        bottom: 0;
+        right: 0;
+    }
+
+    footer {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .mob-hr {
+        display: inline-block;
+    }
+
+    .contact-details {
+        display: flex;
+        justify-content: center;
+    }
+
+    .header ul {
+        display: none;
     }
 }

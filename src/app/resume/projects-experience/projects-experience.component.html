@@ -4,12 +4,12 @@
     </div>
     <div class="experience-container">
         <div class="experience">
-            @for (item of model.data; track $index) {
-            <ul>
+            <ul class="timeline">
+                @for (item of model.data; track $index) {
                 <li>
                     <div class="heading">
                         <div class="heading-container">
-                            <h3>{{ item.projectName }}</h3>
+                            <h5>{{ item.projectName }}</h5>
                         </div>
                     </div>
                     <div class="content-container">
@@ -20,13 +20,10 @@
                                 }
                             </ul>
                         </article>
-                        <!-- <div class="btn-container">
-              <button class="read-more" (click)="onReadMore(item.companyName, item.responsibilities)">Read More</button>
-            </div> -->
                     </div>
                 </li>
+                }
             </ul>
-            }
         </div>
     </div>
 </section>

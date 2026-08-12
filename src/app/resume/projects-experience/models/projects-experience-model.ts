@@ -5,7 +5,7 @@ import { IProjectsExperienceDataModel } from "src/app/shared-module/interfaces/i
 import { ProjectsExperienceService } from "../services/projects-experience.service";
 import { ProjectsExperienceDataModel } from "src/app/shared-module/models/projects-experience-data-model";
 
-export class ProjectsExperienceViewModel extends ViewModel<IProjectsExperienceDataModel[]> {
+export class ProjectsExperienceViewModel extends ViewModel<ProjectsExperienceDataModel[]> {
     /**
     * The service used to manage experience data.
     * @private
@@ -28,7 +28,7 @@ export class ProjectsExperienceViewModel extends ViewModel<IProjectsExperienceDa
      * @returns An observable that emits when the view handler is attached.
      */
     protected override attachViewHandler = (): Observable<void> => {
-        return this._projectsExperienceService.attachViewApiHandler<IProjectsExperienceDataModel[]>().pipe(
+        return this._projectsExperienceService.attachViewDataHandler<IProjectsExperienceDataModel[]>().pipe(
             tap(result => this.data = result.map(e => new ProjectsExperienceDataModel(e))),
             map(() => { })
         );

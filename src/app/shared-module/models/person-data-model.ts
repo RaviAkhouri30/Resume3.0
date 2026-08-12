@@ -3,6 +3,7 @@ import { IPersonDataModel as IPersonDataModel } from "../interfaces/i-person-dat
 
 export class PersonDataModel implements IPersonDataModel {
     // Private properties
+    private _firstName: string;
     private _name: string;
     private _email: string;
     private _secondaryEmail: string;
@@ -26,6 +27,7 @@ export class PersonDataModel implements IPersonDataModel {
 
     constructor(data: IPersonDataModel) {
         // Initialize properties with default values
+        this._firstName = data.firstName;
         this._name = data.name;
         this._email = data.email;
         this._secondaryEmail = data.secondaryEmail;
@@ -49,6 +51,14 @@ export class PersonDataModel implements IPersonDataModel {
     }
 
     // Getter and setter methods for each property
+    get firstName(): string {
+        return this._firstName;
+    }
+
+    set firstName(value: string) {
+        this._firstName = value;
+    }
+
     get name(): string {
         return this._name;
     }

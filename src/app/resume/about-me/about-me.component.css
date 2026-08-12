@@ -1,148 +1,52 @@
-/* Container for the about-me section */
-.about-me {
-    width: 100%;
-    display: flex;
+.about-me-section {
+    color: #E1DCC9;
+    padding: 60px 24px;
 }
 
-/* Container for personal information */
-.person-info {
-    width: 100%;
-    padding: 10px 20px;
-    font-family: Comic Sans MS, Comic Sans, cursive;
+h1 {
+    color: rgb(255, 119, 0);
+    margin-bottom: 60px;
 }
 
-/* Styling for name and title */
-.person-name,
-.person-title {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 5px auto 0px;
-    /* Center align with margin */
-    text-align: center;
+.summary {
+    font-size: 14px;
+    margin: 30px 0;
 }
 
-/* Adjust margin for the title */
-.person-title {
-    margin: -15px auto 0;
-    /* Negative margin to overlap with previous element */
+.years {
+    font-size: 40px;
 }
 
-/* Icon styling */
-.icon {
-    font-size: 20px;
-    /* Set font size for icons */
+i {
+    font-size: 40px;
+    color: rgb(255, 119, 0);
+    font-weight: 1000;
 }
 
-/* Contact section styling */
-.contact {
-    display: flex;
-    justify-content: center;
-    margin: 10px auto;
-    /* Center align with margin */
-}
-
-.contact:hover {
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-    /* Add text shadow for glowing effect */
-}
-
-/* Change cursor on hover for phone element */
-.phone:hover {
-    cursor: copy;
-    /* Change cursor to indicate copy action */
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-    /* Add text shadow for glowing effect */
-}
-
-/* Link styling */
-a {
-    color: #fff;
-    /* Set link color to white */
-}
-
-/* Social media section styling */
-.social {
-    display: flex;
-    justify-content: center;
-    padding: 20px 0;
-    /* Padding for spacing */
-}
-
-/* Add shadow effect on hover for social icons */
-.social-icon-container:hover {
-    box-shadow: 0 0 6px 6px rgba(255, 255, 255, 0.4);
-    /* Shadow effect */
-}
-
-/* Container for social icons */
-.social-icon-container {
-    box-sizing: border-box;
-    position: relative;
-    width: 60px;
-    height: 60px;
-    background: #000;
-    /* Background color */
-    border-radius: 50%;
-    /* Circular shape */
+ul {
+    list-style-type: none;
+    padding: 5px 5px;
     overflow: hidden;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 15px;
-    /* Spacing between icons */
-    cursor: pointer;
-    /* Pointer cursor on hover */
-}
-
-/* Description text styling */
-.description {
-    margin: 10px auto 20px;
-    /* Margin for spacing */
-    text-align: center;
-    /* Center align text */
-    line-height: 1.5;
-    /* Line height for readability */
-}
-
-.icon-copy {
-    font-size: 16px;
-    padding-block: 2px;
-    padding-inline: 4px;
-    cursor: pointer;
-}
-
-.download-resume {
+    justify-content: space-between;
+    margin-left: auto;
     display: flex;
-    justify-content: center;
-    margin: 20px auto;
-    /* Center align with margin */
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-.download-resume button {
-    /* background-color: rgba(255, 255, 255, 0.1); */
-    background-color: #465b66b3;
-    /* Button background color */
-    color: white;
-    /* Button text color */
-    border: none;
-    /* Remove border */
-    padding: 10px 20px;
-    /* Padding for button */
-    border-radius: 5px;
-    /* Rounded corners */
-    cursor: pointer;
-    /* Pointer cursor on hover */
-    font-size: 16px;
-    /* Font size for button text */
-    transition: background-color 0.3s ease;
-    /* Smooth transition for background color */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    /* Subtle border */
-    font-weight: 400;
+.parameter-label {
+    font-size: 12px;
+    color: #E1DCC9;
+    margin-top: 5px;
 }
 
-.download-resume button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    /* Darker shade on hover */
+@media screen and (max-width: 500px) {
+    /* .years {
+        font-size: 24px !important;
+    } */
+
+    ul li {
+        max-width: 70px;
+    }
 }

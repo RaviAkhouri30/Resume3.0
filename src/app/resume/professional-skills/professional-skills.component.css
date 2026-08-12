@@ -5,3 +5,26 @@
 .skill-title {
     margin-bottom: 5px;
 }
+
+ul {
+    list-style-type: none;
+    padding: 5px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px 15px;
+    color: #E1DCC9;
+    margin: auto;
+}
+
+li {
+    margin: 0;
+    display: inline-block;
+}
+
+@media screen and (max-width: 500px) {
+    ul {
+        justify-content: center;
+    }
+}

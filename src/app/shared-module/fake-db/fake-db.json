@@ -1,9 +1,10 @@
 {
   "about-me": {
+    "firstName": "Ravi",
     "name": "Ravi Akhouri",
     "email": "contact@raviakhouri.in",
     "phone": "+91 880-480-4868",
-    "jobTitle": "Senior Angular Developer building scalable, enterprise-grade frontend architectures",
+    "jobTitle": "Senior Angular Developer",
     "secondaryEmail": "ravi.akhouri@gmail.com",
     "address": "",
     "city": "string",
@@ -18,12 +19,6 @@
     "profilePic": "",
     "resume": "",
     "uid": "RS-1",
-    "hobbies": [
-      "Photography",
-      "Gaming",
-      "Coding",
-      "Guitar"
-    ],
     "awardsAndAchievements": [
       {
         "title": "Star Award – Siemens",
@@ -43,6 +38,41 @@
       }
     ]
   },
+  "hobbies": [
+    {
+      "icon": "bi bi-camera-fill",
+      "hobby": "Photography"
+    },
+    {
+      "icon": "bi bi-playstation",
+      "hobby": "Gaming"
+    },
+    {
+      "icon": "bi bi-code-slash",
+      "hobby": "Coding"
+    },
+    {
+      "icon": "bi bi-music-note-beamed",
+      "hobby": "Guitar"
+    }
+  ],
+  "contact-details": [
+    {
+      "icon": "bi bi-envelope-fill",
+      "details": "contact@raviakhouri.in",
+      "type": "email"
+    },
+    {
+      "icon": "bi bi-envelope-fill",
+      "details": "ravi.akhouri@gmail.com",
+      "type": "email"
+    },
+    {
+      "icon": "bi bi-phone-fill",
+      "details": "+91-880 480 4868",
+      "type": "mobile"
+    }
+  ],
   "experience": [
     {
       "personUid": "RS-1",

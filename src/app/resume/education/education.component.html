@@ -1,16 +1,15 @@
-<section class="experience">
-    <div class="title" aria-label="Work Experience">
+<section class="education">
+    <div class="title" aria-label="Education">
         <h3> Education</h3>
     </div>
-    <div class="experience-container">
-        <div class="experience">
+
             @for (item of model.data; track $index) {
-            <ul>
+            <ul class="timeline">
                 <li>
                     <div class="heading">
                         <div class="heading-container">
-                            <h4>{{ item.instituteName }} ( {{item.university}} ) </h4>
-                            <h3>{{ item.degree }} @if(item.major){({{item.major}})}</h3>
+                            <h6>{{ item.instituteName }} ( {{item.university}} ) </h6>
+                            <h5>{{ item.degree }} @if(item.major){({{item.major}})}</h5>
                         </div>
                     </div>
                     <div class="content-container">
@@ -21,6 +20,4 @@
                 </li>
             </ul>
             }
-        </div>
-    </div>
 </section>

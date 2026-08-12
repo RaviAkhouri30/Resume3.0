@@ -1,13 +1,7 @@
 <section>
-    <div class="title" aria-label="Professional Skills"><strong>Professional Skills</strong></div>
-    <div class="inner-container">
+    <ul>
         @for (item of model.data; track item.uid ){
-        <div class="col-1">
-            <div class="skill-title">
-                {{item.skill}}
-            </div>
-            <app-progress-bar [progress]="item.proficeincy"></app-progress-bar>
-        </div>
+        <li>{{item.skill}}</li>
         }
-    </div>
+    </ul>
 </section>

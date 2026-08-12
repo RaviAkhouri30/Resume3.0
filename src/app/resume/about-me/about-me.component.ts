@@ -1,8 +1,8 @@
 import { Component, inject, Injector, OnInit } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
-import { IPersonDataModel } from 'src/app/shared-module/interfaces/i-person-data-model';
 import { AboutMeService } from './services/about-me.service';
+import { PersonDataModel } from 'src/app/shared-module/models/person-data-model';
 
 @Component({
   selector: 'app-about-me',
@@ -10,7 +10,7 @@ import { AboutMeService } from './services/about-me.service';
   styleUrls: ['./about-me.component.css'],
   standalone: false
 })
-export class AboutMeComponent extends BaseComponent<IPersonDataModel> implements OnInit {
+export class AboutMeComponent extends BaseComponent<PersonDataModel> implements OnInit {
 
   // Define the context for the ViewModel
   protected readonly _context = ViewModelContext.AboutMeComponent;
@@ -34,21 +34,6 @@ export class AboutMeComponent extends BaseComponent<IPersonDataModel> implements
    */
   public onCopy(data: string, message: string): void {
     this._aboutMeService.copyCommand(data, message);
-  }
-
-  /**
-   * Opens the provided link in a new window.
-   * @param link The URL to be opened.
-   */
-  public openLink = (link: string): void => {
-    window.open(link);
-  }
-
-  public downloadResume = (): void => {
-    const link = document.createElement('a');
-    link.href = 'assets/MyResume14Jun26.pdf';
-    link.download = 'MyResume14Jun26.pdf';
-    link.click();
   }
 
 }

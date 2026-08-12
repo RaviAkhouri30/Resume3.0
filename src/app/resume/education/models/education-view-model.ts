@@ -16,7 +16,7 @@ export class EducationViewModel extends ViewModel<IEducationDataModel[]> {
     }
 
     override attachViewHandler = (): Observable<any> => {
-        return this._educationService.attachViewApiHandler<IEducationDataModel[]>().pipe(
+        return this._educationService.attachViewDataHandler<IEducationDataModel[]>().pipe(
             tap(result => this.data = result.map(education => new EducationDataModel(education)))
         );
     }

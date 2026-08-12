@@ -1,4 +1,39 @@
-ul li {
-    font-size: 14px;
-    line-height: 1.5rem;
+.hobbies {
+    padding: 10px 20px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: rgb(255, 119, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.heading-container {
+    font-size: 6px;
+}
+
+.content,
+li {
+    font-size: 12px !important;
+}
+
+.hobby-list {
+    font-size: 16px;
+}
+
+.hobby-list>i {
+    display: inline-block;
+    transition: all ease-in-out 0.3s;
+}
+
+.hobby-list>i:hover {
+    transform: scale(1.3);
 }

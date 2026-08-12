@@ -1,13 +1,10 @@
-<section>
-    <div class="title" aria-label="Awards and Achievements"><strong>Awards and Achievements</strong></div>
-    <div class="inner-container">
-        <ul>
-            @for (item of model.data; track $index) {
-            <li>
-                <strong> {{item.title}} </strong> <br>
-                <p> {{item.desc}} </p>
-            </li>
-            }
-        </ul>
-    </div>
+<section class="awards-and-achievements">
+    <ul class="timeline">
+        @for (item of model.data; track $index) {
+        <li>
+            <strong class="fw-16"> {{item.title}} </strong> <br>
+            <p> {{item.desc}} </p>
+        </li>
+        }
+    </ul>
 </section>

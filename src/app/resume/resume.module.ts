@@ -12,6 +12,13 @@ import { EducationComponent } from './education/education.component';
 import { AwardsAndAchievementsComponent } from './awards-and-achievements/awards-and-achievements.component';
 import { HobbiesComponent } from './hobbies/hobbies.component';
 import { ProjectsExperienceComponent } from './projects-experience/projects-experience.component';
+import { IntroductionComponent } from './introduction/introduction.component';
+import { ExperienceGraphComponent } from './experience-graph/experience-graph.component';
+import { ContactComponent } from './contact/contact.component';
+import { SocialMediaComponent } from './social-media/social-media.component';
+import { ContactMeComponent } from './contact-me/contact-me.component';
+import { MatInputModule } from '@angular/material/input'
+import { MatButton } from '@angular/material/button';
 
 @NgModule({
     declarations: [
@@ -22,13 +29,20 @@ import { ProjectsExperienceComponent } from './projects-experience/projects-expe
         EducationComponent,
         AwardsAndAchievementsComponent,
         HobbiesComponent,
-        ProjectsExperienceComponent
+        ProjectsExperienceComponent,
+        IntroductionComponent,
+        ExperienceGraphComponent,
+        ContactComponent,
+        SocialMediaComponent,
+        ContactMeComponent
     ],
     imports: [
         CommonModule,
         ResumeRoutingModule,
         SharedModule,
-        FormsModule
+        FormsModule,
+        MatInputModule,
+        MatButton
     ],
     providers: [provideHttpClient(withInterceptorsFromDi())]
 })

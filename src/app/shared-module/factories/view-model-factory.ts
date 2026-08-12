@@ -8,25 +8,34 @@ import { ProfessionalSkillsViewModel } from "src/app/resume/professional-skills/
 import { AwardsAndAchievemntsViewModel } from "src/app/resume/awards-and-achievements/models/awards-and-achievemnts-view-model";
 import { HobbiesViewModel } from "src/app/resume/hobbies/models/hobbies-view-model";
 import { ProjectsExperienceViewModel } from "src/app/resume/projects-experience/models/projects-experience-model";
+import { IntroductionViewModel } from "src/app/resume/introduction/models/introduction-view-model";
+import { SocialMediaModel } from "src/app/resume/social-media/models/social-media-model";
+import { ContactViewModel } from "src/app/resume/contact/models/contact-view-model";
 
 export class ViewModelFactory {
     // Factory method to get the appropriate ViewModel instance based on the context
     static getViewModelInstance = (viewContext: ViewModelContext, injector: Injector): ViewModel<any> => {
         switch (viewContext) {
-            case 0 /* AboutMeComponent */:
+            case ViewModelContext.AboutMeComponent /* AboutMeComponent */:
                 return new AboutMeViewModel(injector);
-            case 1 /* ExperienceComponent */:
+            case ViewModelContext.ExperienceComponent /* ExperienceComponent */:
                 return new ExperienceViewModel(injector);
-            case 2 /* EducationComponent */:
+            case ViewModelContext.EducationComponent /* EducationComponent */:
                 return new EducationViewModel(injector);
-            case 3 /* ProfessionalSkillsComponent */:
+            case ViewModelContext.ProfessionalSkillsComponent /* ProfessionalSkillsComponent */:
                 return new ProfessionalSkillsViewModel(injector);
-            case 4 /* ProjectsComponent */:
+            case ViewModelContext.ProjectsExperienceComponent /* ProjectsComponent */:
                 return new ProjectsExperienceViewModel(injector);
-            case 5 /* AwardsAndAcheivementsComponents */:
+            case ViewModelContext.AwardsAndAchievementsComponent /* AwardsAndAcheivementsComponents */:
                 return new AwardsAndAchievemntsViewModel(injector);
-            case 6 /* HobbiesComponents */:
+            case ViewModelContext.HobbiesComponent /* HobbiesComponents */:
                 return new HobbiesViewModel(injector);
+            case ViewModelContext.IntroductionComponent:
+                return new IntroductionViewModel(injector);
+            case ViewModelContext.SocialMedia:
+                return new SocialMediaModel(injector);
+            case ViewModelContext.ContactDetailsComponent:
+                return new ContactViewModel(injector);
             default:
                 throw new Error('Invalid ViewModel Context');
         }

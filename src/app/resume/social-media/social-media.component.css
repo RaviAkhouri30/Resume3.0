@@ -1,0 +1,17 @@
+.social-media {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: rgb(255, 119, 0);
+    font-size: 50px;
+}
+
+.social-icons {
+    margin: 0 10px;
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+}
+
+.social-icons:hover {
+    transform: scale(1.3);
+}
