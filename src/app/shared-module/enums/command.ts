@@ -1,3 +1,5 @@
 export enum Command {
-    copy='Copy'
+    copy = 'Copy',
+    openDialog = 'OpenDialog',
+    download = 'Download'
 }

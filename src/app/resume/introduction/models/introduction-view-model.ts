@@ -1,29 +1,27 @@
 import { Injector } from "@angular/core";
 import { map, Observable, tap } from "rxjs";
-import { IPersonDataModel } from "src/app/shared-module/interfaces/i-person-data-model";
 import { ViewModel } from "src/app/shared-module/models/view-model";
-import { CommonService } from "src/app/shared-module/services/common.service";
+import { IntroductionService } from "../services/introduction.service";
+import { PersonDataModel } from "src/app/shared-module/models/person-data-model";
 
-export class IntroductionViewModel extends ViewModel<IPersonDataModel> {
+export class IntroductionViewModel extends ViewModel<PersonDataModel> {
 
-    private readonly _commonService: CommonService;
+    private readonly introductionService: IntroductionService;
 
     constructor(protected injector: Injector) {
         super();
-        this._commonService = injector.get(CommonService);
+        this.introductionService = injector.get(IntroductionService);
     }
 
     protected override attachViewHandler = (): Observable<void> => {
-        return this._commonService.aboutMeData.pipe(
-            tap(result => this.data = result),
+        return this.introductionService.attachViewDataHandler().pipe(
+            tap(result => this.data = new PersonDataModel(result)),
             map(() => { })
         );
     }
 
-    protected override attachCommandHandler = (): Observable<void> => {
-        return new Observable().pipe(
-            map(() => { })
-        );
+    protected override attachCommandHandler = (): Observable<any> => {
+        return this.introductionService.attachCommandApiHandler();
     }
 
 }
