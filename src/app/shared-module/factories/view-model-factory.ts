@@ -11,6 +11,7 @@ import { ProjectsExperienceViewModel } from "src/app/resume/projects-experience/
 import { IntroductionViewModel } from "src/app/resume/introduction/models/introduction-view-model";
 import { SocialMediaModel } from "src/app/resume/social-media/models/social-media-model";
 import { ContactViewModel } from "src/app/resume/contact/models/contact-view-model";
+import { ContactMeViewModel } from "src/app/resume/contact-me/models/contact-me-view-model";
 
 export class ViewModelFactory {
     // Factory method to get the appropriate ViewModel instance based on the context
@@ -36,6 +37,8 @@ export class ViewModelFactory {
                 return new SocialMediaModel(injector);
             case ViewModelContext.ContactDetailsComponent:
                 return new ContactViewModel(injector);
+            case ViewModelContext.ContactMe:
+                return new ContactMeViewModel();
             default:
                 throw new Error('Invalid ViewModel Context');
         }

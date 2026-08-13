@@ -78,7 +78,7 @@
       "personUid": "RS-1",
       "uid": "work-exp-4",
       "companyName": "Quorum Software (Octaserve Pvt Ltd)",
-      "tenure": "January 2021 - January 2023",
+      "tenure": "January 2026 - Present",
       "responsibilities": [
         "Worked on ECCT (Energy Component Configuration Tool) and CME (Class Model Editor), Excel-like applications used for configuration and data management workflows.",
         "Enhanced the ECCT user experience by redesigning the UI and consolidating functionality from multiple pages into a single-page, tab-based interface, improving usability and navigation efficiency.",
@@ -105,7 +105,7 @@
       "personUid": "RS-1",
       "uid": "work-exp-2",
       "companyName": "Mindtree Ltd",
-      "tenure": "August 2021 - January 2023",
+      "tenure": "August 2021 - February 2023",
       "responsibilities": [
         "Developed enterprise-grade Angular applications from the ground up, delivering scalable, responsive, and maintainable frontend solutions for global clients.",
         "Implemented complex business logic, secure authentication, form validations, and seamless REST API integrations to build robust business applications.",
@@ -222,19 +222,19 @@
     },
     {
       "personUid": "RS-1",
-      "uid": "skill-4",
+      "uid": "skill-5",
       "skill": "RxJs",
       "proficeincy": 85
     },
     {
       "personUid": "RS-1",
-      "uid": "skill-4",
+      "uid": "skill-6",
       "skill": "JavaScript",
       "proficeincy": 65
     },
     {
       "personUid": "RS-1",
-      "uid": "skill-4",
+      "uid": "skill-7",
       "skill": "Solid Principles",
       "proficeincy": 65
     }
