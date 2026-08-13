@@ -16,7 +16,7 @@ export class ExperienceComponent extends BaseComponent<IExperienceDataModel[]> i
   // private readonly dialog: MatDialog = inject(MatDialog);
 
   ngOnInit(): void {
-    this.intializeModel();
+    this.initializeModel();
   }
 
   // public onReadMore = (title: string, message: string[]): void => {

@@ -10,6 +10,7 @@ import { ContactMe } from 'src/app/shared-module/models/contact-me';
   templateUrl: './contact-me.component.html',
   styleUrl: './contact-me.component.css',
 })
+/** Displays and validates the contact form. Submission is currently local only. */
 export class ContactMeComponent extends BaseComponent<ContactMe> implements OnInit {
 
   private readonly fb: FormBuilder = inject(FormBuilder);
@@ -17,15 +18,18 @@ export class ContactMeComponent extends BaseComponent<ContactMe> implements OnIn
 
   protected readonly _context: ViewModelContext = ViewModelContext.ContactMe;
 
+  /** Creates the form and initializes its view model when the component loads. */
   ngOnInit(): void {
     this.createForm();
-    this.intializeModel();
+    this.initializeModel();
   }
 
+  /** Returns the reactive form used by the contact section. */
   get form(): FormGroup {
     return this._form;
   }
 
+  /** Copies validated form values into the contact view model. */
   public onSend() {
     if (!this.form.valid) {
       return;
@@ -38,6 +42,7 @@ export class ContactMeComponent extends BaseComponent<ContactMe> implements OnIn
     console.log(this.model.data, '  test submit');
   }
 
+  /** Builds the required name, email, and message controls. */
   private createForm(): void {
     this._form = this.fb.group({
       name: ['', [Validators.required]],

@@ -2,8 +2,9 @@ import { environment } from "src/environments/environment";
 import { FakeHttpsService } from "../services/fake-https.service";
 import { HttpClient, HttpHandler } from "@angular/common/http";
 
+/** Creates the HTTP implementation configured for the current environment. */
 export class ServiceProviderFactory {
-    // Factory method to provide the appropriate HTTP service based on the environment
+    /** Returns the fake JSON-backed client or Angular's HttpClient. */
     static httpsServiceFactory(
         _httpHanlder: HttpHandler
     ) {

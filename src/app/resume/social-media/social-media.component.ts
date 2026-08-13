@@ -13,7 +13,7 @@ export class SocialMediaComponent extends BaseComponent<PersonDataModel> impleme
   protected readonly _context: ViewModelContext = ViewModelContext.SocialMedia;
 
   ngOnInit(): void {
-    this.intializeModel();
+    this.initializeModel();
   }
 
   /**

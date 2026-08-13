@@ -47,7 +47,7 @@ export abstract class BaseComponent<T> implements OnDestroy {
    * Initializes the model by getting an instance from the ViewModelFactory
    * and sets up automatic unsubscription.
    */
-  intializeModel(): void {
+  initializeModel(): void {
     this._model = ViewModelFactory.getViewModelInstance(this._context, this.injector);
     this.autoUnsubscribe();
   }

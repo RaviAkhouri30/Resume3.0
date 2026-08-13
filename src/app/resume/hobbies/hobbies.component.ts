@@ -14,7 +14,7 @@ export class HobbiesComponent extends BaseComponent<Hobbies[]> implements OnInit
   protected override _context: ViewModelContext = ViewModelContext.HobbiesComponent;
 
   ngOnInit(): void {
-    this.intializeModel();
+    this.initializeModel();
   }
 
 }

@@ -22,7 +22,7 @@ export class IntroductionComponent extends BaseComponent<IPersonDataModel> imple
   }
 
   ngOnInit(): void {
-    this.intializeModel();
+    this.initializeModel();
   }
 
   public downloadResume() {

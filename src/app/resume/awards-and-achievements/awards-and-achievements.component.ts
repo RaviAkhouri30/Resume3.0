@@ -13,7 +13,7 @@ export class AwardsAndAchievementsComponent extends BaseComponent<IAwardAchievem
   protected override _context: ViewModelContext = ViewModelContext.AwardsAndAchievementsComponent;
 
   ngOnInit(): void {
-    this.intializeModel();
+    this.initializeModel();
   }
 
 }
