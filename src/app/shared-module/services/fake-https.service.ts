@@ -35,7 +35,7 @@ export class FakeHttpsService implements IFakeHttps {
   get = <T>(url: string): Observable<HttpResponse<T>> => {
     const data = this.getResponse<T>(url);
 
-    return of(data).pipe(delay(2000));
+    return of(data).pipe(delay(500));
   }
 
   /**
