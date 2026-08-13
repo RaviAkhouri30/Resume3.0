@@ -1,5 +1,8 @@
-::ng-deep .mat-mdc-text-field-wrapper {
+::ng-deep .mat-mdc-text-field-wrapper,
+.mat-mdc-form-field,
+.mdc-text-field__input {
     background: transparent !important;
+    color: #E1DCC9 !important;
 }
 
 .full-width {

@@ -7,7 +7,7 @@ import { AboutMeComponent } from './about-me/about-me.component';
 import { ProfessionalSkillsComponent } from './professional-skills/professional-skills.component';
 import { ExperienceComponent } from './experience/experience.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EducationComponent } from './education/education.component';
 import { AwardsAndAchievementsComponent } from './awards-and-achievements/awards-and-achievements.component';
 import { HobbiesComponent } from './hobbies/hobbies.component';
@@ -42,7 +42,8 @@ import { MatButton } from '@angular/material/button';
         SharedModule,
         FormsModule,
         MatInputModule,
-        MatButton
+        MatButton,
+        ReactiveFormsModule
     ],
     providers: [provideHttpClient(withInterceptorsFromDi())]
 })

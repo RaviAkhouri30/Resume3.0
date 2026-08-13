@@ -1,23 +1,23 @@
 <section class="contact-me">
-    <form>
+    <form [formGroup]="form">
 
         <mat-form-field class="full-width">
             <mat-label class="form-label">Name</mat-label>
-            <input type="text" matInput name="name" id="name" />
+            <input type="text" matInput name="name" id="name" formControlName="name" />
         </mat-form-field>
 
         <mat-form-field class="full-width">
             <mat-label class="form-label">Email</mat-label>
-            <input type="email" matInput name="email" id="email" />
+            <input type="email" matInput name="email" id="email" formControlName="email" />
         </mat-form-field>
 
         <mat-form-field class="full-width">
             <mat-label class="form-label">Message</mat-label>
-            <textarea matInput></textarea>
+            <textarea matInput formControlName="message"></textarea>
         </mat-form-field>
 
         <section class="button-submit">
-            <button type="submit" matButton="outlined">Send</button>
+            <button type="submit" matButton="outlined" (click)="onSend()">Send</button>
         </section>
 
     </form>
