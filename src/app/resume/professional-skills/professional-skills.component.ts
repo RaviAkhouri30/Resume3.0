@@ -13,7 +13,7 @@ export class ProfessionalSkillsComponent extends BaseComponent<ProfessionalSkill
   protected override _context: ViewModelContext = ViewModelContext.ProfessionalSkillsComponent;
 
   ngOnInit(): void {
-    this.intializeModel();
+    this.initializeModel();
   }
 
 }

@@ -16,6 +16,10 @@ import { DownloadCommand } from '../commands/download-command';
 import { IDownload } from '../interfaces/i-download';
 
 
+/**
+ * @important It is mandatory to create a constructor and pass a context inside
+ * constructor as super(context)
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -45,9 +49,10 @@ export abstract class BaseService implements IBaseService {
     this.download = new BehaviorSubject<ICommand<IDownload>>(new DownloadCommand(this.context, {} as IDownload));
   }
 
-  // Abstract method to attach view API handler
+  /** Retrieves the view data required by a feature service. */
   public abstract attachViewDataHandler<T>(): Observable<T>;
 
+  /** Retrieves typed data from the configured backend endpoint. */
   public attachViewApiHandler<T>(url: UrlConstants): Observable<T> {
     return this.handleErrorFactory.handleHttpsError(this.fakeHttp.get<T>(GetEndPointUrl.getEndPointUrl(url))).pipe(
       filter((res) => res?.ok && res?.body !== null),
@@ -55,7 +60,7 @@ export abstract class BaseService implements IBaseService {
     );
   };
 
-  // Method to attach command API handler
+  /** Observes copy, dialog, and download commands for the feature context. */
   public attachCommandApiHandler<Tcommand extends ICommand<any>>(): Observable<Tcommand> {
     return merge(
       this.copyCommandHandler.pipe(
@@ -75,19 +80,22 @@ export abstract class BaseService implements IBaseService {
     )
   }
 
-  // Method to execute copy command
+  /** Queues a copy command and its notification message. */
   public copyCommand(data: string, message: string): void {
     this.copyCommandHandler.next(new CopyCommand(this.context, data, message));
   }
 
+  /** Queues an empty dialog command for subscribers. */
   public openDialogModelCommand(): void {
     this.openDialogModel.next({} as unknown as IOpenDialogModel<any>);
   }
 
+  /** Queues a file download command. */
   public downloadCommand(url: string, fileName: string): void {
     this.download.next(new DownloadCommand(this.context, ({ url, fileName })));
   }
 
+  /** Downloads a file response and starts a browser download. */
   private downloadCall = (url: string, fileName: string): Observable<Blob> => {
     return this.http.get(url, {
       responseType: 'blob'

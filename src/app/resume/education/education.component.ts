@@ -14,7 +14,7 @@ export class EducationComponent extends BaseComponent<IEducationDataModel[]> imp
   protected override _context: ViewModelContext = ViewModelContext.EducationComponent;
 
   ngOnInit(): void {
-    this.intializeModel();
+    this.initializeModel();
   }
 
 }

@@ -9,6 +9,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
+/** Displays application notifications through Angular Material snack bars. */
 export class NotificationService implements INotification {
 
   // Inject MatSnackBar instance
@@ -21,6 +22,7 @@ export class NotificationService implements INotification {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   // Method to show a message with an action in the snackbar
+  /** Opens a snack bar and automatically dismisses it after three seconds. */
   showMessage = (message: string, action: string): void => {
     this._snackBar.open(message, action, {
       horizontalPosition: this.horizontalPosition,
@@ -33,8 +35,10 @@ export class NotificationService implements INotification {
   };
 
   // Method to show a success message (currently logs to console)
+  /** Logs a success result until a dedicated success UI is introduced. */
   showSuccess = (message: number): void => console.log(message);
   
   // Method to show an error message (currently logs to console)
+  /** Logs an error until a dedicated error UI is introduced. */
   showError = (errorCode: number, message: string): void => console.error(message, errorCode);
 }

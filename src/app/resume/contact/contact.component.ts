@@ -22,7 +22,7 @@ export class ContactComponent extends BaseComponent<IContactDetails[]> implement
   }
 
   ngOnInit(): void {
-    this.intializeModel();
+    this.initializeModel();
   }
 
   onCopyDetails(contact: IContactDetails) {

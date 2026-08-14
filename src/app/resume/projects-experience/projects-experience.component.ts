@@ -16,7 +16,7 @@ export class ProjectsExperienceComponent extends BaseComponent<ProjectsExperienc
   // private readonly dialog: MatDialog = inject(MatDialog);
 
   ngOnInit(): void {
-    this.intializeModel();
+    this.initializeModel();
   }
 
   // public onReadMore = (title: string, message: string[]): void => {

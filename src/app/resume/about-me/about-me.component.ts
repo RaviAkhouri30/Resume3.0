@@ -24,7 +24,7 @@ export class AboutMeComponent extends BaseComponent<PersonDataModel> implements 
   }
 
   ngOnInit(): void {
-    this.intializeModel();
+    this.initializeModel();
   }
 
   /**

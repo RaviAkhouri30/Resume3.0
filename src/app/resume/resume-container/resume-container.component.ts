@@ -6,4 +6,5 @@ import { Component } from '@angular/core';
     styleUrls: ['./resume-container.component.css'],
     standalone: false
 })
+/** Layout component that composes and arranges every resume section. */
 export class ResumeContainerComponent {}

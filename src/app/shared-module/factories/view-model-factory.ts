@@ -13,8 +13,9 @@ import { SocialMediaModel } from "src/app/resume/social-media/models/social-medi
 import { ContactViewModel } from "src/app/resume/contact/models/contact-view-model";
 import { ContactMeViewModel } from "src/app/resume/contact-me/models/contact-me-view-model";
 
+/** Maps a resume-section context to its corresponding view-model implementation. */
 export class ViewModelFactory {
-    // Factory method to get the appropriate ViewModel instance based on the context
+    /** Creates a view model with the injector required by its dependencies. */
     static getViewModelInstance = (viewContext: ViewModelContext, injector: Injector): ViewModel<any> => {
         switch (viewContext) {
             case ViewModelContext.AboutMeComponent /* AboutMeComponent */:
