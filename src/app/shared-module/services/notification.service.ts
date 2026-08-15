@@ -14,10 +14,10 @@ export class NotificationService implements INotification {
 
   // Inject MatSnackBar instance
   private _snackBar: MatSnackBar = inject(MatSnackBar);
-  
+
   // Default horizontal position for the snackbar
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
-  
+
   // Default vertical position for the snackbar
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
@@ -34,10 +34,19 @@ export class NotificationService implements INotification {
     }, 3000);
   };
 
-  // Method to show a success message (currently logs to console)
-  /** Logs a success result until a dedicated success UI is introduced. */
-  showSuccess = (message: number): void => console.log(message);
-  
+  // Method to show a success message
+  showSuccess = (message: string): void => {
+    this._snackBar.open(message, 'success', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      panelClass: 'success-msg'
+    });
+    // Automatically dismiss the snackbar after 3 seconds
+    setTimeout(() => {
+      this._snackBar.dismiss();
+    }, 3000);
+  };
+
   // Method to show an error message (currently logs to console)
   /** Logs an error until a dedicated error UI is introduced. */
   showError = (errorCode: number, message: string): void => console.error(message, errorCode);

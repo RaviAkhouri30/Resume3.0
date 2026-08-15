@@ -26,9 +26,9 @@ import { IDownload } from '../interfaces/i-download';
 export abstract class BaseService implements IBaseService {
 
   // BehaviorSubject to handle copy commands
-  private readonly copyCommandHandler: BehaviorSubject<ICommand<string>>;
-  private readonly openDialogModel: BehaviorSubject<ICommand<IOpenDialogModel<any>>>;
-  private readonly download: BehaviorSubject<ICommand<IDownload>>;
+  private readonly $copyCommandHandler: BehaviorSubject<ICommand<string>>;
+  private readonly $openDialogModel: BehaviorSubject<ICommand<IOpenDialogModel<any>>>;
+  private readonly $download: BehaviorSubject<ICommand<IDownload>>;
 
   // Context of the service
   private context: Context;
@@ -37,16 +37,16 @@ export abstract class BaseService implements IBaseService {
   private readonly notificationService: NotificationService = inject(NotificationService);
   private readonly clipboard: Clipboard = inject(Clipboard);
 
-  private readonly http: HttpClient = inject(HttpClient);
-  private readonly fakeHttp: IHttps = inject(IHttps);
-  private readonly handleErrorFactory: HandleErrorFactory = inject(HandleErrorFactory);
+  private readonly $http: HttpClient = inject(HttpClient);
+  private readonly $fakeHttp: IHttps = inject(IHttps);
+  private readonly $handleErrorFactory: HandleErrorFactory = inject(HandleErrorFactory);
 
   // Constructor to initialize the context and copy command handler
   constructor(context: Context) {
     this.context = context;
-    this.copyCommandHandler = new BehaviorSubject<ICommand<string>>(new CopyCommand(this.context, '', ''));
-    this.openDialogModel = new BehaviorSubject(undefined as any);
-    this.download = new BehaviorSubject<ICommand<IDownload>>(new DownloadCommand(this.context, {} as IDownload));
+    this.$copyCommandHandler = new BehaviorSubject<ICommand<string>>(new CopyCommand(this.context, '', ''));
+    this.$openDialogModel = new BehaviorSubject(undefined as any);
+    this.$download = new BehaviorSubject<ICommand<IDownload>>(new DownloadCommand(this.context, {} as IDownload));
   }
 
   /** Retrieves the view data required by a feature service. */
@@ -54,7 +54,7 @@ export abstract class BaseService implements IBaseService {
 
   /** Retrieves typed data from the configured backend endpoint. */
   public attachViewApiHandler<T>(url: UrlConstants): Observable<T> {
-    return this.handleErrorFactory.handleHttpsError(this.fakeHttp.get<T>(GetEndPointUrl.getEndPointUrl(url))).pipe(
+    return this.$handleErrorFactory.handleHttpsError(this.$fakeHttp.get<T>(GetEndPointUrl.getEndPointUrl(url))).pipe(
       filter((res) => res?.ok && res?.body !== null),
       map((res) => res.body as T)
     );
@@ -63,17 +63,21 @@ export abstract class BaseService implements IBaseService {
   /** Observes copy, dialog, and download commands for the feature context. */
   public attachCommandApiHandler<Tcommand extends ICommand<any>>(): Observable<Tcommand> {
     return merge(
-      this.copyCommandHandler.pipe(
+      this.$copyCommandHandler.pipe(
         // Filter to ensure data item or multiple data items are present
         filter(data => Boolean(data.dataItem) || (data.multipleDataItems?.length ?? 0) > 0),
         // Tap to show notification message
         tap(data => this.clipboard.copy(data.dataItem.split(' ').join(''))),
         tap(data => this.notificationService.showMessage(data.message, data.command))
       ),
-      this.openDialogModel.pipe(),
-      this.download.pipe(
+      this.$openDialogModel.pipe(),
+      this.$download.pipe(
         filter(data => !!data && !!data.dataItem && !!data.dataItem.url),
-        switchMap(data => this.downloadCall(data.dataItem.url, data.dataItem.fileName))
+        switchMap(data => this.$downloadCall(data.dataItem.url, data.dataItem.fileName)
+          .pipe(
+            map(downloadData => ({ downloadData, data }))
+          )),
+        tap(data => this.notificationService.showSuccess(data.data.message))
       )
     ).pipe(
       map(data => data as Tcommand)
@@ -82,22 +86,22 @@ export abstract class BaseService implements IBaseService {
 
   /** Queues a copy command and its notification message. */
   public copyCommand(data: string, message: string): void {
-    this.copyCommandHandler.next(new CopyCommand(this.context, data, message));
+    this.$copyCommandHandler.next(new CopyCommand(this.context, data, message));
   }
 
   /** Queues an empty dialog command for subscribers. */
   public openDialogModelCommand(): void {
-    this.openDialogModel.next({} as unknown as IOpenDialogModel<any>);
+    this.$openDialogModel.next({} as unknown as IOpenDialogModel<any>);
   }
 
   /** Queues a file download command. */
   public downloadCommand(url: string, fileName: string): void {
-    this.download.next(new DownloadCommand(this.context, ({ url, fileName })));
+    this.$download.next(new DownloadCommand(this.context, ({ url, fileName })));
   }
 
   /** Downloads a file response and starts a browser download. */
-  private downloadCall = (url: string, fileName: string): Observable<Blob> => {
-    return this.http.get(url, {
+  private $downloadCall = (url: string, fileName: string): Observable<Blob> => {
+    return this.$http.get(url, {
       responseType: 'blob'
     }).pipe(
       tap(blob => {

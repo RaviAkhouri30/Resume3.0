@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { ContactMe } from 'src/app/shared-module/models/contact-me';
+import emailjs from '@emailjs/browser'
+import { NotificationService } from 'src/app/shared-module/services/notification.service';
 
 @Component({
   selector: 'app-contact-me',
@@ -14,6 +16,7 @@ import { ContactMe } from 'src/app/shared-module/models/contact-me';
 export class ContactMeComponent extends BaseComponent<ContactMe> implements OnInit {
 
   private readonly fb: FormBuilder = inject(FormBuilder);
+  private readonly notificationService: NotificationService = inject(NotificationService);
   private _form!: FormGroup;
 
   protected readonly _context: ViewModelContext = ViewModelContext.ContactMe;
@@ -39,7 +42,30 @@ export class ContactMeComponent extends BaseComponent<ContactMe> implements OnIn
     this.model.data.name = formVal.name;
     this.model.data.email = formVal.email;
     this.model.data.message = formVal.message;
-    console.log(this.model.data, '  test submit');
+    this.sendEmail();
+
+    // Reset the form after submit.
+    this.form.reset();
+  }
+
+  /**
+   * @description Method to send emails, if someone contact via contact me
+   */
+  public sendEmail() {
+    emailjs.send(
+      'service_g7pwa8r',
+      'template_1bvzelf',
+      {
+        title: this.model.data.email,
+        name: this.model.data.name,
+        message: this.model.data.message,
+      },
+      { publicKey: '2kOpwVxV45AwOcykd' }
+    ).then(
+      () => {
+        this.notificationService.showSuccess('message send');
+      },
+      (error) => this.notificationService.showError(400, error));
   }
 
   /** Builds the required name, email, and message controls. */
