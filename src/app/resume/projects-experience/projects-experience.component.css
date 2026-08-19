@@ -27,3 +27,15 @@ li {
 .project-experience {
     padding: 10px 0 20px;
 }
+
+
+@media screen and (max-width: 500px) {
+    .timeline>li::before {
+        left: 7px;
+    }
+
+    ul {
+        padding: 10px;
+    }
+
+}

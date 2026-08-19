@@ -15,6 +15,19 @@
     margin-bottom: 60px;
 }
 
-.content, li{
+.content,
+li {
     font-size: 12px !important;
+}
+
+
+@media screen and (max-width: 500px) {
+    .timeline>li::before {
+        left: 7px;
+    }
+
+    ul {
+        padding: 10px;
+    }
+
 }

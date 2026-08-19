@@ -41,19 +41,23 @@
   "hobbies": [
     {
       "icon": "bi bi-camera-fill",
-      "hobby": "Photography"
+      "hobby": "Photography",
+      "description": "I love to capture moments and stories while travelling and during any events. I have a professional mirrorless camera and sction camera, which i take with my everywhere i travel."
     },
     {
       "icon": "bi bi-playstation",
-      "hobby": "Gaming"
+      "hobby": "Gaming",
+      "description": "During my free time, i love to enjoy story games."
     },
     {
       "icon": "bi bi-code-slash",
-      "hobby": "Coding"
+      "hobby": "Coding",
+      "description": "I also like coding in my free time, via which i explore things and do some creative works."
     },
     {
       "icon": "bi bi-music-note-beamed",
-      "hobby": "Guitar"
+      "hobby": "Guitar",
+      "description": "I was always fasinated by guitar looks and peoples who play guitar.So, now i started learning it, now i can play few melodies."
     }
   ],
   "contact-details": [

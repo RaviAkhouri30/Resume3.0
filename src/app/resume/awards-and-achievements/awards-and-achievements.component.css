@@ -20,4 +20,19 @@ li {
     .awards-and-achievements {
         padding: 10px 0 20px;
     }
+
+    .timeline>li::before {
+        left: 7px;
+    }
+
+    ul {
+        padding: 10px;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .awards-and-achievements {
+        padding: 20px 10px;
+    }
 }
