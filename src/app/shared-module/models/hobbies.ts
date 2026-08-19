@@ -3,10 +3,20 @@ import { IHobbies } from "../interfaces/i-hobbies";
 export class Hobbies implements IHobbies {
     private _icon: string;
     private _hobby: string;
+    private _description: string;
 
     constructor(hobby: IHobbies) {
         this._icon = hobby.icon;
         this._hobby = hobby.hobby;
+        this._description = hobby.description;
+    }
+
+    public get description() {
+        return this._description;
+    }
+
+    public set description(description: string) {
+        this._description = description;
     }
 
     public get icon(): string {

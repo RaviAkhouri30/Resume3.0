@@ -6,7 +6,10 @@
         <ul class="timeline">
             @for (item of model.data; track $index) {
             <li>
-                <p class="hobby-list"> {{item.hobby}} <i class="{{item.icon}}"></i> </p>
+                <strong>
+                    <p class="hobby-list"> {{item.hobby}} <i class="{{item.icon}}"></i> </p>
+                </strong>
+                <p> {{item.description}} </p>
             </li>
             }
         </ul>

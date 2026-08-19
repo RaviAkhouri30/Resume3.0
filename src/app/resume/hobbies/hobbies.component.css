@@ -37,3 +37,15 @@ li {
 .hobby-list>i:hover {
     transform: scale(1.3);
 }
+
+
+@media screen and (max-width: 500px) {
+    .timeline>li::before {
+        left: 7px;
+    }
+
+    ul {
+        padding: 10px;
+    }
+
+}

@@ -41,12 +41,20 @@ ul {
     margin-top: 5px;
 }
 
-@media screen and (max-width: 500px) {
-    /* .years {
-        font-size: 24px !important;
-    } */
+@media screen and (max-width: 768px) {
+    .years {
+        font-size: 15px !important;
+    }
 
     ul li {
         max-width: 70px;
+    }
+
+    .bi-plus {
+        font-size: 18px !important;
+    }
+
+    .parameter-label {
+        font-size: 8px !important;
     }
 }

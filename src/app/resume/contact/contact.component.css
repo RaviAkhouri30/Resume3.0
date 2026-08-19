@@ -30,3 +30,9 @@
 ul li {
     cursor: pointer !important;
 }
+
+@media screen and (max-width:768px) {
+    ul {
+        padding: 0;
+    }
+}
