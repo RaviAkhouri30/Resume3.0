@@ -5,7 +5,7 @@ li {
 
 .awards-and-achievements {
     display: flex;
-    padding: 80px;
+    padding: 80px 0;
     flex-direction: column;
     color: #E1DCC9;
     justify-content: center;
