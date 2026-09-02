@@ -1,11 +1,11 @@
-import { IHobbies } from "../interfaces/i-hobbies";
+import { IHobbiesDataModel } from "../interfaces/i-hobbies";
 
-export class Hobbies implements IHobbies {
+export class Hobbies implements IHobbiesDataModel {
     private _icon: string;
     private _hobby: string;
     private _description: string;
 
-    constructor(hobby: IHobbies) {
+    constructor(hobby: IHobbiesDataModel) {
         this._icon = hobby.icon;
         this._hobby = hobby.hobby;
         this._description = hobby.description;

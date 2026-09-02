@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
+import { mapToTimelineItems } from 'src/app/shared-module/helper-functions/map-to-timeline-items';
+import { mapProjectsToTimelineItem } from 'src/app/shared-module/helper-functions/transform-to-timeline';
+import { ITimeline } from 'src/app/shared-module/interfaces/i-timeline';
 import { ProjectsExperienceDataModel } from 'src/app/shared-module/models/projects-experience-data-model';
 
 @Component({
@@ -22,5 +25,10 @@ export class ProjectsExperienceComponent extends BaseComponent<ProjectsExperienc
   // public onReadMore = (title: string, message: string[]): void => {
   //   this.dialog.open(ShowMessageDialogComponent, { data: { title, message } });
   // }
+
+
+  get transformedTimelineItems(): ITimeline[] {
+    return mapToTimelineItems(this.model.data, mapProjectsToTimelineItem);
+  }
 
 }

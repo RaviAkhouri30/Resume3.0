@@ -4,27 +4,7 @@
   </div>
   <div class="experience-container">
     <div class="experience">
-      @for (item of model.data; track $index) {
-      <ul class="timeline">
-        <li>
-          <div class="heading">
-            <div class="heading-container">
-              <h6>{{ item.tenure }}</h6>
-              <h5>{{ item.companyName }}</h5>
-            </div>
-          </div> 
-          <div class="content-container">
-            <article class="content">
-              <ul>
-                @for (responsibility of item.responsibilities; track $index) {
-                <li>{{ responsibility }}</li>
-                }
-              </ul>
-            </article>
-          </div>
-        </li>
-      </ul>
-      }
+      <app-timeline [timelineList]="transformedTimelineItems"></app-timeline>
     </div>
   </div>
 </section>
