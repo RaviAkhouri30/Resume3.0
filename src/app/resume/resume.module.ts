@@ -19,6 +19,7 @@ import { SocialMediaComponent } from './social-media/social-media.component';
 import { ContactMeComponent } from './contact-me/contact-me.component';
 import { MatInputModule } from '@angular/material/input'
 import { MatButton } from '@angular/material/button';
+import { TimelineComponent } from '../shared-module/components/timeline/timeline.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { MatButton } from '@angular/material/button';
         FormsModule,
         MatInputModule,
         MatButton,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TimelineComponent
     ],
     providers: [provideHttpClient(withInterceptorsFromDi())]
 })

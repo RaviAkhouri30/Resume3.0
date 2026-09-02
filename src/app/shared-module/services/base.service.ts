@@ -9,7 +9,7 @@ import { IOpenDialogModel } from '../interfaces/i-open-dialog-model';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { IFakeHttps as IHttps } from '../interfaces/i-fake-https';
 import { HandleErrorFactory } from '../factories/handle-error-factory';
-import { GetEndPointUrl } from '../functions/get-end-point-url';
+import { GetEndPointUrl } from '../helper-functions/get-end-point-url';
 import { UrlConstants } from '../constants/url-constants';
 import { HttpClient } from '@angular/common/http';
 import { DownloadCommand } from '../commands/download-command';

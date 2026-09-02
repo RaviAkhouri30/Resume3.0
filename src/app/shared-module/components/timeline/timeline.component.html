@@ -1,0 +1,32 @@
+<ul class="timeline">
+    @for (item of timelineList(); track item.subtitle) {
+    <li>
+        <div class="heading">
+            <div class="heading-container">
+                @if (item.subtitle) {
+                <span class="list-items">
+                    <strong class="sub-title">{{item.subtitle}}</strong> &nbsp; <i class="{{item.icon}}"></i>
+                </span>
+                }
+                @if(item.title) {
+                <h5>{{ item.title }}</h5>
+                }
+            </div>
+        </div>
+        <div class="content-container">
+            <article class="content">
+                @if(item.description) {
+                <p>{{ item.description }}</p>
+                }
+                @if(item.bullets) {
+                <ul>
+                    @for (bullet of item.bullets; track $index) {
+                    <li>{{ bullet }}</li>
+                    }
+                </ul>
+                }
+            </article>
+        </div>
+    </li>
+    }
+</ul>

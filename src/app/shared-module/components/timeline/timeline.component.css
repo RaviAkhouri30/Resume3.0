@@ -1,0 +1,42 @@
+.heading-container {
+    font-size: 6px;
+    color: rgb(255, 119, 0);
+}
+
+.content,
+li {
+    font-size: 12px !important;
+}
+
+.experience {
+    padding: 10px 0 20px;
+}
+
+
+.list-items {
+    font-size: 16px;
+}
+
+.list-items>i {
+    display: inline-block;
+    transition: all ease-in-out 0.3s;
+}
+
+.list-items>i:hover {
+    transform: scale(1.3);
+}
+
+.sub-title {
+    font-size: 12px;
+}
+
+@media screen and (max-width: 500px) {
+    .timeline>li::before {
+        left: 7px;
+    }
+
+    ul {
+        padding: 10px;
+    }
+
+}

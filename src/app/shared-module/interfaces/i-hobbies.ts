@@ -1,4 +1,4 @@
-export interface IHobbies {
+export interface IHobbiesDataModel {
     icon: string;
     hobby: string;
     description: string;
