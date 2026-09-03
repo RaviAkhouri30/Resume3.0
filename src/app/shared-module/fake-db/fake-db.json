@@ -197,6 +197,26 @@
       "instituteName": "Swami Vivekananda Institute of Science and Technology",
       "graduationYear": "2019",
       "grade": "7.79"
+    },
+    {
+      "personUid": "RS-1",
+      "uid": "edu-2",
+      "degree": "12th Standard",
+      "major": "PCM",
+      "university": "CBSE",
+      "instituteName": "Tender Heart School",
+      "graduationYear": "2014",
+      "grade": "72.20%"
+    },
+    {
+      "personUid": "RS-1",
+      "uid": "edu-3",
+      "degree": "10th Standard",
+      "major": "",
+      "university": "CBSE",
+      "instituteName": "DAV Public School, HEHAL",
+      "graduationYear": "2012",
+      "grade": "8.6"
     }
   ],
   "skills": [
