@@ -5,6 +5,61 @@
 ## Project Description
 This project is a resume builder application developed using Angular. It is designed to showcase personal and professional details in a structured and visually appealing format. The application follows modern web development practices and is built with modularity and scalability in mind.
 
+## Development and Security Checks
+
+Install dependencies and run the production build with:
+
+```bash
+npm install
+npm run build
+```
+
+Check dependencies for known vulnerabilities with:
+
+```bash
+npm audit
+```
+
+The `overrides` section in `package.json` pins vulnerable transitive dependencies to patched versions. The `body-parser` override is scoped to Karma so it does not change the major version required by Express. After dependency changes, verify both the audit and build before committing:
+
+```bash
+npm audit
+npm run build
+```
+
+## Shared Presentation Components
+
+### Timeline
+
+The reusable timeline presentation component is located at:
+
+`src/app/shared-module/components/timeline/`
+
+It accepts a required `ITimeline[]` input through `timelineList`:
+
+```html
+<app-timeline [timelineList]="transformedTimelineItems"></app-timeline>
+```
+
+The consuming resume section is responsible for transforming its own domain
+model into `ITimeline`. This keeps the timeline component presentational and
+allows it to be reused by awards, education, experience, hobbies, and projects.
+The shared contract is defined in:
+
+`src/app/shared-module/interfaces/i-timeline.ts`
+
+### Text magnifier
+
+`TextMagnifierDirective` is a shared standalone directive located at:
+
+`src/app/shared-module/directives/text-magnifier.directive.ts`
+
+It is registered by `SharedModule` and applies to common text elements such as
+headings, paragraphs, list items, links, labels, and table cells. Hovering or
+focusing readable text displays one floating, magnified glass-style preview.
+The directive manages the active tooltip globally so nested text elements and
+adjacent list items do not display duplicate previews.
+
 ## Folder Structure
 ```
 Resume3.0/
