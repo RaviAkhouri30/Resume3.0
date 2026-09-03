@@ -16,13 +16,13 @@ export class TextMagnifierDirective implements OnDestroy {
         private readonly renderer: Renderer2
     ) { }
 
-    @HostListener('mouseenter', ['$event'])
+    @HostListener('mouseover', ['$event'])
     onMouseEnter(event: Event): void {
-        if (!(event instanceof MouseEvent)) {
-            return;
-        }
+        if (!this.isListItemHover(event)) {
+            if (TextMagnifierDirective.activeDirective === this) {
+                this.hideTooltip();
+            }
 
-        if (!this.isHoveredTextElement(event)) {
             return;
         }
 
@@ -31,16 +31,60 @@ export class TextMagnifierDirective implements OnDestroy {
             return;
         }
 
-        this.showTooltip(event, text);
+        if (event instanceof MouseEvent) {
+            this.showTooltip(event, text);
+            return;
+        }
+
+        this.showTooltipFromElement(this.elementRef.nativeElement.getBoundingClientRect(), text);
+    }
+
+    @HostListener('pointerenter', ['$event'])
+    onPointerEnter(event: Event): void {
+        this.onMouseEnter(event);
+    }
+
+    @HostListener('mouseenter', ['$event'])
+    onMouseEnterDirectly(event: Event): void {
+        this.onMouseEnter(event);
+    }
+
+    @HostListener('document:mouseover', ['$event'])
+    onDocumentMouseOver(event: Event): void {
+        if (this.elementRef.nativeElement.tagName !== 'LI' || !(event instanceof MouseEvent)) {
+            return;
+        }
+
+        const target = event.target instanceof Element ? event.target : null;
+        if (!target || !this.elementRef.nativeElement.contains(target)) {
+            return;
+        }
+
+        this.onMouseEnter(event);
     }
 
     @HostListener('mousemove', ['$event'])
     onMouseMove(event: Event): void {
-        if (!(event instanceof MouseEvent)) {
+        if (!this.isListItemHover(event)) {
+            if (TextMagnifierDirective.activeDirective === this) {
+                this.hideTooltip();
+            }
+
             return;
         }
 
-        if (!this.isHoveredTextElement(event)) {
+        if (!(event instanceof MouseEvent)) {
+            if (!this.tooltip) {
+                const text = this.getText();
+                if (text) {
+                    this.showTooltipFromElement(this.elementRef.nativeElement.getBoundingClientRect(), text);
+                }
+            }
+
+            return;
+        }
+
+        if (TextMagnifierDirective.activeDirective && TextMagnifierDirective.activeDirective !== this) {
             return;
         }
 
@@ -63,6 +107,10 @@ export class TextMagnifierDirective implements OnDestroy {
 
     @HostListener('focusin')
     onFocusIn(): void {
+        if (!this.isLeafListItem()) {
+            return;
+        }
+
         const text = this.getText();
         if (!text) {
             return;
@@ -86,14 +134,43 @@ export class TextMagnifierDirective implements OnDestroy {
         return text.replace(/\s+/g, ' ');
     }
 
-    private isHoveredTextElement(event: MouseEvent): boolean {
-        const hoveredElement = document.elementFromPoint(event.clientX, event.clientY);
-        return hoveredElement?.closest(textElementSelector) === this.elementRef.nativeElement
-            && !this.hasTextElementDescendant();
+    private isListItemHover(event: Event): boolean {
+        if (this.isLeafListItem() === false) {
+            return false;
+        }
+
+        if (this.elementRef.nativeElement.tagName !== 'LI') {
+            return true;
+        }
+
+        const target = event.target instanceof Element ? event.target : null;
+        if (target?.closest('li') !== this.elementRef.nativeElement) {
+            return false;
+        }
+
+        const nestedList = this.elementRef.nativeElement.querySelector('ul');
+        if (nestedList?.contains(target)) {
+            return false;
+        }
+
+        if (nestedList && event instanceof MouseEvent) {
+            const rect = nestedList.getBoundingClientRect();
+            const isInsideNestedList = event.clientX >= rect.left
+                && event.clientX <= rect.right
+                && event.clientY >= rect.top
+                && event.clientY <= rect.bottom;
+
+            if (isInsideNestedList) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
-    private hasTextElementDescendant(): boolean {
-        return this.elementRef.nativeElement.querySelector(textElementSelector) !== null;
+    private isLeafListItem(): boolean {
+        return this.elementRef.nativeElement.tagName !== 'LI'
+            || this.elementRef.nativeElement.querySelector('ul') === null;
     }
 
     private showTooltip(event: MouseEvent, text: string): void {
@@ -110,6 +187,7 @@ export class TextMagnifierDirective implements OnDestroy {
 
         this.setTooltipText(text);
         this.positionTooltip(event);
+        this.tooltip.style.display = 'block';
         this.tooltip.style.opacity = '1';
         this.tooltip.style.transform = 'translateY(0) scale(1)';
     }
@@ -136,6 +214,7 @@ export class TextMagnifierDirective implements OnDestroy {
 
         this.tooltip.style.left = `${x}px`;
         this.tooltip.style.top = `${y}px`;
+        this.tooltip.style.display = 'block';
         this.tooltip.style.opacity = '1';
         this.tooltip.style.transform = 'translateY(0) scale(1)';
     }
@@ -238,6 +317,7 @@ export class TextMagnifierDirective implements OnDestroy {
 
         this.tooltip.style.opacity = '0';
         this.tooltip.style.transform = 'translateY(8px) scale(0.96)';
+        this.tooltip.style.display = 'none';
 
         setTimeout(() => {
             if (this.tooltip && this.tooltip.style.opacity === '0') {
