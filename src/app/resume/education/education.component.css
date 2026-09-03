@@ -1,6 +1,6 @@
 .education {
     display: flex;
-    padding: 10px 20px 20px;
+    padding: 10px 0 20px;
     flex-direction: column;
     color: #E1DCC9;
 }

@@ -90,3 +90,9 @@ body {
 .timeline ul li::before {
     display: none;
 }
+
+@media screen and (max-width: 500px) {
+    .col-sm-6 {
+        padding: 0;
+    }
+}
