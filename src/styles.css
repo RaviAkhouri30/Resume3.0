@@ -14,6 +14,26 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
+@keyframes textMagnifierReflection {
+
+    0%,
+    10% {
+        left: -45%;
+        opacity: 0.18;
+    }
+
+    48% {
+        left: 112%;
+        opacity: 0.72;
+    }
+
+    62%,
+    100% {
+        left: 112%;
+        opacity: 0.18;
+    }
+}
+
 .timeline {
     list-style: none;
     padding: 0;
