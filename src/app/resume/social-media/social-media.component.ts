@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { PersonDataModel } from 'src/app/shared-module/models/person-data-model';
@@ -7,6 +7,7 @@ import { PersonDataModel } from 'src/app/shared-module/models/person-data-model'
   selector: 'app-social-media',
   standalone: false,
   templateUrl: './social-media.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './social-media.component.css',
 })
 export class SocialMediaComponent extends BaseComponent<PersonDataModel> implements OnInit {

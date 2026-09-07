@@ -6,7 +6,7 @@ import { SharedModule } from '../shared-module/shared.module';
 import { AboutMeComponent } from './about-me/about-me.component';
 import { ProfessionalSkillsComponent } from './professional-skills/professional-skills.component';
 import { ExperienceComponent } from './experience/experience.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EducationComponent } from './education/education.component';
 import { AwardsAndAchievementsComponent } from './awards-and-achievements/awards-and-achievements.component';
@@ -47,6 +47,6 @@ import { TimelineComponent } from '../shared-module/components/timeline/timeline
         ReactiveFormsModule,
         TimelineComponent
     ],
-    providers: [provideHttpClient(withInterceptorsFromDi())]
+    providers: [provideHttpClient(withXhr(), withInterceptorsFromDi())]
 })
 export class ResumeModule { }

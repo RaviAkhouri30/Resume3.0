@@ -1,4 +1,4 @@
-import { Component, Injector, OnDestroy } from '@angular/core';
+import { Component, Injector, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IViewModel } from '../../interfaces/i-view-model';
 import { ViewModelContext } from '../../enums/view-model-context';
@@ -13,6 +13,7 @@ import { ViewModelFactory } from '../../factories/view-model-factory';
 @Component({
   selector: 'app-base',
   template: '',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export abstract class BaseComponent<T> implements OnDestroy {

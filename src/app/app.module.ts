@@ -1,4 +1,4 @@
-import { HttpHandler, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpHandler, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -25,7 +25,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   ],
   // Define the services and providers available in this module
   providers: [
-    provideHttpClient(withInterceptorsFromDi()), // Configures the HTTP client with dependency injection-based interceptors
+    provideHttpClient(withXhr(), withInterceptorsFromDi()), // Configures the HTTP client with dependency injection-based interceptors
     {
       provide: IFakeHttps, // Token for a custom HTTP service
       useFactory: ServiceProviderFactory.httpsServiceFactory, // Factory function to create the service
