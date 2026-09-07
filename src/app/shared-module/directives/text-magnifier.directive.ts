@@ -63,6 +63,11 @@ export class TextMagnifierDirective implements OnDestroy {
         this.onMouseEnter(event);
     }
 
+    @HostListener('window:scroll')
+    onWindowScroll(): void {
+        TextMagnifierDirective.activeDirective?.hideTooltip();
+    }
+
     @HostListener('mousemove', ['$event'])
     onMouseMove(event: Event): void {
         if (!this.isListItemHover(event)) {
