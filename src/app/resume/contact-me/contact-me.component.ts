@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
@@ -10,6 +10,7 @@ import { NotificationService } from 'src/app/shared-module/services/notification
   selector: 'app-contact-me',
   standalone: false,
   templateUrl: './contact-me.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './contact-me.component.css',
 })
 /** Displays and validates the contact form. Submission is currently local only. */

@@ -1,4 +1,4 @@
-import { Component, inject, Injector, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { IContactDetails } from 'src/app/shared-module/interfaces/i-contact-details';
@@ -8,6 +8,7 @@ import { ContactService } from './services/contact.service';
   selector: 'app-contact',
   standalone: false,
   templateUrl: './contact.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './contact.component.css',
 })
 export class ContactComponent extends BaseComponent<IContactDetails[]> implements OnInit {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * @deprecated This component is currently not in use.
@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   selector: 'app-experience-graph',
   standalone: false,
   templateUrl: './experience-graph.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './experience-graph.component.css',
 })
 export class ExperienceGraphComponent {

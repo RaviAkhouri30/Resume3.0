@@ -4,6 +4,7 @@
   "compilerOptions": {
     "incremental": true,
     "baseUrl": "./",
+    "ignoreDeprecations": "6.0",
     "outDir": "./dist/out-tsc",
     "esModuleInterop": true,
     "strict": true,
@@ -26,10 +27,6 @@
     "skipLibCheck": true,
     "allowUnreachableCode": false,
     "noErrorTruncation": true,
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { mapToTimelineItems } from 'src/app/shared-module/helper-functions/map-to-timeline-items';
@@ -10,6 +10,7 @@ import { ITimeline } from 'src/app/shared-module/interfaces/i-timeline';
   selector: 'app-awards-and-achievements',
   templateUrl: './awards-and-achievements.component.html',
   styleUrl: './awards-and-achievements.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class AwardsAndAchievementsComponent extends BaseComponent<IAwardAchievements[]> implements OnInit {

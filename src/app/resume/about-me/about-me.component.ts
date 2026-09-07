@@ -1,4 +1,4 @@
-import { Component, inject, Injector, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { AboutMeService } from './services/about-me.service';
@@ -8,6 +8,7 @@ import { PersonDataModel } from 'src/app/shared-module/models/person-data-model'
   selector: 'app-about-me',
   templateUrl: './about-me.component.html',
   styleUrls: ['./about-me.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class AboutMeComponent extends BaseComponent<PersonDataModel> implements OnInit {

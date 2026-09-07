@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { mapToTimelineItems } from 'src/app/shared-module/helper-functions/map-to-timeline-items';
@@ -10,6 +10,7 @@ import { ProjectsExperienceDataModel } from 'src/app/shared-module/models/projec
   selector: 'app-projects-experience',
   standalone: false,
   templateUrl: './projects-experience.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './projects-experience.component.css',
 })
 export class ProjectsExperienceComponent extends BaseComponent<ProjectsExperienceDataModel[]> {

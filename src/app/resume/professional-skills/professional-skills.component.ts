@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { ProfessionalSkillsDataModel } from 'src/app/shared-module/models/professional-skills-data-model';
@@ -7,6 +7,7 @@ import { ProfessionalSkillsDataModel } from 'src/app/shared-module/models/profes
   selector: 'app-professional-skills',
   templateUrl: './professional-skills.component.html',
   styleUrls: ['./professional-skills.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class ProfessionalSkillsComponent extends BaseComponent<ProfessionalSkillsDataModel[]> implements OnInit {
