@@ -26,10 +26,6 @@
     "skipLibCheck": true,
     "allowUnreachableCode": false,
     "noErrorTruncation": true,
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
