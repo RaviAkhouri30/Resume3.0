@@ -3,10 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  // Local development uses the nested fake database by default.
   production: false,
   fakeBackend: true,
   firebaseBackend: false,
-  baseUrl: 'http://fake-api-url',
+  // Shared prefix; feature endpoints append section names such as `education`.
+  baseUrl: 'resumes/RS-PLACEHOLDER/resume',
   firebase: {
     apiKey: 'AIzaSyARu-OaWZYUK6qA9ONoq8YDGp8oljKMjis',
     authDomain: 'resume-builder-f0652.firebaseapp.com',

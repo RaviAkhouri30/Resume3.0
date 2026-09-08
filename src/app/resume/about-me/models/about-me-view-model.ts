@@ -24,7 +24,10 @@ export class AboutMeViewModel extends ViewModel<PersonDataModel> {
     protected override attachViewHandler = (): Observable<void> => {
         return this._aboutMeService.attachViewDataHandler<IPersonDataModel>().pipe(
             // Use tap to assign the result to the data property
-            tap(result => this.data = new PersonDataModel(result)),
+            tap(result => {
+                debugger;
+                this.data = new PersonDataModel(result)
+            }),
             tap(result => this._commonService.aboutMeData = result),
             // Map the result to void
             map(() => { })

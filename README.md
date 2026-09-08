@@ -1,5 +1,3 @@
-# Documentation Comment
-
 # RaviResume3
 
 ## Project Description
@@ -29,24 +27,68 @@ npm run build
 
 ## Backend Architecture
 
-The application currently separates the service layer from its concrete storage implementation via the shared HTTP backend contract in `src/app/shared-module/interfaces/i-http-backend.ts`.
+The application separates feature logic from persistence details through the shared contract in `src/app/shared-module/interfaces/i-http-backend.ts`.
 
-- `BaseService` consumes `IHttpBackend` instead of hard-coding a storage technology.
-- `FirebaseBackendService` adapts Firestore document operations to the same Angular-style `HttpResponse` contract used by the app.
-- `FirebaseDatabaseService` centralizes the Firebase SDK bootstrap and exposes the initialized `Firestore`/`Auth` objects.
-- Environment files toggle the backend mode so the app can switch between mock, Firebase, or other future providers without changing the resume feature logic.
+- `BaseService` consumes `IHttpBackend` instead of depending on a specific storage implementation.
+- `FakeHttpsService` provides a local JSON-backed mock implementation for development and demos.
+- `FirebaseBackendService` adapts Firestore document operations to the same Angular `HttpResponse` shape used elsewhere in the app.
+- `FirebaseDatabaseService` initializes the Firebase app and exposes the shared `Firestore` and `Auth` instances.
+- Environment flags allow the app to switch between the local mock backend and Firebase without changing the resume feature services.
+
+### Resume data path
+
+The application uses the following Firestore hierarchy so each user's resume data is isolated:
+
+```text
+resumes/{userId}/resume/{section}
+```
+
+For example:
+
+```text
+resumes/RS-1/resume/about-me
+resumes/RS-1/resume/education
+resumes/RS-1/resume/experience
+```
+
+The feature services request only a section name. `baseUrl` supplies the shared
+`resumes/{userId}/resume` prefix, and `FirebaseBackendService` validates and
+resolves the complete document path. Sections that are arrays are stored in
+Firestore as `{ items: [...] }` because a Firestore document must be an object;
+the adapter unwraps `items` before returning the response to the application.
+
+The local data source mirrors the same hierarchy in
+`src/app/shared-module/fake-db/fake-db.json`, so switching backends does not
+change the payload shape consumed by the feature view models.
+
+### Firebase import and rules
+
+The local importer reads the fake database and writes each section document to
+the hierarchy above. The importer is intentionally ignored by Git because it
+is a local administrative utility; keep service-account JSON files outside the
+repository and never commit them.
+
+```bash
+npm run import:resume -- "$HOME/Downloads/<service-account-file>.json"
+```
+
+When Firebase CLI configuration is added, deploy rules that allow public reads
+for published resume content and restrict writes to an authenticated user whose
+Firebase UID matches the `{userId}` path segment. Keep deployment rules in the
+repository so the permission model is reviewable and repeatable.
 
 Example environment state:
 
 ```ts
 export const environment = {
-  production: true,
-  fakeBackend: false,
-  firebaseBackend: true
+    production: false,
+    fakeBackend: true,
+    firebaseBackend: false,
+    baseUrl: 'resumes/RS-1/resume'
 };
 ```
 
-This keeps the resume feature modules stable while the persistence layer remains replaceable.
+This keeps the resume modules stable while the data source remains replaceable and testable.
 
 ## Shared Presentation Components
 
@@ -158,7 +200,7 @@ classDiagram
 
     class BaseComponent~T~ {
         #_context ViewModelContext
-        +intializeModel() void
+        +initializeModel() void
         +model IViewModel~T~
         +ngOnDestroy() void
     }
@@ -268,20 +310,20 @@ sequenceDiagram
     participant Factory as ViewModelFactory
     participant VM as AboutMeViewModel
     participant Service as AboutMeService
-    participant HTTP as FakeHttpsService
-    participant DB as fake-db.json
+    participant HTTP as IHttpBackend
+    participant DB as fake-db.json or Firestore
     participant Clipboard
     participant Notice as NotificationService
 
     User->>AboutMe: Open resume section
-    AboutMe->>Base: ngOnInit() / intializeModel()
+    AboutMe->>Base: ngOnInit() / initializeModel()
     Base->>Factory: getViewModelInstance(AboutMeComponent, injector)
     Factory-->>Base: AboutMeViewModel
     Base->>VM: inIt() and subscribe()
     par Load section data
         VM->>Service: attachViewDataHandler()
-        Service->>HTTP: get('/about-me')
-        HTTP->>DB: look up about-me data
+        Service->>HTTP: get('resumes/RS-1/resume/about-me')
+        HTTP->>DB: read the about-me section document
         DB-->>HTTP: response body
         HTTP-->>Service: HttpResponse after delay
         Service-->>VM: Person data
@@ -315,16 +357,16 @@ sequenceDiagram
    Navigate to `http://localhost:4200/` to view the application.
 4. Build the project for production:
    ```bash
-   ng build --prod
+    npm run build
    ```
 
 ## Running Tests
-- **Unit Tests**: Run `ng test` to execute unit tests via Karma.
-- **End-to-End Tests**: Run `ng e2e` to execute end-to-end tests.
+- **Unit Tests**: Run `npm test` to execute unit tests via Karma.
+- The repository does not currently define an end-to-end test script.
 
 ## Additional Notes
 - Ensure that you have Node.js and Angular CLI installed on your system.
-- Replace the placeholder diagrams with actual diagrams to provide a better understanding of the application architecture.
+- The diagrams describe the current view-model and backend flow; update them when the provider or data-path contract changes.
 
 ### Reference
 - color palattes ---- https://colorhunt.co/palette/0000001f150c412d15e1dcc9

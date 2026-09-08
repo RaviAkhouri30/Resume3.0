@@ -10,7 +10,10 @@ import { FirebaseBackendService } from "../services/firebase-backend.service";
  * Firebase Firestore, or the standard Angular HTTP client to be chosen at runtime.
  */
 export class ServiceProviderFactory {
-    /** Returns the active backend implementation for the configured environment. */
+    /**
+     * Returns the active backend implementation for the configured environment.
+     * The selected implementation must preserve the `IHttpBackend` response contract.
+     */
     static httpsServiceFactory(
         _httpHanlder: HttpHandler
     ) {

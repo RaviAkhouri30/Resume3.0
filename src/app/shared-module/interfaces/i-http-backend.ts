@@ -19,4 +19,7 @@ export abstract class IHttpBackend {
 
     /** Applies a partial update to an existing resource. */
     abstract patch<T>(url: string, body: any): Observable<HttpResponse<T>>;
+
+    /** Indicates whether the active backend has an authenticated user session. */
+    abstract isAuthenticated(): boolean;
 }

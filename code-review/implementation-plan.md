@@ -6,6 +6,8 @@ Create a concrete refactor plan to improve architecture, SOLID compliance, Angul
 
 > Current state note: the project has moved toward a backend abstraction based on `IHttpBackend`, with `FirebaseBackendService` acting as the Firestore-backed implementation. The recommendations below remain useful for broader architectural cleanup, but the app now uses a backend contract rather than the older raw fake-backend-only pattern.
 
+> Data-path note: both providers now resolve sections through `resumes/{userId}/resume/{section}`. The fake database mirrors this hierarchy, and the Firebase importer stores array sections as `{ items: [...] }` documents.
+
 ## Priority Order
 
 1. Fix Angular DI and provider patterns
@@ -19,7 +21,7 @@ Create a concrete refactor plan to improve architecture, SOLID compliance, Angul
 ## 1. Fix Angular DI and provider patterns
 
 ### Problem
-- `ServiceProviderFactory` manually creates `HttpClient`.
+- `ServiceProviderFactory` manually creates `HttpClient` and selects the fake/Firebase backend in application code.
 - `ResumeModule` re-provides `provideHttpClient(withInterceptorsFromDi())`.
 - `IFakeHttps` is an abstract class with `@Inject` metadata.
 
@@ -29,8 +31,8 @@ Use Angular dependency injection consistently and avoid manually constructing fr
 ### Recommended changes
 - Remove `provideHttpClient(...)` from `ResumeModule`.
 - Keep `provideHttpClient(withInterceptorsFromDi())` in `AppModule` only.
-- Replace `IFakeHttps` provider metadata with a proper `InjectionToken`.
-- Provide the fake backend implementation via `useClass` or `useFactory` on the token.
+- Replace backend provider selection with a proper `InjectionToken` when additional backend implementations are introduced.
+- Provide the fake and Firebase implementations through Angular provider configuration.
 
 ### Code examples
 #### `src/app/shared-module/interfaces/i-fake-https.ts`

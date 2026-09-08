@@ -22,31 +22,35 @@ export class FirebaseBackendService implements IHttpBackend {
     }
 
     /**
-     * Parses a URL into a Firestore collection path and document ID.
+     * Converts an endpoint into the document path used by Firestore.
      *
-     * Example: /resumes/123 -> collectionPath = 'resumes', docId = '123'
+    * The application endpoint is intentionally aligned with the database hierarchy:
+     * `resumes/{userId}/resume/{section}`. Keeping the complete path is important because
+    * the user document scopes every resume section to its owner. Array sections are
+    * stored as an `{ items: [...] }` document and unwrapped after reading.
      */
-    private parseUrl(url: string): { collectionPath: string; docId: string } {
-        // 1. Defensively strip leading/trailing slashes and filter empty items.
-        const splitUrl = url.split('/').filter(segment => segment.trim() !== '');
+    private parseUrl(url: string): string[] {
+        const normalizedUrl = url.replace(/^https?:\/\//i, '').replace(/^\/+/, '').replace(/\/+$/, '');
+        const segments = normalizedUrl.split('/').filter(segment => segment.trim() !== '');
 
-        // 2. Fall back to safe defaults so the code never creates undefined IDs or paths.
-        const docId = splitUrl[splitUrl.length - 1] || 'default-id';
-        const collectionPath = splitUrl[splitUrl.length - 2] || 'resumes';
+        if (segments.length < 4 || segments[0] !== 'resumes' || segments[2] !== 'resume') {
+            throw new Error(`Invalid resume URL: ${url}. Expected resumes/{userId}/resume/{section}.`);
+        }
 
-        return { collectionPath, docId };
+        return segments;
     }
 
     /** Reads a document from Firestore and wraps the result in Angular's HttpResponse shape. */
     get<T>(url: string): Observable<HttpResponse<T>> {
-        const { collectionPath, docId } = this.parseUrl(url);
-        const docRef = doc(this.db, collectionPath, docId);
+        const pathSegments = this.parseUrl(url);
+        const [rootCollection, ...remainingSegments] = pathSegments as [string, ...string[]];
+        const docRef = doc(this.db, rootCollection, ...remainingSegments);
 
         return from(getDoc(docRef)).pipe(
             map(snapshot => new HttpResponse<T>({
                 status: snapshot.exists() ? 200 : 404,
                 statusText: snapshot.exists() ? 'Success' : 'Not Found',
-                body: snapshot.data() as T
+                body: this.unwrapSectionData(snapshot.data()) as T
             })),
             catchError(err => this.handleError<T>(err))
         );
@@ -54,10 +58,10 @@ export class FirebaseBackendService implements IHttpBackend {
 
     /** Creates a new document with a generated Firebase ID and returns it as a response payload. */
     post<T>(url: string, body: any): Observable<HttpResponse<T>> {
-        // The requested endpoint is treated as the collection name when the URL ends with a collection.
-        const splitUrl = url.split('/').filter(segment => segment.trim() !== '');
-        const targetCollection = splitUrl[splitUrl.length - 1] || 'resumes';
-        const colRef = collection(this.db, targetCollection);
+        if (!this.isAuthenticated()) return this.throwAuthError<T>();
+        const pathSegments = this.parseUrl(url);
+        const [rootCollection, ...remainingSegments] = pathSegments.slice(0, -1) as [string, ...string[]];
+        const colRef = collection(this.db, rootCollection, ...remainingSegments);
 
         return from(addDoc(colRef, body)).pipe(
             map(docRef => new HttpResponse<T>({
@@ -71,8 +75,9 @@ export class FirebaseBackendService implements IHttpBackend {
 
     /** Replaces an entire Firestore document with the supplied payload. */
     put<T>(url: string, body: any): Observable<HttpResponse<T>> {
-        const { collectionPath, docId } = this.parseUrl(url);
-        const docRef = doc(this.db, collectionPath, docId);
+        if (!this.isAuthenticated()) return this.throwAuthError<T>();
+        const [rootCollection, ...remainingSegments] = this.parseUrl(url) as [string, ...string[]];
+        const docRef = doc(this.db, rootCollection, ...remainingSegments);
 
         // setDoc replaces the target document, removing any keys not explicitly present.
         return from(setDoc(docRef, body)).pipe(
@@ -87,8 +92,9 @@ export class FirebaseBackendService implements IHttpBackend {
 
     /** Updates only the fields supplied in the request payload while preserving the rest of the document. */
     patch<T>(url: string, body: any): Observable<HttpResponse<T>> {
-        const { collectionPath, docId } = this.parseUrl(url);
-        const docRef = doc(this.db, collectionPath, docId);
+        if (!this.isAuthenticated()) return this.throwAuthError<T>();
+        const [rootCollection, ...remainingSegments] = this.parseUrl(url) as [string, ...string[]];
+        const docRef = doc(this.db, rootCollection, ...remainingSegments);
 
         // updateDoc only mutates the provided keys, which is safer for partial content updates.
         return from(updateDoc(docRef, body)).pipe(
@@ -101,11 +107,35 @@ export class FirebaseBackendService implements IHttpBackend {
         );
     }
 
+    public isAuthenticated(): boolean {
+        // Returns true if a secure user profile is currently active in memory
+        return !!this.fd.auth.currentUser;
+    }
+
+    /**
+     * Converts the Firestore document envelope back to the feature payload shape.
+     * Scalar sections remain objects; array sections are stored under `items`.
+     */
+    private unwrapSectionData(data: Record<string, unknown> | undefined): unknown {
+        if (!data) return {};
+        return Array.isArray(data['items']) ? data['items'] : data;
+    }
+
+    private throwAuthError<T>(): Observable<HttpResponse<T>> {
+        return of(new HttpResponse<T>({
+            status: 401,
+            statusText: 'Unauthorized access attempt blocked.',
+            body: {} as T
+        }));
+    }
+
     /** Converts Firebase exceptions to the same HttpResponse contract used by the rest of the app. */
     private handleError<T>(err: any): Observable<HttpResponse<T>> {
+        const statusText = err?.code ? `${err.code}: ${err.message}` : err?.message || 'Firebase internal operation failure';
+
         return of(new HttpResponse<T>({
             status: 500,
-            statusText: err.message || 'Firebase internal operation failure',
+            statusText,
             body: {} as T
         }));
     }

@@ -1,8 +1,10 @@
 export const environment = {
+  // Production reads the same resume path from Firestore.
   production: true,
   fakeBackend: false,
   firebaseBackend: true,
-  baseUrl: 'http://fake-api-url',
+  // Feature endpoints append section names to this Firestore document prefix.
+  baseUrl: 'resumes/RS-1/resume',
   firebase: {
     apiKey: 'AIzaSyARu-OaWZYUK6qA9ONoq8YDGp8oljKMjis',
     authDomain: 'resume-builder-f0652.firebaseapp.com',

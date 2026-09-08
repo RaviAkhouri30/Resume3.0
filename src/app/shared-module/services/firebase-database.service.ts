@@ -2,6 +2,7 @@ import { Service } from '@angular/core';
 import { initializeApp, FirebaseApp } from 'firebase/app';
 import { getAuth, Auth } from 'firebase/auth';
 import { getFirestore, Firestore } from 'firebase/firestore';
+import { environment } from 'src/environments/environment';
 
 /**
  * Central Firebase bootstrap used by the app for authentication and Firestore access.
@@ -9,16 +10,6 @@ import { getFirestore, Firestore } from 'firebase/firestore';
  * This service keeps the Firebase SDK initialization in one place so backend
  * features can consume a consistent app instance without repeating connection logic.
  */
-const firebaseConfig = {
-    apiKey: 'AIzaSyARu-OaWZYUK6qA9ONoq8YDGp8oljKMjis',
-    authDomain: 'resume-builder-f0652.firebaseapp.com',
-    projectId: 'resume-builder-f0652',
-    storageBucket: 'resume-builder-f0652.firebasestorage.app',
-    messagingSenderId: '1002190712619',
-    appId: '1:1002190712619:web:6f469add4ed4781556df6e',
-    measurementId: 'G-MNR44JEJM5'
-};
-
 @Service()
 export class FirebaseDatabaseService {
     private readonly _app: FirebaseApp;
@@ -27,7 +18,7 @@ export class FirebaseDatabaseService {
 
     constructor() {
         // Initialize the application once so Auth and Firestore share the same project context.
-        this._app = initializeApp(firebaseConfig);
+        this._app = initializeApp(environment.firebase);
         this._auth = getAuth(this._app);
         this._firestore = getFirestore(this._app);
     }
