@@ -4,6 +4,8 @@
 
 This repository shows an intentional layer separation between components, services, and view-model logic. The structure is modular with a dedicated `resume` feature module, a `shared-module` for common services and components, and a root `AppModule` with routing.
 
+Current state update: the project has adopted a backend abstraction centered on `IHttpBackend`, with a Firestore implementation in `FirebaseBackendService`. This is a clearer separation than the earlier mock-only design and keeps the feature layer independent from storage-specific details.
+
 However, the current implementation is not a fully clean-architecture design. It mixes Angular idioms with custom factory-based object creation, which introduces brittle patterns and hidden dependency flows.
 
 ## Clean Architecture / Layering

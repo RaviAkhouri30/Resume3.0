@@ -4,6 +4,8 @@
 
 This review covers the Angular application source, templates, configuration, tests, dependency manifest, and the local fake-data implementation. It is a review only: no application code was changed.
 
+> Historical note: this review reflects the codebase state at the time of the assessment. The current implementation has since moved to a backend abstraction (`IHttpBackend`) and introduces a Firestore-backed `FirebaseBackendService`, so some findings about the old mock-only setup are no longer the primary architecture.
+
 Validation performed:
 
 - `npm run build` completed successfully.

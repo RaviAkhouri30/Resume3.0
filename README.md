@@ -27,6 +27,27 @@ npm audit
 npm run build
 ```
 
+## Backend Architecture
+
+The application currently separates the service layer from its concrete storage implementation via the shared HTTP backend contract in `src/app/shared-module/interfaces/i-http-backend.ts`.
+
+- `BaseService` consumes `IHttpBackend` instead of hard-coding a storage technology.
+- `FirebaseBackendService` adapts Firestore document operations to the same Angular-style `HttpResponse` contract used by the app.
+- `FirebaseDatabaseService` centralizes the Firebase SDK bootstrap and exposes the initialized `Firestore`/`Auth` objects.
+- Environment files toggle the backend mode so the app can switch between mock, Firebase, or other future providers without changing the resume feature logic.
+
+Example environment state:
+
+```ts
+export const environment = {
+  production: true,
+  fakeBackend: false,
+  firebaseBackend: true
+};
+```
+
+This keeps the resume feature modules stable while the persistence layer remains replaceable.
+
 ## Shared Presentation Components
 
 ### Timeline

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
 import * as rawDb from './../fake-db/fake-db.json';
-import { IFakeHttps } from '../interfaces/i-fake-https';
 import { HttpResponse } from '@angular/common/http';
+import { IHttpBackend } from '../interfaces/i-http-backend';
 
 const db: { [key: string]: any } = rawDb;
 
@@ -16,14 +16,23 @@ const db: { [key: string]: any } = rawDb;
 
 /**
  * FakeHttpsService is a mock service that simulates HTTP GET requests.
- * It implements the IFakeHttps interface.
+ * It implements the IHttpBackend abstract class.
  */
-export class FakeHttpsService implements IFakeHttps {
+export class FakeHttpsService implements IHttpBackend {
 
-  /**
+  /**₹
    * Constructs a new instance of FakeHttpsService.
    */
   constructor() { }
+  post<T>(_url: string, _body: any): Observable<HttpResponse<T>> {
+    throw new Error('Method not implemented.');
+  }
+  put<T>(_url: string, _body: any): Observable<HttpResponse<T>> {
+    throw new Error('Method not implemented.');
+  }
+  patch<T>(_url: string, _body: any): Observable<HttpResponse<T>> {
+    throw new Error('Method not implemented.');
+  }
 
   /**
    * Simulates an HTTP GET request to the specified URL.

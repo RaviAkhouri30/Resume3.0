@@ -7,13 +7,13 @@ import { CopyCommand } from '../commands/copy-command';
 import { NotificationService } from './notification.service';
 import { IOpenDialogModel } from '../interfaces/i-open-dialog-model';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { IFakeHttps as IHttps } from '../interfaces/i-fake-https';
 import { HandleErrorFactory } from '../factories/handle-error-factory';
 import { GetEndPointUrl } from '../helper-functions/get-end-point-url';
 import { UrlConstants } from '../constants/url-constants';
 import { HttpClient } from '@angular/common/http';
 import { DownloadCommand } from '../commands/download-command';
 import { IDownload } from '../interfaces/i-download';
+import { IHttpBackend } from '../interfaces/i-http-backend';
 
 
 /**
@@ -38,7 +38,7 @@ export abstract class BaseService implements IBaseService {
   private readonly clipboard: Clipboard = inject(Clipboard);
 
   private readonly $http: HttpClient = inject(HttpClient);
-  private readonly $fakeHttp: IHttps = inject(IHttps);
+  private readonly $https: IHttpBackend = inject(IHttpBackend);
   private readonly $handleErrorFactory: HandleErrorFactory = inject(HandleErrorFactory);
 
   // Constructor to initialize the context and copy command handler
@@ -54,7 +54,7 @@ export abstract class BaseService implements IBaseService {
 
   /** Retrieves typed data from the configured backend endpoint. */
   public attachViewApiHandler<T>(url: UrlConstants): Observable<T> {
-    return this.$handleErrorFactory.handleHttpsError(this.$fakeHttp.get<T>(GetEndPointUrl.getEndPointUrl(url))).pipe(
+    return this.$handleErrorFactory.handleHttpsError(this.$https.get<T>(GetEndPointUrl.getEndPointUrl(url))).pipe(
       filter((res) => res?.ok && res?.body !== null),
       map((res) => res.body as T)
     );

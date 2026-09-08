@@ -4,6 +4,8 @@
 
 Create a concrete refactor plan to improve architecture, SOLID compliance, Angular idioms, and maintainability. This plan is intentionally prescriptive and includes code-level examples for the most impactful changes.
 
+> Current state note: the project has moved toward a backend abstraction based on `IHttpBackend`, with `FirebaseBackendService` acting as the Firestore-backed implementation. The recommendations below remain useful for broader architectural cleanup, but the app now uses a backend contract rather than the older raw fake-backend-only pattern.
+
 ## Priority Order
 
 1. Fix Angular DI and provider patterns
