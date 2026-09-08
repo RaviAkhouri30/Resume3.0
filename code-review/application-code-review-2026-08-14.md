@@ -4,6 +4,10 @@
 
 This review covers the Angular application source, templates, configuration, tests, dependency manifest, and the local fake-data implementation. It is a review only: no application code was changed.
 
+> Historical note: this review reflects the codebase state at the time of the assessment. The current implementation has since moved to a backend abstraction (`IHttpBackend`) and introduces a Firestore-backed `FirebaseBackendService`, so some findings about the old mock-only setup are no longer the primary architecture.
+
+> Current data-path note: resume sections now use `resumes/{userId}/resume/{section}`. The development fixture mirrors this path, while the Firebase importer writes equivalent section documents and envelopes array sections under `items`.
+
 Validation performed:
 
 - `npm run build` completed successfully.
@@ -56,11 +60,11 @@ The most important work is to restore the test suite, remove the production fake
 
 **Recommendation:** Update the test builder configuration to match the installed Angular 20 builder schema, then run the complete suite in CI. Add a coverage threshold after the suite is reliable.
 
-#### 2. Production is configured to use a fake backend
+#### 2. Production backend configuration should remain explicit
 
-**Evidence:** `src/environments/environment.prod.ts` has `fakeBackend: true` and `baseUrl: 'http://fake-api-url'`.
+**Historical evidence:** the reviewed version had `fakeBackend: true` and `baseUrl: 'http://fake-api-url'`.
 
-**Why it matters:** A production deployment cannot use a real API without a source/configuration change. The placeholder uses HTTP rather than HTTPS, which becomes a security problem if it is ever used for real traffic.
+**Current status:** the production environment now selects Firebase and uses the nested resume path. Keep this configuration explicit as authentication and private resume editing are introduced.
 
 **Recommendation:** Keep mock data only in development/test configuration. Configure production with a real HTTPS API URL, or remove the HTTP abstraction entirely while the application remains static.
 

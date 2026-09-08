@@ -4,6 +4,13 @@
 
 This repository shows an intentional layer separation between components, services, and view-model logic. The structure is modular with a dedicated `resume` feature module, a `shared-module` for common services and components, and a root `AppModule` with routing.
 
+Current state update: the project has adopted a backend abstraction centered on `IHttpBackend`, with a Firestore implementation in `FirebaseBackendService`. This is a clearer separation than the earlier mock-only design and keeps the feature layer independent from storage-specific details.
+
+The current data contract is `resumes/{userId}/resume/{section}`. Development
+uses the nested JSON fixture, while production uses the equivalent Firestore
+documents. Array sections are stored in Firestore under an `items` field and
+unwrapped by the adapter before feature services consume them.
+
 However, the current implementation is not a fully clean-architecture design. It mixes Angular idioms with custom factory-based object creation, which introduces brittle patterns and hidden dependency flows.
 
 ## Clean Architecture / Layering
@@ -16,7 +23,7 @@ However, the current implementation is not a fully clean-architecture design. It
 ### Areas that break clean architecture
 - The `ViewModelFactory` uses a switch on `ViewModelContext` and numeric enum values. This is a hidden coupling point and not easily extensible.
 - `BaseComponent` creates view model instances via a manual factory instead of using Angular DI. That hides dependencies and reduces testability.
-- `ServiceProviderFactory` switches on environment configuration to choose `HttpClient` or `FakeHttpsService`. This is acceptable for a dev mock, but production code should prefer Angular provider configuration with a proper injection token instead of manually constructing `HttpClient`.
+- `ServiceProviderFactory` switches on environment configuration to choose the fake backend or Firebase adapter. This is acceptable for the current application, but production code should eventually prefer Angular provider configuration with a proper injection token instead of manually constructing `HttpClient`.
 - `IFakeHttps` is implemented as an abstract class decorated with `@Inject({ providedIn: 'root' })`. This is not idiomatic Angular. If you want an injection contract, use an interface plus `InjectionToken`, or an abstract class without provider metadata.
 
 ## SOLID Principles
@@ -66,7 +73,7 @@ However, the current implementation is not a fully clean-architecture design. It
 - Declaring an abstract class with `@Inject` is not standard. Use an `InjectionToken<IFakeHttps>` or a plain interface plus provider alias.
 
 ### `ServiceProviderFactory` (`src/app/shared-module/factories/service-provider-factory.ts`)
-- Constructing `HttpClient` manually via `new HttpClient(_httpHanlder)` is not typical. Let Angular provide `HttpClient` normally, or use an injection token for the mock implementation.
+- Constructing `HttpClient` manually via `new HttpClient(_httpHanlder)` is not typical. Let Angular provide `HttpClient` normally, or use an injection token for the mock and Firebase implementations.
 
 ### `ViewModelFactory` (`src/app/shared-module/factories/view-model-factory.ts`)
 - Switch-case on numeric enum values is brittle and not extensible.

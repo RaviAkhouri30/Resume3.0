@@ -1,266 +1,156 @@
 {
-  "about-me": {
-    "firstName": "Ravi",
-    "name": "Ravi Akhouri",
-    "email": "contact@raviakhouri.in",
-    "phone": "+91 880-480-4868",
-    "jobTitle": "Senior Angular Developer",
-    "secondaryEmail": "ravi.akhouri@gmail.com",
-    "address": "",
-    "city": "string",
-    "state": "string",
-    "zip": "string",
-    "country": "India",
-    "summary": "Results-driven Angular UI Developer with experience designing, developing, and improving complex frontend applications while using AI-driven solutions to enhance productivity & user experience. In pursuit of challenging opportunities in front-end development with ability in Angular, responsive UI design in a dynamic environment.",
-    "linkedin": "https://www.linkedin.com/in/ravi-akhouri-6696071a7/",
-    "github": "https://github.com/RaviAkhouri30",
-    "twitter": "",
-    "dateOfBirth": "1997-03-30",
-    "profilePic": "",
-    "resume": "",
-    "uid": "RS-1",
-    "awardsAndAchievements": [
-      {
-        "title": "Star Award – Siemens",
-        "desc": "Awarded for exemplary contribution in presenting and applying SOLID principles."
-      },
-      {
-        "title": "Top Performer Award – LTIMindtree (4 times)",
-        "desc": "Recognized for exceptional overall performance, awarded in two quarters."
-      },
-      {
-        "title": "Top Performer Award – Wipro ",
-        "desc": "Honored for outstanding project-specific performance and high-quality delivery."
-      },
-      {
-        "title": "Good Job Appreciation – Quorum Software",
-        "desc": "Received recognition for successfully resolving multiple issues and delivering quality improvements."
-      }
-    ]
-  },
-  "hobbies": [
-    {
-      "icon": "bi bi-camera-fill",
-      "hobby": "Photography",
-      "description": "I love to capture moments and stories while travelling and during any events. I have a professional mirrorless camera and sction camera, which i take with my everywhere i travel."
-    },
-    {
-      "icon": "bi bi-playstation",
-      "hobby": "Gaming",
-      "description": "During my free time, i love to enjoy story games."
-    },
-    {
-      "icon": "bi bi-code-slash",
-      "hobby": "Coding",
-      "description": "I also like coding in my free time, via which i explore things and do some creative works."
-    },
-    {
-      "icon": "bi bi-music-note-beamed",
-      "hobby": "Guitar",
-      "description": "I was always fasinated by guitar looks and peoples who play guitar.So, now i started learning it, now i can play few melodies."
+    "resumes": {
+        "RS-PLACEHOLDER": {
+            "resume": {
+                "about-me": {
+                    "firstName": "Lorem",
+                    "name": "Lorem Ipsum",
+                    "email": "lorem.ipsum@example.com",
+                    "phone": "+00 000 000 0000",
+                    "jobTitle": "Senior Placeholder Developer",
+                    "secondaryEmail": "placeholder@example.com",
+                    "address": "123 Lorem Street",
+                    "city": "Lorem City",
+                    "state": "Placeholder State",
+                    "zip": "000000",
+                    "country": "Placeholder Country",
+                    "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere, sapien at consequat cursus, lectus lorem facilisis justo, vitae volutpat ipsum arcu a neque.",
+                    "linkedin": "https://example.com/lorem-linkedin",
+                    "github": "https://example.com/lorem-github",
+                    "twitter": "https://example.com/lorem-twitter",
+                    "dateOfBirth": "2000-01-01",
+                    "profilePic": "",
+                    "resume": "",
+                    "uid": "RS-PLACEHOLDER",
+                    "awardsAndAchievements": [
+                        {
+                            "title": "Lorem Achievement Award",
+                            "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        },
+                        {
+                            "title": "Placeholder Recognition",
+                            "desc": "Integer posuere erat a ante venenatis dapibus posuere velit aliquet."
+                        }
+                    ]
+                },
+                "hobbies": [
+                    {
+                        "icon": "bi bi-camera-fill",
+                        "hobby": "Lorem Photography",
+                        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                    },
+                    {
+                        "icon": "bi bi-playstation",
+                        "hobby": "Placeholder Gaming",
+                        "description": "Praesent commodo cursus magna, vel scelerisque nisl consectetur."
+                    },
+                    {
+                        "icon": "bi bi-code-slash",
+                        "hobby": "Lorem Coding",
+                        "description": "Donec sed odio dui. Nullam id dolor id nibh ultricies vehicula ut id elit."
+                    }
+                ],
+                "contact-details": [
+                    {
+                        "icon": "bi bi-envelope-fill",
+                        "details": "lorem.ipsum@example.com",
+                        "type": "email"
+                    },
+                    {
+                        "icon": "bi bi-phone-fill",
+                        "details": "+00 000 000 0000",
+                        "type": "mobile"
+                    }
+                ],
+                "experience": [
+                    {
+                        "personUid": "RS-PLACEHOLDER",
+                        "uid": "work-placeholder-1",
+                        "companyName": "Lorem Ipsum Technologies",
+                        "tenure": "January 2024 - Present",
+                        "responsibilities": [
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            "Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
+                            "Praesent commodo cursus magna, vel scelerisque nisl consectetur."
+                        ]
+                    },
+                    {
+                        "personUid": "RS-PLACEHOLDER",
+                        "uid": "work-placeholder-2",
+                        "companyName": "Placeholder Solutions",
+                        "tenure": "July 2021 - December 2023",
+                        "responsibilities": [
+                            "Donec ullamcorper nulla non metus auctor fringilla.",
+                            "Aenean lacinia bibendum nulla sed consectetur.",
+                            "Cras mattis consectetur purus sit amet fermentum."
+                        ]
+                    }
+                ],
+                "projects-experience": [
+                    {
+                        "personUid": "RS-PLACEHOLDER",
+                        "uid": "project-placeholder-1",
+                        "projectName": "Lorem Portfolio Platform",
+                        "responsibilities": [
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                            "Vestibulum id ligula porta felis euismod semper.",
+                            "Maecenas faucibus mollis interdum."
+                        ]
+                    },
+                    {
+                        "personUid": "RS-PLACEHOLDER",
+                        "uid": "project-placeholder-2",
+                        "projectName": "Placeholder Data Dashboard",
+                        "responsibilities": [
+                            "Nullam quis risus eget urna mollis ornare vel eu leo.",
+                            "Curabitur blandit tempus porttitor.",
+                            "Etiam porta sem malesuada magna mollis euismod."
+                        ]
+                    }
+                ],
+                "education": [
+                    {
+                        "personUid": "RS-PLACEHOLDER",
+                        "uid": "edu-placeholder-1",
+                        "degree": "Bachelor of Placeholder Studies",
+                        "major": "Lorem Engineering",
+                        "university": "Lorem University",
+                        "instituteName": "Ipsum Institute of Technology",
+                        "graduationYear": "2020",
+                        "grade": "8.50"
+                    },
+                    {
+                        "personUid": "RS-PLACEHOLDER",
+                        "uid": "edu-placeholder-2",
+                        "degree": "Placeholder Certificate",
+                        "major": "Computer Applications",
+                        "university": "Lorem Board",
+                        "instituteName": "Placeholder Senior School",
+                        "graduationYear": "2016",
+                        "grade": "82%"
+                    }
+                ],
+                "skills": [
+                    {
+                        "personUid": "RS-PLACEHOLDER",
+                        "uid": "skill-placeholder-1",
+                        "skill": "Angular",
+                        "proficeincy": 90
+                    },
+                    {
+                        "personUid": "RS-PLACEHOLDER",
+                        "uid": "skill-placeholder-2",
+                        "skill": "TypeScript",
+                        "proficeincy": 85
+                    },
+                    {
+                        "personUid": "RS-PLACEHOLDER",
+                        "uid": "skill-placeholder-3",
+                        "skill": "Lorem Communication",
+                        "proficeincy": 80
+                    }
+                ]
+            }
+        }
     }
-  ],
-  "contact-details": [
-    {
-      "icon": "bi bi-envelope-fill",
-      "details": "contact@raviakhouri.in",
-      "type": "email"
-    },
-    {
-      "icon": "bi bi-envelope-fill",
-      "details": "ravi.akhouri@gmail.com",
-      "type": "email"
-    },
-    {
-      "icon": "bi bi-phone-fill",
-      "details": "+91-880 480 4868",
-      "type": "mobile"
-    }
-  ],
-  "experience": [
-    {
-      "personUid": "RS-1",
-      "uid": "work-exp-4",
-      "companyName": "Quorum Software (Octaserve Pvt Ltd)",
-      "tenure": "January 2026 - Present",
-      "responsibilities": [
-        "Worked on ECCT (Energy Component Configuration Tool) and CME (Class Model Editor), Excel-like applications used for configuration and data management workflows.",
-        "Enhanced the ECCT user experience by redesigning the UI and consolidating functionality from multiple pages into a single-page, tab-based interface, improving usability and navigation efficiency.",
-        "Delivered multiple bug fixes, enhancements, and feature improvements across both ECCT and CME, contributing to increased application stability and user satisfaction.",
-        "Received a 'Good Job' appreciation token in recognition of successfully resolving multiple issues and delivering quality improvements.",
-        "Contributed to EC (Energy Component), a legacy application built using Java and PL/SQL, by delivering multiple user stories and enhancements.",
-        "Leveraged Agentic AI workflows to accelerate development tasks, including implementing Java business logic changes, creating and updating PL/SQL triggers, and managing database changes through Flyway migrations."
-      ]
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "work-exp-3",
-      "companyName": "Siemens Technology and Services Pvt Ltd",
-      "tenure": "February 2023 - January 2026",
-      "responsibilities": [
-        "Enhanced front-end interfaces for SystemOne project, contributing to multiple applications including ABTSite, ABTGo, BOSS Project Conversion & Performance Dashboard.",
-        "Led development and optimization of ABTSite modules such as View Favorites, KNX PL-Link, MBus & Function Configuration & built the Plant Configurator module from start.",
-        "Executed UI enhancements & code refactoring for the Query Generator project, improving performance by applying SOLID principles, OOP concepts & RxJS patterns.",
-        "Refactored the QueryGenerator (Building X) module, achieving 30% reduction in technical debt, improved code modularity, and increased overall developer productivity.",
-        "Developed an AI-powered chatbot using GPT-4 Copilot, displaying advanced task management features and emotion-aware user interaction to enhance overall engagement."
-      ]
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "work-exp-2",
-      "companyName": "Mindtree Ltd",
-      "tenure": "August 2021 - February 2023",
-      "responsibilities": [
-        "Developed enterprise-grade Angular applications from the ground up, delivering scalable, responsive, and maintainable frontend solutions for global clients.",
-        "Implemented complex business logic, secure authentication, form validations, and seamless REST API integrations to build robust business applications.",
-        "Designed responsive and cross-browser compatible user interfaces, ensuring a consistent user experience across desktop and mobile platforms.",
-        "Collaborated with business stakeholders, designers, and backend teams during requirement analysis, solution design, and implementation to deliver high-quality features.",
-        "Applied Object-Oriented Programming (OOP), reusable component architecture, and Angular best practices to improve code maintainability and scalability.",
-        "Maintained high coding standards through code reviews, performance optimization, bug fixing, and continuous feature enhancements.",
-        "Contributed throughout the Software Development Life Cycle (SDLC), including development, testing, deployment, and production support, ensuring timely project delivery."
-      ]
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "work-exp-1",
-      "companyName": "Wipro Ltd",
-      "tenure": "October 2019 - August 2021",
-      "responsibilities": [
-        "Developed and enhanced enterprise financial applications using Angular, implementing complex business logic, client-side validations, and REST API integrations.",
-        "Progressed from Prototype Developer to Module Lead, taking ownership of critical modules including PVU, Budget, EDP, DDO, and ROP within the IFMS project.",
-        "Led module development by coordinating cross-functional teams, tracking deliverables, resolving technical challenges, and ensuring successful UAT and SIT releases.",
-        "Designed and developed reusable Angular components, directives, and configurable UI frameworks, significantly improving development efficiency and reducing code duplication.",
-        "Built a centralized configuration-driven architecture that dynamically controlled UI layouts, validation rules, field visibility, and default values without requiring code changes.",
-        "Resolved critical issues and delivered high-priority enhancements, contributing to improved application stability.",
-        "Applied Object-Oriented Programming (OOP), Angular best practices, and modular architecture principles to build scalable and maintainable enterprise applications."
-      ]
-    }
-  ],
-  "projects-experience": [
-    {
-      "personUid": "RS-1",
-      "uid": "project-1",
-      "projectName": "ABTSite (Smart Building – Automation Building Tools)",
-      "responsibilities": [
-        "Enhanced front-end of the ABTSite application using Angular, contributing to multiple applications including ABTGo, BOSS Project Conversion and Performance Dashboard.",
-        "Designed and implemented critical modules such as View Favorites, KNX PL-Link, MBus, Function Configuration, and Plant Configurator from start.",
-        "Executed UI enhancements and code refactoring for the Query Generator project, significantly improving maintainability, usability, and overall system performance.",
-        "Applied SOLID principles and OOP concepts to improve code quality, notably refactoring the QueryGenerator (Building X) module to increase modularity and scalability.",
-        "Leveraged RxJS and reactive programming to refine performance of the codebase.",
-        "Displayed innovation by developing an AI-powered chatbot using GPT-4 Copilot."
-      ]
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "project-2",
-      "projectName": "TVS Motors – PIP Application",
-      "responsibilities": [
-        "Developed the frontend application from scratch, implementing complex business logic and secure login authentication for leading two- and three-wheeler vehicle manufacturers.",
-        "Designed and implemented a responsive user interface ensuring consistent functionality across desktop and mobile platforms.",
-        "Integrated REST APIs for data exchange, enhanced performance, & user experience.",
-        "Applied OOP principles and enabled organized workflow for profit-improvement suggestions, reforming reviews & approvals."
-      ]
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "project-3",
-      "projectName": "IFMS (Integrated Finance Management System – Government of Gujarat)",
-      "responsibilities": [
-        "Developed and implemented business logic and validations for IFMS modules using Angular, enhancing application reliability and functionality.",
-        "Integrated REST APIs to ensure smooth communication with backend services.",
-        "Led module development as Module Lead, coordinating the team for successful UAT/SIT releases and managing deployment processes.",
-        "Transitioned from Prototype Developer to full-stack Angular Developer, delivering key modules including PVU, Budget, EDP & DDO.",
-        "Designed reusable components and directives for the Budget module, improving development efficiency and reducing code redundancy.",
-        "Managed workflow integration and resolved critical bugs in the EDP module."
-      ]
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "project-4",
-      "projectName": "Sennheiser Migration to Angular 11 (EPOS Manager)",
-      "responsibilities": [
-        "Spearheaded the migration of a legacy AngularJS 1.x application to Angular 11.",
-        "Implemented business logic & REST API integration to improve application functionality.",
-        "Applied OOP principles & validations to ensure data integrity & improved user experience.",
-        "Executed unit testing with Jasmine & Karma, keeping high-quality standards.",
-        "Created dynamic, interactive data visualizations using Highcharts to present insights."
-      ]
-    }
-  ],
-  "education": [
-    {
-      "personUid": "RS-1",
-      "uid": "edu-1",
-      "degree": "Bachelor of Technology",
-      "major": "ECE",
-      "university": "Makaut (formerly WBUT)",
-      "instituteName": "Swami Vivekananda Institute of Science and Technology",
-      "graduationYear": "2019",
-      "grade": "7.79"
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "edu-2",
-      "degree": "12th Standard",
-      "major": "PCM",
-      "university": "CBSE",
-      "instituteName": "Tender Heart School",
-      "graduationYear": "2014",
-      "grade": "72.20%"
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "edu-3",
-      "degree": "10th Standard",
-      "major": "",
-      "university": "CBSE",
-      "instituteName": "DAV Public School, HEHAL",
-      "graduationYear": "2012",
-      "grade": "8.6"
-    }
-  ],
-  "skills": [
-    {
-      "personUid": "RS-1",
-      "uid": "skill-1",
-      "skill": "Angular",
-      "proficeincy": 90
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "skill-2",
-      "skill": "HTML",
-      "proficeincy": 80
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "skill-3",
-      "skill": "CSS",
-      "proficeincy": 75
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "skill-4",
-      "skill": "TypeScript",
-      "proficeincy": 90
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "skill-5",
-      "skill": "RxJs",
-      "proficeincy": 85
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "skill-6",
-      "skill": "JavaScript",
-      "proficeincy": 65
-    },
-    {
-      "personUid": "RS-1",
-      "uid": "skill-7",
-      "skill": "Solid Principles",
-      "proficeincy": 65
-    }
-  ]
 }

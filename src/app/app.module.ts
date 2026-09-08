@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { IFakeHttps } from './shared-module/interfaces/i-fake-https';
 import { ServiceProviderFactory } from './shared-module/factories/service-provider-factory';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { IHttpBackend } from './shared-module/interfaces/i-http-backend';
 
 @NgModule({
   // Declare the components that belong to this module
@@ -27,7 +27,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   providers: [
     provideHttpClient(withXhr(), withInterceptorsFromDi()), // Configures the HTTP client with dependency injection-based interceptors
     {
-      provide: IFakeHttps, // Token for a custom HTTP service
+      provide: IHttpBackend, // Token for a custom HTTP service
       useFactory: ServiceProviderFactory.httpsServiceFactory, // Factory function to create the service
       deps: [HttpHandler] // Dependencies required by the factory function
     },
