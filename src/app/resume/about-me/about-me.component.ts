@@ -1,8 +1,8 @@
-import { Component, inject, Injector, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
-import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { AboutMeService } from './services/about-me.service';
 import { PersonDataModel } from 'src/app/shared-module/models/person-data-model';
+import { AboutMeViewModel } from './models/about-me-view-model';
 
 @Component({
   selector: 'app-about-me',
@@ -13,19 +13,17 @@ import { PersonDataModel } from 'src/app/shared-module/models/person-data-model'
 })
 export class AboutMeComponent extends BaseComponent<PersonDataModel> implements OnInit {
 
-  // Define the context for the ViewModel
-  protected readonly _context = ViewModelContext.AboutMeComponent;
   // Inject the AboutMeService
   private readonly _aboutMeService: AboutMeService = inject(AboutMeService);
 
-  constructor(
-    protected override injector: Injector
-  ) {
-    super(injector);
+  constructor() {
+    super();
+    // The component selects its model; BaseComponent manages its subscription.
+    this.model = inject(AboutMeViewModel);
   }
 
   ngOnInit(): void {
-    this.initializeModel();
+    this.inIt()
   }
 
   /**

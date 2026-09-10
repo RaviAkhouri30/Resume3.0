@@ -266,3 +266,21 @@ export class FakeHttpsService implements IFakeHttps {
 ## Notes
 
 This plan is intentionally advisory and does not implement code changes. It is designed to guide a refactor with concrete file names, code examples, and rationale.
+
+## Implementation Status — 2026-09-10
+
+The view-model portion of this plan is now implemented:
+
+- Components inject their concrete view models directly.
+- View models use Angular `@Service()` metadata and `inject()` dependencies.
+- `BaseComponent` uses `@Directive()`, starts the injected model in `inIt()`,
+  and safely disposes its subscription in `ngOnDestroy()`.
+- The obsolete factory-based `initializeModel()` path was removed.
+- The deprecated factory remains only as a compatibility adapter and resolves
+  instances through `Injector`.
+- README class, flow, and sequence diagrams now describe the current DI path.
+
+The remaining provider-token, shared-module, accessibility, command-separation,
+and security-policy items remain advisory follow-up work. The test configuration
+schema issue is fixed, but the full suite is still blocked by unrelated
+placeholder specs that do not compile.

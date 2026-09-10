@@ -13,33 +13,39 @@ import { SocialMediaModel } from "src/app/resume/social-media/models/social-medi
 import { ContactViewModel } from "src/app/resume/contact/models/contact-view-model";
 import { ContactMeViewModel } from "src/app/resume/contact-me/models/contact-me-view-model";
 
-/** Maps a resume-section context to its corresponding view-model implementation. */
+/**
+ * @deprecated Resume components now inject their view models directly. This
+ * adapter remains only for callers that still provide a ViewModelContext.
+ */
+/** Maps a legacy resume-section context to a DI-managed view-model instance. */
 export class ViewModelFactory {
-    /** Creates a view model with the injector required by its dependencies. */
+    /** Creates a view model from the caller's injection context. */
     static getViewModelInstance = (viewContext: ViewModelContext, injector: Injector): ViewModel<any> => {
         switch (viewContext) {
             case ViewModelContext.AboutMeComponent /* AboutMeComponent */:
-                return new AboutMeViewModel(injector);
+                return injector.get(AboutMeViewModel);
             case ViewModelContext.ExperienceComponent /* ExperienceComponent */:
-                return new ExperienceViewModel(injector);
+                return injector.get(ExperienceViewModel);
             case ViewModelContext.EducationComponent /* EducationComponent */:
-                return new EducationViewModel(injector);
+                return injector.get(EducationViewModel);
             case ViewModelContext.ProfessionalSkillsComponent /* ProfessionalSkillsComponent */:
-                return new ProfessionalSkillsViewModel(injector);
+                return injector.get(ProfessionalSkillsViewModel);
             case ViewModelContext.ProjectsExperienceComponent /* ProjectsComponent */:
-                return new ProjectsExperienceViewModel(injector);
+                return injector.get(ProjectsExperienceViewModel);
             case ViewModelContext.AwardsAndAchievementsComponent /* AwardsAndAcheivementsComponents */:
-                return new AwardsAndAchievemntsViewModel(injector);
+                return injector.get(AwardsAndAchievemntsViewModel);
             case ViewModelContext.HobbiesComponent /* HobbiesComponents */:
-                return new HobbiesViewModel(injector);
+                return injector.get(HobbiesViewModel);
             case ViewModelContext.IntroductionComponent:
-                return new IntroductionViewModel(injector);
+                return injector.get(IntroductionViewModel);
             case ViewModelContext.SocialMedia:
-                return new SocialMediaModel(injector);
+                return injector.get(SocialMediaModel);
             case ViewModelContext.ContactDetailsComponent:
-                return new ContactViewModel(injector);
+                return injector.get(ContactViewModel);
             case ViewModelContext.ContactMe:
-                return new ContactMeViewModel();
+                return injector.get(ContactMeViewModel);
+            case ViewModelContext.Default:
+                throw new Error('Invalid ViewModel Context');
             default:
                 throw new Error('Invalid ViewModel Context');
         }

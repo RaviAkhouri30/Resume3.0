@@ -1,18 +1,32 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { IViewModel } from '../../interfaces/i-view-model';
 
 import { BaseComponent } from './base-component';
 
+@Component({ template: '', standalone: false })
+class TestBaseComponent extends BaseComponent<unknown> {
+  constructor() {
+    super();
+    this.model = {
+      data: undefined,
+      inIt: () => of(undefined)
+    } satisfies IViewModel<unknown>;
+  }
+}
+
 describe('BaseComponentComponent', () => {
-  let component: BaseComponent;
-  let fixture: ComponentFixture<BaseComponent>;
+  let component: TestBaseComponent;
+  let fixture: ComponentFixture<TestBaseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BaseComponent]
+      declarations: [TestBaseComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(BaseComponent);
+    fixture = TestBed.createComponent(TestBaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
-import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { ProfessionalSkillsDataModel } from 'src/app/shared-module/models/professional-skills-data-model';
+import { ProfessionalSkillsViewModel } from './models/professional-skills-view-model';
 
 @Component({
   selector: 'app-professional-skills',
@@ -11,10 +11,15 @@ import { ProfessionalSkillsDataModel } from 'src/app/shared-module/models/profes
   standalone: false
 })
 export class ProfessionalSkillsComponent extends BaseComponent<ProfessionalSkillsDataModel[]> implements OnInit {
-  protected override _context: ViewModelContext = ViewModelContext.ProfessionalSkillsComponent;
+
+  constructor() {
+    super();
+    // The component selects its model; BaseComponent manages its subscription.
+    this.model = inject(ProfessionalSkillsViewModel);
+  }
 
   ngOnInit(): void {
-    this.initializeModel();
+    this.inIt();
   }
 
 }

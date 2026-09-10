@@ -1,8 +1,8 @@
-import { Component, inject, Injector, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
-import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { IPersonDataModel } from 'src/app/shared-module/interfaces/i-person-data-model';
 import { IntroductionService } from './services/introduction.service';
+import { IntroductionViewModel } from './models/introduction-view-model';
 
 @Component({
   selector: 'app-introduction',
@@ -14,16 +14,15 @@ import { IntroductionService } from './services/introduction.service';
 export class IntroductionComponent extends BaseComponent<IPersonDataModel> implements OnInit {
 
   private readonly introductionService: IntroductionService = inject(IntroductionService);
-  protected readonly _context: ViewModelContext = ViewModelContext.IntroductionComponent;
 
-  constructor(
-    protected override injector: Injector
-  ) {
-    super(injector);
+  constructor() {
+    super();
+    // The component selects its model; BaseComponent manages its subscription.
+    this.model = inject(IntroductionViewModel);
   }
 
   ngOnInit(): void {
-    this.initializeModel();
+    this.inIt();
   }
 
   public downloadResume() {

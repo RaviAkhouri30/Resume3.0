@@ -1,16 +1,13 @@
-import { Injector } from "@angular/core";
+import { inject, Service } from "@angular/core";
 import { EMPTY, map, Observable, tap } from "rxjs";
 import { IAwardAchievements } from "src/app/shared-module/interfaces/i-awards-achievements";
 import { ViewModel } from "src/app/shared-module/models/view-model";
 import { CommonService } from "src/app/shared-module/services/common.service";
 
+@Service()
 export class AwardsAndAchievemntsViewModel extends ViewModel<IAwardAchievements[]> {
-    private _commonService: CommonService;
 
-    constructor(protected injector: Injector) {
-        super();
-        this._commonService = injector.get(CommonService);
-    }
+    private _commonService: CommonService = inject(CommonService);
 
     protected override attachViewHandler = (): Observable<IAwardAchievements[]> => {
         return this._commonService.aboutMeData.pipe(

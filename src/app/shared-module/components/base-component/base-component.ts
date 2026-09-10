@@ -1,62 +1,35 @@
-import { Component, Injector, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Directive, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IViewModel } from '../../interfaces/i-view-model';
-import { ViewModelContext } from '../../enums/view-model-context';
-import { ViewModelFactory } from '../../factories/view-model-factory';
 
 /**
  * BaseComponent is an abstract class that provides a base implementation for components.
  * It handles the initialization and automatic unsubscription of the model's observable.
  * 
- * @template T - The type of the data model.
+ * @template T - The type of the data model exposed to the component template.
  */
-@Component({
-  selector: 'app-base',
-  template: '',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false
-})
+@Directive()
 export abstract class BaseComponent<T> implements OnDestroy {
   // Private property to hold the model
   private _model!: IViewModel<T>;
 
-  // Subscription to manage observable
-  private subscription!: Subscription;
+  // Keep teardown safe when a component is destroyed before initialization.
+  private subscription?: Subscription;
 
-  /**
-   * The context for the ViewModel.
-   * This property must be implemented by subclasses.
-   */
-  protected abstract readonly _context: ViewModelContext;
-
-  /**
-   * Constructor for the BaseComponent.
-   * 
-   * @param injector - The injector to be used for dependency injection.
-   */
-  constructor(protected injector: Injector) { }
+  /** Starts the view-model stream after the concrete component has injected it. */
+  inIt() {
+    this.autoUnsubscribe();
+  }
 
   /**
    * Lifecycle hook that is called when the component is destroyed.
    * Unsubscribes from the observable to prevent memory leaks.
    */
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
-  /**
-   * Initializes the model by getting an instance from the ViewModelFactory
-   * and sets up automatic unsubscription.
-   */
-  initializeModel(): void {
-    this._model = ViewModelFactory.getViewModelInstance(this._context, this.injector);
-    this.autoUnsubscribe();
-  }
-
-  /**
-   * Method to automatically subscribe to the model's observable.
-   * @private
-   */
+  /** Subscribes once so the view model can load data and listen for commands. */
   private autoUnsubscribe = () => this.subscription = this.model.inIt().subscribe();
 
   /**
@@ -67,4 +40,10 @@ export abstract class BaseComponent<T> implements OnDestroy {
   get model(): IViewModel<T> {
     return this._model;
   }
+
+  set model(value: IViewModel<T>) {
+    this._model = value;
+  }
+
+
 }

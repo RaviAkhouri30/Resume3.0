@@ -25,6 +25,15 @@ npm audit
 npm run build
 ```
 
+Run the unit tests once in a headless browser with:
+
+```bash
+npm test -- --watch=false --browsers=ChromeHeadless
+```
+
+The test target uses `src/polyfills.ts` as an array entry because this project
+uses Angular 22's application and Karma builders.
+
 ## Backend Architecture
 
 The application separates feature logic from persistence details through the shared contract in `src/app/shared-module/interfaces/i-http-backend.ts`.
@@ -89,6 +98,18 @@ export const environment = {
 ```
 
 This keeps the resume modules stable while the data source remains replaceable and testable.
+
+### View-model lifecycle
+
+Resume components extend `BaseComponent<T>` and obtain their section view model
+with Angular dependency injection in the component constructor. `ngOnInit`
+calls `inIt()` once to subscribe to the view and command handlers; the base
+class releases that subscription during `ngOnDestroy`.
+
+View models use Angular's `inject()` API for their service dependencies and are
+registered with `@Service()`. Do not instantiate these classes with `new` or
+call the deprecated `ViewModelFactory`; tests should use `TestBed.inject(...)`
+so they run inside an Angular injection context.
 
 ## Shared Presentation Components
 
@@ -199,8 +220,7 @@ classDiagram
     class ResumeContainerComponent
 
     class BaseComponent~T~ {
-        #_context ViewModelContext
-        +initializeModel() void
+        +inIt() void
         +model IViewModel~T~
         +ngOnDestroy() void
     }
@@ -236,6 +256,14 @@ classDiagram
     }
     class AboutMeViewModel
     class ExperienceViewModel
+    class EducationViewModel
+    class ProfessionalSkillsViewModel
+    class ProjectsExperienceViewModel
+    class AwardsAndAchievemntsViewModel
+    class HobbiesViewModel
+    class IntroductionViewModel
+    class SocialMediaModel
+    class ContactViewModel
     class ContactMeViewModel
 
     class BaseService {
@@ -277,11 +305,29 @@ classDiagram
     ResumeContainerComponent *-- EducationComponent : renders
     ResumeContainerComponent *-- ContactComponent : renders
     ResumeContainerComponent *-- SocialMediaComponent : renders
-    BaseComponent --> ViewModelFactory : creates model
-    ViewModelFactory --> ViewModel : instantiates
+    AboutMeComponent --> AboutMeViewModel : injects
+    ExperienceComponent --> ExperienceViewModel : injects
+    EducationComponent --> EducationViewModel : injects
+    ProfessionalSkillsComponent --> ProfessionalSkillsViewModel : injects
+    ProjectsExperienceComponent --> ProjectsExperienceViewModel : injects
+    AwardsAndAchievementsComponent --> AwardsAndAchievemntsViewModel : injects
+    HobbiesComponent --> HobbiesViewModel : injects
+    IntroductionComponent --> IntroductionViewModel : injects
+    SocialMediaComponent --> SocialMediaModel : injects
+    ContactComponent --> ContactViewModel : injects
+    ContactMeComponent --> ContactMeViewModel : injects
     ViewModel <|-- AboutMeViewModel
     ViewModel <|-- ExperienceViewModel
+    ViewModel <|-- EducationViewModel
+    ViewModel <|-- ProfessionalSkillsViewModel
+    ViewModel <|-- ProjectsExperienceViewModel
+    ViewModel <|-- AwardsAndAchievemntsViewModel
+    ViewModel <|-- HobbiesViewModel
+    ViewModel <|-- IntroductionViewModel
+    ViewModel <|-- SocialMediaModel
+    ViewModel <|-- ContactViewModel
     ViewModel <|-- ContactMeViewModel
+    ViewModelFactory ..> ViewModel : deprecated compatibility adapter
     AboutMeViewModel --> AboutMeService
     ExperienceViewModel --> ExperienceService
     BaseService <|-- AboutMeService
@@ -298,7 +344,19 @@ flowchart TD
     C -- Yes --> D[Show loading spinner]
     C -- No --> E[Load ResumeContainerComponent]
     E --> F[Display AboutMeComponent]
-    F --> G[Display other components: Experience, Education, etc.]
+    E --> G[Display other resume section components]
+    F --> H[Angular injects AboutMeViewModel]
+    G --> I[Each component injects its own view model]
+    H --> J[BaseComponent.inIt subscribes to model streams]
+    I --> J
+    J --> K[View model calls feature service]
+    K --> L{Configured backend}
+    L -- Development --> M[FakeHttpsService and fake-db.json]
+    L -- Production --> N[FirebaseBackendService and Firestore]
+    M --> O[View model maps response to component data]
+    N --> O
+    O --> P[Template renders resume section]
+    P --> Q[BaseComponent unsubscribes on destroy]
 ```
 
 ## Sequence Diagram
@@ -307,7 +365,6 @@ sequenceDiagram
     actor User
     participant AboutMe as AboutMeComponent
     participant Base as BaseComponent
-    participant Factory as ViewModelFactory
     participant VM as AboutMeViewModel
     participant Service as AboutMeService
     participant HTTP as IHttpBackend
@@ -316,9 +373,8 @@ sequenceDiagram
     participant Notice as NotificationService
 
     User->>AboutMe: Open resume section
-    AboutMe->>Base: ngOnInit() / initializeModel()
-    Base->>Factory: getViewModelInstance(AboutMeComponent, injector)
-    Factory-->>Base: AboutMeViewModel
+    AboutMe->>AboutMe: inject(AboutMeViewModel)
+    AboutMe->>Base: ngOnInit() / inIt()
     Base->>VM: inIt() and subscribe()
     par Load section data
         VM->>Service: attachViewDataHandler()
@@ -338,6 +394,9 @@ sequenceDiagram
     Service->>Clipboard: copy(data without spaces)
     Service->>Notice: showMessage(message, 'copy')
     Notice-->>User: Display snackbar notification
+    User->>AboutMe: Leave section
+    AboutMe->>Base: ngOnDestroy()
+    Base->>Base: unsubscribe()
 ```
 
 ## How to Build the Project
