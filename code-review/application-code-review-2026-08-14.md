@@ -231,3 +231,15 @@ for Hono and one for UUID. The manifest and lockfile now override Hono to
 `4.13.7` and UUID to `11.1.1`. `npm audit` and `npm audit --omit=dev` both
 report zero vulnerabilities after the update. The UUID override applies to the
 Firebase Admin import chain; neither package is part of the production bundle.
+
+### Secret-scanning follow-up
+
+GitHub secret scanning identified a Firebase browser API key in the tracked
+environment configuration and its commit history. The key is not a server
+credential, but it must still be restricted and rotated because it was publicly
+committed. Current source no longer contains the literal: Firebase loads the
+key from the ignored `src/assets/firebase-config.js` deployment asset and
+throws during initialization when the runtime key is missing. The historical
+alert must be closed as rotated/false positive after the Google Cloud key is
+rotated and restricted; removing the current literal alone does not erase it
+from Git history.

@@ -36,6 +36,13 @@ jobs:
       - name: Check Node.js version
         run: node -v
 
+      - name: Configure Firebase browser key
+        env:
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+        run: |
+          test -n "$FIREBASE_API_KEY"
+          node -e "require('fs').writeFileSync('src/assets/firebase-config.js', 'globalThis.__FIREBASE_CONFIG__ = ' + JSON.stringify({ apiKey: process.env.FIREBASE_API_KEY }) + ';\n')"
+
       - name: Build Angular app
         run: npm run build -- --configuration production
 

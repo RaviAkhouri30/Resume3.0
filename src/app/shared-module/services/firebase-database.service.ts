@@ -17,8 +17,21 @@ export class FirebaseDatabaseService {
     private readonly _firestore: Firestore;
 
     constructor() {
+        // Load the browser-only key from the deployment asset, never from source control.
+        const runtimeConfig = (globalThis as typeof globalThis & {
+            __FIREBASE_CONFIG__?: Partial<typeof environment.firebase> & { apiKey?: string };
+        }).__FIREBASE_CONFIG__;
+        const firebaseConfig = {
+            ...environment.firebase,
+            ...runtimeConfig
+        } as typeof environment.firebase & { apiKey?: string };
+
+        if (!firebaseConfig.apiKey) {
+            throw new Error('Firebase runtime configuration is missing apiKey.');
+        }
+
         // Initialize the application once so Auth and Firestore share the same project context.
-        this._app = initializeApp(environment.firebase);
+        this._app = initializeApp(firebaseConfig);
         this._auth = getAuth(this._app);
         this._firestore = getFirestore(this._app);
     }

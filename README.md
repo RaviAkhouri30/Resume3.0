@@ -89,6 +89,26 @@ for published resume content and restrict writes to an authenticated user whose
 Firebase UID matches the `{userId}` path segment. Keep deployment rules in the
 repository so the permission model is reviewable and repeatable.
 
+The browser Firebase API key is supplied at deployment time rather than stored
+in Git. Copy `src/assets/firebase-config.js.example` to
+`src/assets/firebase-config.js`, set the restricted key, and keep the copied
+file ignored. Restrict the key in Google Cloud by HTTP referrer and API scope;
+also rotate the key that was previously committed and review its usage before
+closing the secret-scanning alert.
+
+For the Azure deployment, add a GitHub Actions repository secret named
+`FIREBASE_API_KEY`. The workflow creates the ignored runtime file automatically
+before the production build. For a local production build, run:
+
+```bash
+cp src/assets/firebase-config.js.example src/assets/firebase-config.js
+# Edit firebase-config.js and replace the placeholder with the restricted key.
+npm run build -- --configuration production
+```
+
+Local development uses the fake backend by default, so `npm start` does not
+need this file.
+
 Example environment state:
 
 ```ts

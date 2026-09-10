@@ -12,6 +12,7 @@ npm-debug.log
 yarn-error.log
 service-account*.json
 *-firebase-adminsdk-*.json
+/src/assets/firebase-config.js
 /scripts/import-resume.cjs
 
 # IDEs and editors
