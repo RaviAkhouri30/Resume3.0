@@ -18,12 +18,15 @@ Check dependencies for known vulnerabilities with:
 npm audit
 ```
 
-The `overrides` section in `package.json` pins vulnerable transitive dependencies to patched versions. The `body-parser` override is scoped to Karma so it does not change the major version required by Express. After dependency changes, verify both the audit and build before committing:
+The `overrides` section in `package.json` pins vulnerable transitive dependencies to patched versions. The `body-parser` override is scoped to Karma so it does not change the major version required by Express. Hono is used by Angular's development tooling, and UUID is used by the Firebase Admin development/import chain; these overrides keep those development-only paths on patched releases. After dependency changes, verify both the audit and build before committing:
 
 ```bash
 npm audit
 npm run build
 ```
+
+The expected result is zero reported vulnerabilities for both the complete
+tree and production dependencies (`npm audit --omit=dev`).
 
 Run the unit tests once in a headless browser with:
 

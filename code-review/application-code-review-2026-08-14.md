@@ -223,3 +223,11 @@ Validation completed for this follow-up:
 - `npx tsc -p tsconfig.app.json --noEmit` passes.
 - `npm test -- --watch=false --browsers=ChromeHeadless` reaches compilation but
 	does not complete because of the pre-existing spec errors listed above.
+
+### Dependency alert follow-up
+
+GitHub Dependabot reported three moderate development-dependency alerts: two
+for Hono and one for UUID. The manifest and lockfile now override Hono to
+`4.13.7` and UUID to `11.1.1`. `npm audit` and `npm audit --omit=dev` both
+report zero vulnerabilities after the update. The UUID override applies to the
+Firebase Admin import chain; neither package is part of the production bundle.
