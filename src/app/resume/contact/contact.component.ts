@@ -1,8 +1,8 @@
-import { Component, inject, Injector, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
-import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { IContactDetails } from 'src/app/shared-module/interfaces/i-contact-details';
 import { ContactService } from './services/contact.service';
+import { ContactViewModel } from './models/contact-view-model';
 
 @Component({
   selector: 'app-contact',
@@ -14,16 +14,15 @@ import { ContactService } from './services/contact.service';
 export class ContactComponent extends BaseComponent<IContactDetails[]> implements OnInit {
 
   private readonly _contactService: ContactService = inject(ContactService);
-  protected readonly _context: ViewModelContext = ViewModelContext.ContactDetailsComponent;
 
-  constructor(
-    protected override injector: Injector
-  ) {
-    super(injector);
+  constructor() {
+    super();
+    // The component selects its model; BaseComponent manages its subscription.
+    this.model = inject(ContactViewModel);
   }
 
   ngOnInit(): void {
-    this.initializeModel();
+    this.inIt();
   }
 
   onCopyDetails(contact: IContactDetails) {

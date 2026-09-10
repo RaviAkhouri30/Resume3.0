@@ -200,3 +200,34 @@ The most important work is to restore the test suite, remove the production fake
 ## Conclusion
 
 The application is a good portfolio-scale Angular project with clear feature organization and a thoughtful attempt at MVVM separation. It is not yet fully aligned with SOLID or idiomatic Angular architecture because it relies on static factories, service location, and broad inherited responsibilities. Addressing the test configuration, production backend configuration, and dependency-injection design will provide the largest improvement in reliability, security readiness, and maintainability.
+
+## Follow-up Review — 2026-09-10
+
+The view-model refactor has been applied and the earlier lifecycle findings are
+resolved for the active component path. Components now inject their own
+view-model services, `BaseComponent` is a directive with guarded teardown, and
+the deprecated factory no longer constructs `inject()`-dependent classes
+directly. The README diagrams and lifecycle documentation have been updated to
+match this design.
+
+The Angular test schema issue is also resolved by changing the Karma builder's
+`polyfills` option to an array. The command now reaches TypeScript compilation,
+where it is blocked by existing placeholder specs unrelated to this refactor:
+missing `AppComponent.title`, zero-argument command/data-model construction,
+an abstract `ViewModel` instantiation, and an outdated projects-experience
+model import. These should be handled in a separate test cleanup pass.
+
+Validation completed for this follow-up:
+
+- `git diff --check` passes.
+- `npx tsc -p tsconfig.app.json --noEmit` passes.
+- `npm test -- --watch=false --browsers=ChromeHeadless` reaches compilation but
+	does not complete because of the pre-existing spec errors listed above.
+
+### Dependency alert follow-up
+
+GitHub Dependabot reported three moderate development-dependency alerts: two
+for Hono and one for UUID. The manifest and lockfile now override Hono to
+`4.13.7` and UUID to `11.1.1`. `npm audit` and `npm audit --omit=dev` both
+report zero vulnerabilities after the update. The UUID override applies to the
+Firebase Admin import chain; neither package is part of the production bundle.

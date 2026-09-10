@@ -1,10 +1,10 @@
 import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
-import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { ContactMe } from 'src/app/shared-module/models/contact-me';
 import emailjs from '@emailjs/browser'
 import { NotificationService } from 'src/app/shared-module/services/notification.service';
+import { ContactMeViewModel } from './models/contact-me-view-model';
 
 @Component({
   selector: 'app-contact-me',
@@ -20,12 +20,16 @@ export class ContactMeComponent extends BaseComponent<ContactMe> implements OnIn
   private readonly notificationService: NotificationService = inject(NotificationService);
   private _form!: FormGroup;
 
-  protected readonly _context: ViewModelContext = ViewModelContext.ContactMe;
+  constructor() {
+    super();
+    // The component selects its model; BaseComponent manages its subscription.
+    this.model = inject(ContactMeViewModel);
+  }
 
   /** Creates the form and initializes its view model when the component loads. */
   ngOnInit(): void {
+    this.inIt();
     this.createForm();
-    this.initializeModel();
   }
 
   /** Returns the reactive form used by the contact section. */

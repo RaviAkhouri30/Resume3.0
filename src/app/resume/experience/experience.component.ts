@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
-import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { mapToTimelineItems } from 'src/app/shared-module/helper-functions/map-to-timeline-items';
 import { mapExperienceToTimelineItem } from 'src/app/shared-module/helper-functions/transform-to-timeline';
 import { IExperienceDataModel } from 'src/app/shared-module/interfaces/i-experience-data-model';
 import { ITimeline } from 'src/app/shared-module/interfaces/i-timeline';
+import { ExperienceViewModel } from './models/experience-view-model';
 
 @Component({
   selector: 'app-experience',
@@ -15,18 +15,15 @@ import { ITimeline } from 'src/app/shared-module/interfaces/i-timeline';
 })
 export class ExperienceComponent extends BaseComponent<IExperienceDataModel[]> implements OnInit {
 
-  protected override readonly _context: ViewModelContext = ViewModelContext.ExperienceComponent;
-
-  // private readonly dialog: MatDialog = inject(MatDialog);
-
-  ngOnInit(): void {
-    this.initializeModel();
+  constructor() {
+    super();
+    // The component selects its model; BaseComponent manages its subscription.
+    this.model = inject(ExperienceViewModel);
   }
 
-  // public onReadMore = (title: string, message: string[]): void => {
-  //   this.dialog.open(ShowMessageDialogComponent, { data: { title, message } });
-  // }
-
+  ngOnInit(): void {
+    this.inIt();
+  }
 
   get transformedTimelineItems(): ITimeline[] {
     return mapToTimelineItems(this.model.data, mapExperienceToTimelineItem);

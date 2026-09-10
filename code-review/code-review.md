@@ -102,3 +102,25 @@ However, the current implementation is not a fully clean-architecture design. It
 ## Conclusion
 
 This project has a sound modular intent, but it could be improved by embracing Angular's dependency injection and provider patterns more fully. The architecture is currently more of a hybrid custom framework than a clean Angular application, so tightening DI, simplifying factories, and reducing hidden coupling will make it much more maintainable.
+
+## Follow-up Review — 2026-09-10
+
+The current refactor has addressed the view-model lifecycle concerns described
+above:
+
+- Resume components inject their concrete view models directly with Angular DI.
+- `BaseComponent` is now a `@Directive()` and owns only stream startup and safe
+	teardown; the obsolete `initializeModel()` path was removed.
+- View models use Angular `@Service()` metadata and `inject()` for service
+	dependencies.
+- `ViewModelFactory` and `ViewModelContext` remain deprecated compatibility
+	APIs. The factory resolves instances through a supplied `Injector` instead
+	of manually constructing DI-dependent classes.
+- Tests for migrated view models use `TestBed.inject(...)`.
+- The Angular 22 Karma configuration now declares `polyfills` as an array.
+
+Remaining validation issue: the test command reaches compilation but still
+fails on unrelated pre-existing placeholder specs, including `AppComponent`,
+command constructors, data-model constructors, the abstract `ViewModel`, and
+the outdated projects-experience spec. The application TypeScript check passes
+with `npx tsc -p tsconfig.app.json --noEmit`.

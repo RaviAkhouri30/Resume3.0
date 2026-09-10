@@ -2,18 +2,14 @@ import { Observable, tap } from "rxjs";
 import { IEducationDataModel } from "src/app/shared-module/interfaces/i-education-data-model";
 import { ViewModel } from "src/app/shared-module/models/view-model";
 import { EducationService } from "../services/education.service";
-import { Injector } from "@angular/core";
+import { inject, Service } from "@angular/core";
 import { ICommand } from "src/app/shared-module/interfaces/i-command";
 import { EducationDataModel } from "src/app/shared-module/models/education-data-model";
 
+@Service()
 export class EducationViewModel extends ViewModel<IEducationDataModel[]> {
 
-    private _educationService: EducationService;
-
-    constructor(protected injector: Injector) {
-        super();
-        this._educationService = injector.get(EducationService);
-    }
+    private _educationService: EducationService = inject(EducationService);
 
     override attachViewHandler = (): Observable<any> => {
         return this._educationService.attachViewDataHandler<IEducationDataModel[]>().pipe(

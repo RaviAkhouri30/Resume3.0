@@ -2,7 +2,7 @@ import { map, Observable, tap } from "rxjs";
 import { IExperienceDataModel } from "src/app/shared-module/interfaces/i-experience-data-model";
 import { ViewModel } from "src/app/shared-module/models/view-model";
 import { ExperienceService } from "../services/experience.service";
-import { Injector } from "@angular/core";
+import { inject, Service } from "@angular/core";
 import { ExperienceDataModel } from "src/app/shared-module/models/experience-data-model";
 
 /**
@@ -11,23 +11,14 @@ import { ExperienceDataModel } from "src/app/shared-module/models/experience-dat
  * 
  * @extends ViewModel<IExperienceDataModel[]>
  */
+@Service()
 export class ExperienceViewModel extends ViewModel<IExperienceDataModel[]> {
 
     /**
      * The service used to manage experience data.
      * @private
      */
-    private _experienceService: ExperienceService;
-
-    /**
-     * Constructs an instance of `ExperienceViewModel`.
-     * 
-     * @param injector - The injector used to get the `ExperienceService`.
-     */
-    constructor(protected injector: Injector) {
-        super();
-        this._experienceService = injector.get(ExperienceService);
-    }
+    private _experienceService: ExperienceService = inject(ExperienceService);
 
     /**
      * Attaches the view handler to the experience service.

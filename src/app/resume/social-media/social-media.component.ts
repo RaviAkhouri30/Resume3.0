@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
-import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { PersonDataModel } from 'src/app/shared-module/models/person-data-model';
+import { SocialMediaModel } from './models/social-media-model';
 
 @Component({
   selector: 'app-social-media',
@@ -11,10 +11,15 @@ import { PersonDataModel } from 'src/app/shared-module/models/person-data-model'
   styleUrl: './social-media.component.css',
 })
 export class SocialMediaComponent extends BaseComponent<PersonDataModel> implements OnInit {
-  protected readonly _context: ViewModelContext = ViewModelContext.SocialMedia;
+
+  constructor() {
+    super();
+    // The component selects its model; BaseComponent manages its subscription.
+    this.model = inject(SocialMediaModel);
+  }
 
   ngOnInit(): void {
-    this.initializeModel();
+    this.inIt();
   }
 
   /**

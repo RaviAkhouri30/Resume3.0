@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
-import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { mapToTimelineItems } from 'src/app/shared-module/helper-functions/map-to-timeline-items';
 import { mapHobbiesToTimelineItem } from 'src/app/shared-module/helper-functions/transform-to-timeline';
 import { IHobbiesDataModel } from 'src/app/shared-module/interfaces/i-hobbies';
 import { ITimeline } from 'src/app/shared-module/interfaces/i-timeline';
+import { HobbiesViewModel } from './models/hobbies-view-model';
 
 @Component({
   selector: 'app-hobbies',
@@ -15,10 +15,14 @@ import { ITimeline } from 'src/app/shared-module/interfaces/i-timeline';
 })
 export class HobbiesComponent extends BaseComponent<IHobbiesDataModel[]> implements OnInit {
 
-  protected override _context: ViewModelContext = ViewModelContext.HobbiesComponent;
+  constructor() {
+    super();
+    // The component selects its model; BaseComponent manages its subscription.
+    this.model = inject(HobbiesViewModel);
+  }
 
   ngOnInit(): void {
-    this.initializeModel();
+    this.inIt();
   }
 
   get transformedTimelineItems(): ITimeline[] {

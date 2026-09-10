@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
-import { ViewModelContext } from 'src/app/shared-module/enums/view-model-context';
 import { mapToTimelineItems } from 'src/app/shared-module/helper-functions/map-to-timeline-items';
 import { mapEducationToTimelineItem } from 'src/app/shared-module/helper-functions/transform-to-timeline';
 import { IEducationDataModel } from 'src/app/shared-module/interfaces/i-education-data-model';
 import { ITimeline } from 'src/app/shared-module/interfaces/i-timeline';
+import { EducationViewModel } from './models/education-view-model';
 
 @Component({
   selector: 'app-education',
@@ -15,12 +15,15 @@ import { ITimeline } from 'src/app/shared-module/interfaces/i-timeline';
 })
 export class EducationComponent extends BaseComponent<IEducationDataModel[]> implements OnInit {
 
-  protected override _context: ViewModelContext = ViewModelContext.EducationComponent;
-
-  ngOnInit(): void {
-    this.initializeModel();
+  constructor() {
+    super();
+    // The component selects its model; BaseComponent manages its subscription.
+    this.model = inject(EducationViewModel);
   }
 
+  ngOnInit(): void {
+    this.inIt()
+  }
 
   get transformedTimelineItems(): ITimeline[] {
     return mapToTimelineItems(this.model.data, mapEducationToTimelineItem);
