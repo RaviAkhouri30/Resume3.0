@@ -1,0 +1,4 @@
+// Copy this file to firebase-config.js during deployment and set the restricted browser API key.
+globalThis.__FIREBASE_CONFIG__ = {
+  apiKey: 'replace-with-restricted-firebase-browser-key'
+};

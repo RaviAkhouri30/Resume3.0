@@ -10,7 +10,6 @@ export const environment = {
   // Shared prefix; feature endpoints append section names such as `education`.
   baseUrl: 'resumes/RS-PLACEHOLDER/resume',
   firebase: {
-    apiKey: 'AIzaSyARu-OaWZYUK6qA9ONoq8YDGp8oljKMjis',
     authDomain: 'resume-builder-f0652.firebaseapp.com',
     projectId: 'resume-builder-f0652',
     storageBucket: 'resume-builder-f0652.firebasestorage.app',
