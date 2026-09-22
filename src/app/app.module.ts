@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ServiceProviderFactory } from './shared-module/factories/service-provider-factory';
+import { ApiServiceProviderFactory } from './shared-module/factories/api-service-provider-factory';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { IHttpBackend } from './shared-module/interfaces/i-http-backend';
@@ -28,7 +28,7 @@ import { IHttpBackend } from './shared-module/interfaces/i-http-backend';
     provideHttpClient(withXhr(), withInterceptorsFromDi()), // Configures the HTTP client with dependency injection-based interceptors
     {
       provide: IHttpBackend, // Token for a custom HTTP service
-      useFactory: ServiceProviderFactory.httpsServiceFactory, // Factory function to create the service
+      useFactory: ApiServiceProviderFactory.httpsServiceFactory, // Factory function to create the service
       deps: [HttpHandler] // Dependencies required by the factory function
     },
     provideAnimationsAsync() // Asynchronous provider for enabling animations

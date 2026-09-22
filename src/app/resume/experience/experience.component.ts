@@ -5,13 +5,20 @@ import { mapExperienceToTimelineItem } from 'src/app/shared-module/helper-functi
 import { IExperienceDataModel } from 'src/app/shared-module/interfaces/i-experience-data-model';
 import { ITimeline } from 'src/app/shared-module/interfaces/i-timeline';
 import { ExperienceViewModel } from './models/experience-view-model';
+import { COMMAND_CONTEXT, CommandService } from 'src/app/shared-module/services/command-service';
+import { Context } from 'src/app/shared-module/enums/context';
 
 @Component({
   selector: 'app-experience',
   templateUrl: './experience.component.html',
   styleUrls: ['./experience.component.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false
+  standalone: false,
+  providers: [
+    ExperienceViewModel,
+    { provide: COMMAND_CONTEXT, useValue: Context.Experience },
+    CommandService
+  ]
 })
 export class ExperienceComponent extends BaseComponent<IExperienceDataModel[]> implements OnInit {
 

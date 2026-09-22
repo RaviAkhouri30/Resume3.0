@@ -16,7 +16,5 @@ export class ProfessionalSkillsViewModel extends ViewModel<ProfessionalSkillsDat
                 tap(result => this.data = result.map(e => new ProfessionalSkillsDataModel(e)))
             );
     }
-    protected override attachCommandHandler = (): Observable<any> => {
-        return this._professionalSkillsService.attachCommandApiHandler().pipe();
-    }
+
 }

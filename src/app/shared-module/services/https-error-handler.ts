@@ -1,7 +1,7 @@
 import { HttpResponse } from "@angular/common/http";
 import { catchError, EMPTY, filter, map, Observable, startWith, Subscriber, takeUntil, tap, timeout } from "rxjs";
 import { LoaderService } from "../services/loader-service";
-import { Injectable, Injector } from "@angular/core";
+import { inject, Service } from "@angular/core";
 import { NotificationService } from "../services/notification.service";
 
 /**
@@ -48,18 +48,11 @@ import { NotificationService } from "../services/notification.service";
  * @returns {Observable<any>} An empty observable.
  */
 
-@Injectable({
-    providedIn: 'root'
-})
-export class HandleErrorFactory {
+@Service()
+export class HttpsErrorHandler {
     private _cancelRequest!: Subscriber<any>;
-    private _loaderService: LoaderService;
-    private _notificationService: NotificationService;
-
-    constructor(protected injector: Injector) {
-        this._loaderService = injector.get(LoaderService);
-        this._notificationService = injector.get(NotificationService);
-    }
+    private _loaderService: LoaderService = inject(LoaderService);
+    private _notificationService: NotificationService = inject(NotificationService);
 
     /**
      * Handles HTTP errors for the given HTTP request callback.

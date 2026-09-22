@@ -1,17 +1,19 @@
-import { inject, Service } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { map, Observable, tap } from "rxjs";
 import { IPersonDataModel } from "src/app/shared-module/interfaces/i-person-data-model";
 import { ViewModel } from "src/app/shared-module/models/view-model";
 import { AboutMeService } from "../services/about-me.service";
 import { PersonDataModel } from "src/app/shared-module/models/person-data-model";
 import { CommonService } from "src/app/shared-module/services/common.service";
+import { CommandService } from "src/app/shared-module/services/command-service";
 
-@Service()
+@Injectable()
 export class AboutMeViewModel extends ViewModel<PersonDataModel> {
 
     // Private property to hold the AboutMeService instance
     private readonly _aboutMeService: AboutMeService = inject(AboutMeService);
     private readonly _commonService: CommonService = inject(CommonService);
+    private readonly _commandService: CommandService = inject(CommandService);
 
     // Method to attach view handler and fetch data from the API
     protected override attachViewHandler = (): Observable<void> => {
@@ -26,7 +28,7 @@ export class AboutMeViewModel extends ViewModel<PersonDataModel> {
 
     // Method to attach command handler and execute commands via the API
     protected override attachCommandHandler = (): Observable<void> => {
-        return this._aboutMeService.attachCommandApiHandler<any>().pipe(
+        return this._commandService.attachCommandApiHandler<any>().pipe(
             // Map the result to void
             map(() => { })
         );

@@ -3,18 +3,26 @@ import { BaseComponent } from 'src/app/shared-module/components/base-component/b
 import { AboutMeService } from './services/about-me.service';
 import { PersonDataModel } from 'src/app/shared-module/models/person-data-model';
 import { AboutMeViewModel } from './models/about-me-view-model';
+import { COMMAND_CONTEXT, CommandService } from 'src/app/shared-module/services/command-service';
+import { Context } from 'src/app/shared-module/enums/context';
 
 @Component({
   selector: 'app-about-me',
   templateUrl: './about-me.component.html',
   styleUrls: ['./about-me.component.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false
+  standalone: false,
+  providers: [
+    AboutMeViewModel,
+    { provide: COMMAND_CONTEXT, useValue: Context.AboutMe },
+    CommandService
+  ]
 })
 export class AboutMeComponent extends BaseComponent<PersonDataModel> implements OnInit {
 
   // Inject the AboutMeService
-  private readonly _aboutMeService: AboutMeService = inject(AboutMeService);
+  private readonly _commandService: CommandService = inject(CommandService);
+  protected readonly _aboutMeService: AboutMeService = inject(AboutMeService);
 
   constructor() {
     super();
@@ -32,7 +40,7 @@ export class AboutMeComponent extends BaseComponent<PersonDataModel> implements 
    * @param message The message to be displayed.
    */
   public onCopy(data: string, message: string): void {
-    this._aboutMeService.copyCommand(data, message);
+    this._commandService.copyCommand(data, message);
   }
 
 }

@@ -9,7 +9,7 @@ import { FirebaseBackendService } from "../services/firebase-backend.service";
  * This preserves the application-level abstraction while allowing local mock data,
  * Firebase Firestore, or the standard Angular HTTP client to be chosen at runtime.
  */
-export class ServiceProviderFactory {
+export class ApiServiceProviderFactory {
     /**
      * Returns the active backend implementation for the configured environment.
      * The selected implementation must preserve the `IHttpBackend` response contract.

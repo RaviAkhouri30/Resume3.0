@@ -1,5 +1,5 @@
 import { inject, Service } from "@angular/core";
-import { EMPTY, map, Observable, tap } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 import { IAwardAchievements } from "src/app/shared-module/interfaces/i-awards-achievements";
 import { ViewModel } from "src/app/shared-module/models/view-model";
 import { CommonService } from "src/app/shared-module/services/common.service";
@@ -14,10 +14,6 @@ export class AwardsAndAchievemntsViewModel extends ViewModel<IAwardAchievements[
             tap(result => this.data = result.awardsAndAchievements),
             map(result => result.awardsAndAchievements)
         );
-    }
-
-    protected override attachCommandHandler = (): Observable<any> => {
-        return EMPTY.pipe();
     }
 
 }

@@ -1,18 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Context } from 'src/app/shared-module/enums/context';
 import { IPersonDataModel } from 'src/app/shared-module/interfaces/i-person-data-model';
-import { BaseService } from 'src/app/shared-module/services/base.service';
+import { ApiBaseService } from 'src/app/shared-module/services/api-base.service';
 import { CommonService } from 'src/app/shared-module/services/common.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class IntroductionService extends BaseService {
-
-  constructor() {
-    super(Context.Introduction);
-  }
+export class IntroductionService extends ApiBaseService {
 
   private readonly _commonService: CommonService = inject(CommonService);
 
