@@ -1,4 +1,4 @@
-import { merge, Observable } from "rxjs";
+import { EMPTY, merge, Observable } from "rxjs";
 import { IViewModel } from "../interfaces/i-view-model";
 
 export abstract class ViewModel<T> implements IViewModel<T> {
@@ -12,8 +12,13 @@ export abstract class ViewModel<T> implements IViewModel<T> {
         return this.observe();
     }
 
-    protected abstract attachViewHandler: () => Observable<any>;
-    protected abstract attachCommandHandler: () => Observable<any>;
+    protected attachViewHandler = (): Observable<any> => {
+        return EMPTY.pipe();
+    };
+
+    protected attachCommandHandler = (): Observable<any> => {
+        return EMPTY.pipe();
+    }
 
     get data(): T {
         return this._data;

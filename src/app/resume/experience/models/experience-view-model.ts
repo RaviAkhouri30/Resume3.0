@@ -4,6 +4,7 @@ import { ViewModel } from "src/app/shared-module/models/view-model";
 import { ExperienceService } from "../services/experience.service";
 import { inject, Service } from "@angular/core";
 import { ExperienceDataModel } from "src/app/shared-module/models/experience-data-model";
+import { CommandService } from "src/app/shared-module/services/command-service";
 
 /**
  * The `ExperienceViewModel` class extends the `ViewModel` class and is responsible for managing
@@ -19,6 +20,7 @@ export class ExperienceViewModel extends ViewModel<IExperienceDataModel[]> {
      * @private
      */
     private _experienceService: ExperienceService = inject(ExperienceService);
+    private _commandService: CommandService = inject(CommandService);
 
     /**
      * Attaches the view handler to the experience service.
@@ -38,6 +40,6 @@ export class ExperienceViewModel extends ViewModel<IExperienceDataModel[]> {
      * @returns An observable that emits when the command handler is attached.
      */
     protected override attachCommandHandler = (): Observable<any> => {
-        return this._experienceService.attachCommandApiHandler().pipe();
+        return this._commandService.attachCommandApiHandler().pipe();
     }
 }

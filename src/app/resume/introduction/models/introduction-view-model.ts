@@ -16,8 +16,4 @@ export class IntroductionViewModel extends ViewModel<PersonDataModel> {
         );
     }
 
-    protected override attachCommandHandler = (): Observable<any> => {
-        return this.introductionService.attachCommandApiHandler();
-    }
-
 }

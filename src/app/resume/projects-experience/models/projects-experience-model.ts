@@ -25,12 +25,4 @@ export class ProjectsExperienceViewModel extends ViewModel<ProjectsExperienceDat
         );
     }
 
-    /**
-     * Attaches the command handler.
-     * 
-     * @returns An observable that emits when the command handler is attached.
-     */
-    protected override attachCommandHandler = (): Observable<any> => {
-        return this._projectsExperienceService.attachCommandApiHandler().pipe();
-    }
 }

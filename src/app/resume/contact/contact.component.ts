@@ -1,8 +1,9 @@
 import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
 import { IContactDetails } from 'src/app/shared-module/interfaces/i-contact-details';
-import { ContactService } from './services/contact.service';
 import { ContactViewModel } from './models/contact-view-model';
+import { COMMAND_CONTEXT, CommandService } from 'src/app/shared-module/services/command-service';
+import { Context } from 'src/app/shared-module/enums/context';
 
 @Component({
   selector: 'app-contact',
@@ -10,10 +11,15 @@ import { ContactViewModel } from './models/contact-view-model';
   templateUrl: './contact.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './contact.component.css',
+  providers: [
+    ContactViewModel,
+    { provide: COMMAND_CONTEXT, useValue: Context.ContactDetails },
+    CommandService
+  ]
 })
 export class ContactComponent extends BaseComponent<IContactDetails[]> implements OnInit {
 
-  private readonly _contactService: ContactService = inject(ContactService);
+  private readonly _commandService: CommandService = inject(CommandService);
 
   constructor() {
     super();
@@ -34,7 +40,7 @@ export class ContactComponent extends BaseComponent<IContactDetails[]> implement
       _contact.isCopied = false;
     });
 
-    this._contactService.copyCommand(contact.details, contact.type);
+    this._commandService.copyCommand(contact.details, contact.type);
   }
 
 }

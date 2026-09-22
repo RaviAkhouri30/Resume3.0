@@ -4,11 +4,13 @@ import { IContactDetails } from "src/app/shared-module/interfaces/i-contact-deta
 import { ViewModel } from "src/app/shared-module/models/view-model";
 import { ContactService } from "../services/contact.service";
 import { ContactDetailsDataModel } from "src/app/shared-module/models/contact-details-data-model";
+import { CommandService } from "src/app/shared-module/services/command-service";
 
 @Service()
 export class ContactViewModel extends ViewModel<IContactDetails[]> {
 
     private readonly _contactService: ContactService = inject(ContactService);
+    private readonly _commandService: CommandService = inject(CommandService);
 
     protected override attachViewHandler = (): Observable<any> => {
         return this._contactService.attachViewDataHandler<IContactDetails[]>().pipe(
@@ -17,6 +19,6 @@ export class ContactViewModel extends ViewModel<IContactDetails[]> {
     }
 
     protected override attachCommandHandler = (): Observable<any> => {
-        return this._contactService.attachCommandApiHandler();
+        return this._commandService.attachCommandApiHandler();
     }
 }

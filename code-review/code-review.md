@@ -82,6 +82,18 @@ However, the current implementation is not a fully clean-architecture design. It
 ### `AboutMeService` and Similar Services
 - The service correctly filters and maps HTTP responses, but it depends on low-level mock HTTP response handling. A simpler service API returning domain models would be cleaner.
 
+## SOLID Review Table
+
+| SOLID Principle | % Implemented | Review |
+|---|---:|---|
+| Single Responsibility Principle (SRP) | 75% | Most feature classes focus on one responsibility: components render, services fetch data, and view models adapt data. However, shared classes like `CommandService` mix several responsibilities (copy, dialog, and download actions). |
+| Open/Closed Principle (OCP) | 68% | The base abstractions in `BaseComponent`, `ViewModel`, and `ApiBaseService` are extension-friendly, but several concrete classes still require direct modification to add new behaviors. |
+| Liskov Substitution Principle (LSP) | 78% | Inheritance is mostly valid. Concrete components and services behave consistently with the base contracts they extend. |
+| Interface Segregation Principle (ISP) | 56% | Several interfaces group too many operations together, and shared services expose broader contracts than every consumer needs. This makes the design less flexible and less granular. |
+| Dependency Inversion Principle (DIP) | 80% | This is a strong area. High-level logic depends on abstractions such as `ApiBaseService`, `IViewModel`, and injected services rather than concrete implementations. |
+
+Overall SOLID maturity: approximately 72% of the core concepts are implemented effectively.
+
 ## Overall Rating
 
 - Clean architecture: partial. There is a layered architecture intent, but it is not fully realized.
@@ -102,6 +114,51 @@ However, the current implementation is not a fully clean-architecture design. It
 ## Conclusion
 
 This project has a sound modular intent, but it could be improved by embracing Angular's dependency injection and provider patterns more fully. The architecture is currently more of a hybrid custom framework than a clean Angular application, so tightening DI, simplifying factories, and reducing hidden coupling will make it much more maintainable.
+
+## Current Refactor Review — 2026-09-23
+
+### Scope and method
+
+Reviewed the current working tree, with emphasis on the staged split of
+`BaseService` into `ApiBaseService` and `CommandService`, the view-model
+migrations, and the backend adapters. Findings are ordered by impact. Line
+references describe the current working tree.
+
+### Findings
+
+| Priority | Finding | Evidence and impact | Recommendation |
+|---|---|---|---|
+| P0 — blocker | `CommandService` cannot be injected by most consumers. | `CommandService` is `@Injectable()` without a root provider and requires `COMMAND_CONTEXT` (`shared-module/services/command-service.ts:14-32`). The only provider pair is on `AboutMeComponent` (`resume/about-me/about-me.component.ts:15-18`). `IntroductionComponent`, `ContactComponent`, and the root-provided contact, education, and experience view models all inject `CommandService` without supplying either dependency. These sections will throw `NullInjectorError` as they are created. | Provide a command service and its context at every relevant component boundary. Provide the matching view model in that same component injector so it receives the same command-service instance; alternatively redesign the command API so context is passed with each command instead of being an injector-scoped token. |
+| P0 — blocker | `AboutMeViewModel` has no provider. | It was changed from auto-provided `@Service()` to `@Injectable()` with no `providedIn` value (`resume/about-me/models/about-me-view-model.ts:10`), and it is not listed in the component providers. `inject(AboutMeViewModel)` in `AboutMeComponent` therefore has no provider to resolve. | Restore auto-provisioning or add `AboutMeViewModel` to the component providers. If it needs the local command service, prefer the latter. |
+| P1 — high | HTTP failures lose their status and do not notify the user. | `HttpsErrorHandler.throwError()` creates a plain `Error` for non-2xx responses (`shared-module/services/https-error-handler.ts:103-106`), while `catchAndHandleError()` displays an error only for `HttpResponse` and `CustomTimeoutError` (`:115-120`). Fake/Firebase 404 and 500 responses therefore hide the loader but produce no user-visible error. | Preserve the `HttpResponse` (or throw a typed error containing its status) and handle it consistently. Cover 404, 500, and timeout paths with tests. |
+| P1 — high | The backend abstraction is not substitutable across all advertised implementations. | `IHttpBackend` promises `Observable<HttpResponse<T>>` for every operation (`interfaces/i-http-backend.ts:10-24`). The fake backend synchronously throws for `post`, `put`, `patch`, and `isAuthenticated` (`services/fake-https.service.ts:33-48,66-68`), while the factory fallback returns a plain `HttpClient` (`factories/api-service-provider-factory.ts:30-31`). Default `HttpClient.get()` emits the body rather than `HttpResponse`; `HttpsErrorHandler` then filters it out (`https-error-handler.ts:71`). | Make every adapter honour the same contract. Either remove unsupported write/auth methods from the read-only contract or return documented observable errors. Wrap the HTTP-client fallback with an adapter using `observe: 'response'`. |
+| P1 — high | Loading and timeout state are race-prone for simultaneous requests. | The loader is shown in `tap`, which runs only after a value is emitted (`https-error-handler.ts:69`), so it is not shown while the request is pending. The singleton stores one mutable cancellation subscriber for all calls (`:53,88-95`) and one request can unsubscribe another request's timer (`:107`). | Use `defer` to show the loader at subscription time and `finalize` to hide it. Apply `timeout` directly to each request and remove the shared subscriber/timer. Track concurrent requests with a count if one global loader is required. |
+| P2 — medium | The dialog command stream emits invalid values. | The dialog subject is initialized as `undefined` and merged without a filter (`command-service.ts:35,49`); `openDialogModelCommand()` then emits an object cast to `IOpenDialogModel` rather than the declared `ICommand<IOpenDialogModel>` (`:70-71`). Subscribers receive an immediate `undefined` and later an object without command metadata. | Use a `Subject<ICommand<IOpenDialogModel<unknown>>>` with no initial value and construct a real command model before emitting. Avoid `any` and unsafe casts. |
+| P3 — low | Copy commands alter the requested clipboard text. | The copy pipeline removes every regular space before copying (`command-service.ts:46`). This silently changes values such as addresses and formatted identifiers. | Copy `data.dataItem` unchanged; only normalise input when that is explicitly part of the feature requirement. |
+| P3 — low | Reinitialising a base component creates an additional live subscription. | `BaseComponent.inIt()` subscribes each time it is invoked, but only the latest subscription is retained (`components/base-component/base-component.ts:18,29`). | Make initialisation idempotent, or dispose of the previous subscription before replacing it. |
+
+### SOLID compliance — current assessment
+
+These scores are an architectural review heuristic, not a test-coverage or
+quality metric. The table supersedes the earlier percentage table for the
+current refactor.
+
+| Principle | Compliance | Assessment |
+|---|---:|---|
+| Single Responsibility Principle (SRP) | 55% | Feature data services are focused, but `CommandService` combines event storage, clipboard access, downloads, DOM manipulation, and notifications; `HttpsErrorHandler` combines loading, timeout/cancellation, response validation, and notification concerns. |
+| Open/Closed Principle (OCP) | 50% | The adapter contract makes new backends possible, but adding a provider mode requires changing the factory, and command types require changes to the central service and merged stream. |
+| Liskov Substitution Principle (LSP) | 35% | `FakeHttpsService` and the raw `HttpClient` fallback do not uphold the full `IHttpBackend` observable-response contract, so callers cannot safely substitute implementations. |
+| Interface Segregation Principle (ISP) | 65% | Splitting command and API service interfaces is an improvement. `IHttpBackend` still forces read-only clients to depend on writes and authentication methods they do not use. |
+| Dependency Inversion Principle (DIP) | 50% | Feature data services depend on `IHttpBackend`, which is good. Command consumers depend on the concrete `CommandService` and a locally configured token, creating fragile injector coupling. |
+| **Overall (unweighted mean)** | **51%** | The refactor improves separation of data and commands, but the provider topology and broken backend substitutability currently outweigh that structural gain. |
+
+### Validation
+
+| Check | Result |
+|---|---|
+| `./node_modules/.bin/tsc -p tsconfig.app.json --noEmit --pretty false` | Passed on the current working tree. |
+| `npm run build` | Did not complete: esbuild terminated with `fatal error: all goroutines are asleep - deadlock!`. This prevented a production-bundle result. |
+| `npm test -- --watch=false --browsers=ChromeHeadless` | Did not reach the test suite; the Angular build phase exited with code 2 after `Building...` and emitted no diagnostic. |
 
 ## Follow-up Review — 2026-09-10
 

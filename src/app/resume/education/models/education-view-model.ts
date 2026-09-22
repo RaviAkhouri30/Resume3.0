@@ -5,11 +5,13 @@ import { EducationService } from "../services/education.service";
 import { inject, Service } from "@angular/core";
 import { ICommand } from "src/app/shared-module/interfaces/i-command";
 import { EducationDataModel } from "src/app/shared-module/models/education-data-model";
+import { CommandService } from "src/app/shared-module/services/command-service";
 
 @Service()
 export class EducationViewModel extends ViewModel<IEducationDataModel[]> {
 
     private _educationService: EducationService = inject(EducationService);
+    private _commandService: CommandService = inject(CommandService);
 
     override attachViewHandler = (): Observable<any> => {
         return this._educationService.attachViewDataHandler<IEducationDataModel[]>().pipe(
@@ -18,6 +20,6 @@ export class EducationViewModel extends ViewModel<IEducationDataModel[]> {
     }
 
     override attachCommandHandler = (): Observable<ICommand<any>> => {
-        return this._educationService.attachCommandApiHandler().pipe();
+        return this._commandService.attachCommandApiHandler().pipe();
     }
 }

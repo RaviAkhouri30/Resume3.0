@@ -1,5 +1,5 @@
 import { inject, Service } from "@angular/core";
-import { EMPTY, map, Observable, tap } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 import { Hobbies } from "src/app/shared-module/models/hobbies";
 import { ViewModel } from "src/app/shared-module/models/view-model";
 import { HobbiesService } from "../services/hobbies.service";
@@ -15,10 +15,6 @@ export class HobbiesViewModel extends ViewModel<Hobbies[]> {
             tap(result => this.data = result.map(hobby => new Hobbies(hobby))),
             map(() => this.data)
         );
-    }
-
-    protected override attachCommandHandler = (): Observable<any> => {
-        return EMPTY.pipe();
     }
 
 }
