@@ -3,7 +3,7 @@ import { ExperienceDataModel } from '../models/experience-data-model';
 import { mapEducationToTimelineItem, mapExperienceToTimelineItem } from './transform-to-timeline';
 
 describe('timeline mappers', () => {
-  it('combines designation and tenure for experience entries', () => {
+  it('separates designation and tenure for experience entries', () => {
     const item = mapExperienceToTimelineItem(new ExperienceDataModel({
       companyName: 'Quorum Software', designation: 'Senior Software Engineer', tenure: 'January 2026 - Present',
       responsibilities: ['Built things']
@@ -11,7 +11,8 @@ describe('timeline mappers', () => {
 
     expect(item).toEqual({
       title: 'Quorum Software',
-      subtitle: 'Senior Software Engineer · January 2026 - Present',
+      subtitle: 'Senior Software Engineer',
+      meta: 'January 2026 - Present',
       bullets: ['Built things']
     });
   });
@@ -21,7 +22,8 @@ describe('timeline mappers', () => {
       degree: 'Azure Fundamentals', instituteName: 'Wipro', graduationYear: '2020'
     }));
 
-    expect(item.title).toBe('Azure Fundamentals (2020)');
+    expect(item.title).toBe('Azure Fundamentals');
+    expect(item.meta).toBe('2020');
     expect(item.subtitle).toBe('Wipro');
     expect(item.description).toBeUndefined();
   });
@@ -31,6 +33,6 @@ describe('timeline mappers', () => {
       degree: 'B.Tech.', major: 'ECE', instituteName: 'SVIST', university: 'WBUT', graduationYear: '2019', grade: '7.79'
     }));
 
-    expect(item).toEqual({ title: 'B.Tech. in ECE (2019)', subtitle: 'SVIST, WBUT', description: 'Grade: 7.79' });
+    expect(item).toEqual({ title: 'B.Tech. in ECE', subtitle: 'SVIST, WBUT', meta: '2019', description: 'Grade: 7.79' });
   });
 });

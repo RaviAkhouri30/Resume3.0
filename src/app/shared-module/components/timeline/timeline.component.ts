@@ -1,10 +1,8 @@
 import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { ITimeline } from '../../interfaces/i-timeline';
-import { TextMagnifierDirective } from '../../directives/text-magnifier.directive';
 
 @Component({
   selector: 'app-timeline',
-  imports: [TextMagnifierDirective],
   templateUrl: './timeline.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './timeline.component.css',
@@ -12,5 +10,8 @@ import { TextMagnifierDirective } from '../../directives/text-magnifier.directiv
 export class TimelineComponent {
 
   public readonly timelineList = input.required<ITimeline[]>();
+
+  /** Bullets shown before the rest collapse behind a "Show more" toggle. */
+  public readonly visibleBullets = input(4);
 
 }

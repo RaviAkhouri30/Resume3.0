@@ -1,6 +1,7 @@
-<section class="hobbies" aria-labelledby="hobbies-heading">
-    <div class="title">
-        <h2 id="hobbies-heading" class="section-heading">Hobbies</h2>
+<section class="section page-width" aria-labelledby="hobbies-heading">
+    <div class="section-header reveal">
+        <h2 id="hobbies-heading" class="section-heading">Beyond <em>Code</em></h2>
+        <p class="section-lead">What keeps me curious when I'm away from the keyboard.</p>
     </div>
-    <app-timeline [timelineList]="model.timeline()"></app-timeline>
+    <app-card-grid [items]="model.timeline()" [columns]="3"></app-card-grid>
 </section>

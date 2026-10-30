@@ -1,8 +1,16 @@
-<section aria-labelledby="skills-heading">
+<section class="skills" aria-labelledby="skills-heading">
     <h2 id="skills-heading" class="visually-hidden">Skills</h2>
-    <ul>
-        @for (item of model.data(); track item.uid) {
-        <li>{{ item.skill }}</li>
-        }
-    </ul>
+    <div class="marquee">
+        <ul class="track">
+            @for (skill of trackItems(); track $index) {
+            <li [attr.aria-hidden]="$index >= skillCount() || null">{{ skill }}</li>
+            }
+        </ul>
+        <!-- Second copy makes the loop seamless; hidden from assistive technology. -->
+        <ul class="track" aria-hidden="true">
+            @for (skill of trackItems(); track $index) {
+            <li>{{ skill }}</li>
+            }
+        </ul>
+    </div>
 </section>

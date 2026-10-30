@@ -179,16 +179,41 @@ It accepts a required `ITimeline[]` input through `timelineList`:
 ```
 
 Each view model maps its own domain model to `ITimeline` (see
-`src/app/shared-module/helper-functions/transform-to-timeline.ts`). This keeps the timeline component
-presentational and allows it to be reused by awards, education, experience, hobbies, and projects.
+`src/app/shared-module/helper-functions/transform-to-timeline.ts`). The timeline renders the date (`meta`)
+in its own column and collapses bullets beyond `visibleBullets` (default 4) behind a "Show more" toggle.
+It is used for work experience.
 
-### Text magnifier
+### Card grid
 
-`TextMagnifierDirective` (`src/app/shared-module/directives/text-magnifier.directive.ts`) is a standalone
-directive imported by each component that should use it. It applies to common text elements such as
-headings, paragraphs, list items, links and labels; hovering or focusing readable text displays one floating,
-magnified preview. Its listeners are bound natively so they never trigger change detection, a single shared
-scroll listener hides the active preview, and animations are disabled for users who prefer reduced motion.
+`src/app/shared-module/components/card-grid/` renders the same `ITimeline[]` shape as a responsive grid of
+cards, used by projects, awards, education and hobbies:
+
+```html
+<app-card-grid [items]="model.timeline()" [numbered]="true"></app-card-grid>
+<app-card-grid [items]="model.timeline()" icon="bi bi-award" [columns]="3"></app-card-grid>
+```
+
+`numbered` adds a 01, 02, … index, `icon` is the fallback icon for items without their own, and `columns`
+(2 or 3) sets the column count on wide screens.
+
+### Live preview and personal projects
+
+`src/app/shared-module/components/live-preview/` shows a running site in a browser-style window: the
+page is laid out at 1280px in an iframe, scaled to fit, and panned down and back up like a screen
+recording. It pauses on hover and from its play/pause button, and stays still under reduced motion.
+
+The personal projects using it are listed in
+`src/app/resume/personal-projects/models/personal-projects.ts`. Each preview origin must also be allowed
+by `frame-src` in `src/staticwebapp.config.json`. This site previews itself through the same-origin path
+`/?preview=1` (allowed by `frame-ancestors 'self'` and `X-Frame-Options: SAMEORIGIN`); inside that frame
+the section shows placeholders instead of loading further previews.
+
+### Design tokens
+
+Colours, fonts, radii and spacing are CSS custom properties in `src/styles.css` (`--accent`, `--text`,
+`--font-serif`, …), together with shared `.section`, `.section-header`, `.btn` and `.card` styles. Section
+numbers (01, 02, …) come from a CSS counter, and `.reveal` elements fade in on scroll where the browser
+supports scroll-driven animations and the user has not asked for reduced motion.
 
 ## Folder Structure
 ```
@@ -211,13 +236,14 @@ Resume3.0/
 │   │   │   ├── introduction/              # Component and view model
 │   │   │   ├── professional-skills/       # Component, view model, and service
 │   │   │   ├── projects-experience/       # Component, view model, and service
+│   │   │   ├── personal-projects/         # Side projects with live previews
 │   │   │   ├── resume-container/          # Page layout composing all sections
+│   │   │   ├── site-header/               # Sticky header, mobile menu, active-section nav
 │   │   │   └── social-media/              # Component and view model
 │   │   └── shared-module/
 │   │       ├── commands/                  # Copy command
-│   │       ├── components/                # Base component and timeline
+│   │       ├── components/                # Base component, timeline, card grid, live preview
 │   │       ├── constants/                 # Resume section endpoints
-│   │       ├── directives/                # Text magnifier
 │   │       ├── enums/                     # Command, context and contact types
 │   │       ├── fake-db/                   # Local placeholder data source
 │   │       ├── helper-functions/          # Timeline mappers

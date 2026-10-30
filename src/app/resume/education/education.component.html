@@ -1,6 +1,7 @@
-<section class="education" aria-labelledby="education-heading">
-    <div class="title">
-        <h2 id="education-heading" class="section-heading">Education &amp; Certifications</h2>
+<section class="section page-width" aria-labelledby="education-heading">
+    <div class="section-header reveal">
+        <h2 id="education-heading" class="section-heading">Education &amp; <em>Certifications</em></h2>
+        <p class="section-lead">Academic foundations and professional certifications.</p>
     </div>
-    <app-timeline [timelineList]="model.timeline()"></app-timeline>
+    <app-card-grid [items]="model.timeline()" icon="bi bi-mortarboard"></app-card-grid>
 </section>

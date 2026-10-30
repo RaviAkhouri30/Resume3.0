@@ -23,6 +23,6 @@ describe('ContactComponent', () => {
     await fixture.whenStable();
 
     expect(clipboard.copy).toHaveBeenCalledWith('+91 88048 04868');
-    expect(element.querySelector('button i')?.className).toContain('bi-clipboard-check-fill');
+    expect(element.querySelector('button i')?.className).toContain('bi-check2');
   });
 });

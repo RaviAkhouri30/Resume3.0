@@ -1,35 +1,45 @@
-<ul class="timeline">
+<ol class="timeline">
     @for (item of timelineList(); track $index) {
-    <li>
-        <div class="heading">
-            <div class="heading-container">
-                @if (item.title) {
-                <h3 class="item-title">{{ item.title }}</h3>
-                }
-                @if (item.subtitle) {
-                <span class="list-items">
-                    <strong class="sub-title">{{ item.subtitle }}</strong>
-                    @if (item.icon) {
-                    &nbsp;<i class="{{ item.icon }}" aria-hidden="true"></i>
-                    }
-                </span>
-                }
-            </div>
+    @let bullets = item.bullets ?? [];
+    <li class="entry reveal">
+        <div class="entry-meta">
+            @if (item.meta) {
+            <span class="entry-date">{{ item.meta }}</span>
+            }
         </div>
-        <div class="content-container">
-            <div class="content">
-                @if (item.description) {
-                <p>{{ item.description }}</p>
+
+        <div class="entry-body">
+            @if (item.title) {
+            <h3 class="entry-title">{{ item.title }}</h3>
+            }
+            @if (item.subtitle) {
+            <p class="entry-subtitle">{{ item.subtitle }}</p>
+            }
+            @if (item.description) {
+            <p class="entry-description">{{ item.description }}</p>
+            }
+            @if (bullets.length) {
+            <ul class="entry-bullets">
+                @for (bullet of bullets.slice(0, visibleBullets()); track $index) {
+                <li>{{ bullet }}</li>
                 }
-                @if (item.bullets?.length) {
-                <ul>
-                    @for (bullet of item.bullets; track $index) {
+            </ul>
+            @if (bullets.length > visibleBullets()) {
+            <details class="show-more">
+                <summary>
+                    <span class="more-label">Show {{ bullets.length - visibleBullets() }} more</span>
+                    <span class="less-label">Show less</span>
+                    <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                </summary>
+                <ul class="entry-bullets">
+                    @for (bullet of bullets.slice(visibleBullets()); track $index) {
                     <li>{{ bullet }}</li>
                     }
                 </ul>
-                }
-            </div>
+            </details>
+            }
+            }
         </div>
     </li>
     }
-</ul>
+</ol>

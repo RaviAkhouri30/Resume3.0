@@ -30,7 +30,7 @@
                 ]
               },
               {
-                "glob": "{robots.txt,sitemap.xml,staticwebapp.config.json}",
+                "glob": "{robots.txt,sitemap.xml,staticwebapp.config.json,favicon.svg}",
                 "input": "src",
                 "output": "/"
               }
@@ -38,7 +38,6 @@
             "styles": [
               "src/custom-theme.scss",
               "node_modules/bootstrap/dist/css/bootstrap-reboot.min.css",
-              "node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.min.css",
               "src/styles.css"
             ],

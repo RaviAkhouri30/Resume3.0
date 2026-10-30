@@ -1,0 +1,27 @@
+<figure class="preview" [class.paused]="paused()">
+    <div class="browser-bar">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="address" aria-hidden="true"><i class="bi bi-lock-fill"></i>{{ displayUrl() }}</span>
+        <span class="live" aria-hidden="true"><span class="live-dot"></span>{{ paused() ? 'Paused' : 'Live' }}</span>
+        <button type="button" class="toggle" (click)="toggle()" [attr.aria-pressed]="paused()"
+            [attr.aria-label]="(paused() ? 'Play' : 'Pause') + ' the ' + title() + ' preview'">
+            <i [class]="paused() ? 'bi bi-play-fill' : 'bi bi-pause-fill'" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <div class="viewport" #viewport [style.--frame-scale]="scale()" [style.--frame-height.px]="frameHeight()">
+        @if (!loaded()) {
+        <div class="loading" aria-hidden="true">
+            <span class="spinner"></span>
+            Loading live preview…
+        </div>
+        }
+        <iframe [src]="safeUrl()" [title]="'Live preview of ' + title()" [width]="frameWidth" [height]="frameHeight()"
+            loading="lazy" tabindex="-1" referrerpolicy="strict-origin-when-cross-origin"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+            [class.ready]="loaded()" (load)="loaded.set(true)"></iframe>
+    </div>
+
+    <figcaption class="visually-hidden">Live preview of {{ title() }} that scrolls through the page
+        automatically.</figcaption>
+</figure>

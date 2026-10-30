@@ -1,6 +1,7 @@
 <app-resume-container></app-resume-container>
 @if (loader.isLoading()) {
 <div class="overlay" role="status" aria-label="Loading portfolio">
-    <mat-spinner></mat-spinner>
+    <span class="loader-mark" aria-hidden="true">RA</span>
+    <span class="loader-bar" aria-hidden="true"></span>
 </div>
 }

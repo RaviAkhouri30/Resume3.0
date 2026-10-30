@@ -8,9 +8,10 @@ $font-family: (Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-
 html {
   @include mat.theme((
     color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      // Dark surfaces with the site's orange accent, so form fields and buttons match the page.
+      theme-type: dark,
+      primary: mat.$orange-palette,
+      tertiary: mat.$yellow-palette,
     ),
     // Same family as the rest of the page (loaded in index.html).
     typography: (

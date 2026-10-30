@@ -1,15 +1,28 @@
 @let person = model.data();
 <div class="intro">
-    <p class="greeting">Hello<span class="color-orange">.</span></p>
+    @if (person?.city) {
+    <p class="location">
+        <span class="pulse" aria-hidden="true"></span>
+        Based in {{ person?.city }}, {{ person?.country }}
+    </p>
+    }
+
     <h1 class="headline">
-        <span class="decoration-line color-orange"
-            aria-hidden="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span class="name"> I'm {{ person?.firstName }} </span> <br>
+        <span class="name">Hi, I'm {{ person?.firstName }}.</span>
         <span class="designation">{{ person?.jobTitle }}</span>
     </h1>
 
-    <div class="action">
-        <a class="custom-btn" matButton="outlined" [href]="model.resume.url" [attr.download]="model.resume.fileName"
-            type="application/pdf">My Resume</a>
+    @if (model.yearsOfExperience(); as years) {
+    <p class="lead">{{ years }}+ years crafting fast, scalable and maintainable enterprise web applications.</p>
+    }
+
+    <div class="actions">
+        <a class="btn btn-primary" [href]="model.resume.url" [attr.download]="model.resume.fileName"
+            type="application/pdf">
+            Download résumé <i class="bi bi-arrow-down" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn-ghost" href="#contact">
+            Get in touch <i class="bi bi-arrow-right" aria-hidden="true"></i>
+        </a>
     </div>
 </div>

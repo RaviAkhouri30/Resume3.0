@@ -1,124 +1,92 @@
 <a class="skip-link" href="#main">Skip to main content</a>
-<div class="container">
-  <header class="header" id="header">
-    <a class="title" href="#introduction-section">Ravi Akhouri</a>
-    <nav aria-label="Primary">
-      <ul>
-        <li><a href="#introduction-section">Home</a></li>
-        <li><a href="#about-me-section">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main id="main">
-    <div class="row" id="introduction-section">
+<app-site-header></app-site-header>
 
-      <div class="col-sm-6" id="intro">
-        <app-introduction></app-introduction>
-      </div>
+<main id="main">
+  <section class="hero" id="home" aria-label="Introduction">
+    <div class="page-width hero-inner">
+      <app-introduction class="hero-copy"></app-introduction>
 
-      <div class="col-sm-6" id="profile-image-section">
-
-        <div class="profile-image-container">
-
-          <i class="bi bi-chevron-left" aria-hidden="true"></i>
-          <i class="bi bi-chevron-right" aria-hidden="true"></i>
-
-          <div class="outer-circle-design">
+      <div class="hero-visual">
+        <div class="portrait">
+          <div class="portrait-frame">
             <picture>
               @for (source of photo.sources; track source.type) {
               <source [srcset]="source.srcset" [type]="source.type">
               }
               <img [src]="photo.src" [attr.srcset]="photo.srcset || null" alt="Portrait of Ravi Akhouri"
-                class="profile-image" width="270" height="270" fetchpriority="high">
+                class="portrait-image" width="360" height="360" fetchpriority="high">
             </picture>
           </div>
 
-          <div class="inner-circle-design" aria-hidden="true">
+          <div class="portrait-badge" aria-hidden="true">
+            <svg class="portrait-badge-text" viewBox="0 0 120 120">
+              <defs>
+                <path id="portrait-badge-circle" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0" />
+              </defs>
+              <text>
+                <textPath href="#portrait-badge-circle" textLength="282" lengthAdjust="spacing">
+                  SCALABLE • ACCESSIBLE • PERFORMANT •
+                </textPath>
+              </text>
+            </svg>
+            <i class="bi bi-code-slash"></i>
           </div>
         </div>
-
       </div>
     </div>
 
-    <div class="professional-skills-section" id="professional-skills-section">
-      <app-professional-skills></app-professional-skills>
-    </div>
+    <a class="scroll-cue" href="#about" aria-label="Scroll to About">
+      <span></span>
+    </a>
+  </section>
 
-    <div class="row" id="about-me-section">
+  <app-professional-skills></app-professional-skills>
 
-      <div class="col-sm-6">
-        <app-awards-and-achievements></app-awards-and-achievements>
-      </div>
+  <app-about-me id="about"></app-about-me>
+  <app-experience id="experience"></app-experience>
+  <app-projects-experience id="projects"></app-projects-experience>
+  <app-personal-projects id="personal-projects"></app-personal-projects>
+  <app-awards-and-achievements id="recognition"></app-awards-and-achievements>
+  <app-education id="education"></app-education>
+  <app-hobbies id="hobbies"></app-hobbies>
 
-      <div class="col-sm-6">
-        <app-about-me></app-about-me>
-      </div>
-
-    </div>
-
-    <div class="row" id="experience">
-      <div class="col-sm-12">
-        <app-experience></app-experience>
-      </div>
-    </div>
-
-    <div class="row" id="projects">
-      <div class="col-sm-12">
-        <app-projects-experience></app-projects-experience>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-6">
-        <app-hobbies></app-hobbies>
-      </div>
-      <div class="col-sm-6">
-        <app-education></app-education>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    <div class="row">
-      <div class="col-sm-4">
-        <h2 class="footer-heading">Contacts</h2>
-        <div class="contact-details">
-          <app-contact></app-contact>
+  <section class="section page-width" id="contact" aria-labelledby="contact-heading">
+    <div class="contact-panel reveal">
+      <div class="contact-intro">
+        <div class="section-header">
+          <h2 id="contact-heading" class="section-heading">Let's build something <em>great</em> together</h2>
+          <p class="section-lead">Have a role, a project or an idea in mind? Send a message or reach out directly.</p>
         </div>
-      </div>
-      <hr class="mob-hr">
-      <div class="col-sm-4 developer">
-        <div>
-          <strong>Developed by me with love <i class="bi bi-heart-fill" aria-hidden="true"></i> in India
-            <span class="india-flag" role="img" aria-label="Flag of India">
-              <span class="india-flag-chakra" aria-hidden="true"></span>
-            </span>
-          </strong> <br>
-          <p><a href="https://github.com/RaviAkhouri30/Resume3.0" target="_blank" rel="noopener noreferrer">source
-              code</a></p>
-        </div>
-      </div>
-      <hr class="mob-hr">
-      <div class="col-sm-4">
-        <h2 class="footer-heading">Contact me</h2>
-        <div class="social-media" id="contact">
-          @defer (on viewport) {
-          <app-contact-me></app-contact-me>
-          } @placeholder {
-          <div class="contact-form-placeholder" aria-hidden="true"></div>
-          }
-        </div>
-      </div>
-      <hr>
-      <div class="col-sm-12 copyright">
-        <p>Copyright &copy; {{ currentYear }} Ravi Akhouri</p>
+        <app-contact></app-contact>
         <app-social-media></app-social-media>
       </div>
-    </div>
-  </footer>
 
-</div>
+      <div class="contact-form">
+        @defer (on viewport) {
+        <app-contact-me></app-contact-me>
+        } @placeholder {
+        <div class="contact-form-placeholder" aria-hidden="true"></div>
+        }
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="page-width footer-inner">
+    <p class="copyright">&copy; {{ currentYear }} Ravi Akhouri</p>
+    <p class="made-in">
+      Designed &amp; built with <i class="bi bi-heart-fill" aria-hidden="true"></i><span class="visually-hidden">love</span> in India
+      <span class="india-flag" role="img" aria-label="Flag of India">
+        <span class="india-flag-chakra" aria-hidden="true"></span>
+      </span>
+    </p>
+    <div class="footer-links">
+      <a href="https://github.com/RaviAkhouri30/Resume3.0" target="_blank" rel="noopener noreferrer">
+        Source code <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+      </a>
+      <a href="#home">Back to top <i class="bi bi-arrow-up" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</footer>

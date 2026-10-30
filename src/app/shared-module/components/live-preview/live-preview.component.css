@@ -1,0 +1,214 @@
+:host {
+    display: block;
+}
+
+.preview {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--bg-raised);
+    box-shadow: 0 50px 100px -40px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------------------------------------------------------------------------
+ * Browser chrome
+ * ------------------------------------------------------------------------- */
+.browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    background: #1a1613;
+}
+
+.dots {
+    display: flex;
+    gap: 6px;
+}
+
+.dots i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #3a332d;
+}
+
+.dots i:nth-child(1) {
+    background: #ff5f57;
+}
+
+.dots i:nth-child(2) {
+    background: #febc2e;
+}
+
+.dots i:nth-child(3) {
+    background: #28c840;
+}
+
+.address {
+    display: inline-flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-width: 0;
+    padding: 4px 12px;
+    border-radius: 8px;
+    background: rgba(255, 244, 228, 0.06);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.address i {
+    font-size: 0.65rem;
+}
+
+.live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #28c840;
+    box-shadow: 0 0 0 0 rgba(40, 200, 64, 0.6);
+    animation: live 2s ease-out infinite;
+}
+
+@keyframes live {
+    to {
+        box-shadow: 0 0 0 8px rgba(40, 200, 64, 0);
+    }
+}
+
+.paused .live-dot {
+    background: var(--text-subtle);
+    animation: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Framed page
+ * ------------------------------------------------------------------------- */
+.viewport {
+    position: relative;
+    /* 16:10 window; at the 1280px layout that shows 800px of the page at a time. */
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--bg);
+    /* Distance to pan: the framed page height minus one window height. */
+    --pan: calc(800px - var(--frame-height, 3000px));
+}
+
+.viewport iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    transform-origin: 0 0;
+    transform: scale(var(--frame-scale, 0.5));
+    /* Behaves like a video: the page scrolls with the wheel, links open from the buttons beside it. */
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s var(--ease);
+    animation: pan 34s ease-in-out infinite;
+}
+
+.viewport iframe.ready {
+    opacity: 1;
+}
+
+@keyframes pan {
+
+    0%,
+    8% {
+        transform: scale(var(--frame-scale, 0.5)) translateY(0);
+    }
+
+    46%,
+    54% {
+        transform: scale(var(--frame-scale, 0.5)) translateY(var(--pan));
+    }
+
+    92%,
+    100% {
+        transform: scale(var(--frame-scale, 0.5)) translateY(0);
+    }
+}
+
+.preview:hover iframe,
+.paused iframe {
+    animation-play-state: paused;
+}
+
+.loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-size: 0.85rem;
+    color: var(--text-subtle);
+}
+
+.spinner {
+    width: 26px;
+    height: 26px;
+    border: 2px solid var(--border-strong);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.toggle {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    margin-left: -4px;
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.toggle:hover {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
+}
+
+/* Without motion the preview is a still of the top of the page. */
+@media (prefers-reduced-motion: reduce) {
+    .viewport iframe {
+        animation: none;
+    }
+
+    .toggle,
+    .live-dot {
+        display: none;
+    }
+}

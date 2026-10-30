@@ -1,0 +1,53 @@
+<section class="section page-width" aria-labelledby="personal-projects-heading">
+    <div class="section-header reveal">
+        <h2 id="personal-projects-heading" class="section-heading">Personal <em>Projects</em></h2>
+        <p class="section-lead">Things I build in my spare time, for fun and to keep learning. Both are running live below.</p>
+    </div>
+
+    <div class="projects">
+        @for (project of projects; track project.title; let odd = $odd) {
+        <article class="project reveal" [class.reverse]="odd" [attr.aria-labelledby]="'personal-project-' + $index">
+            <div class="project-info">
+                <p class="project-label">
+                    <span class="label-dot" aria-hidden="true"></span>{{ project.label }}
+                </p>
+                <h3 class="project-title" [id]="'personal-project-' + $index">{{ project.title }}</h3>
+                <p class="project-summary">{{ project.summary }}</p>
+
+                <ul class="project-highlights">
+                    @for (highlight of project.highlights; track $index) {
+                    <li><i class="bi bi-check2-circle" aria-hidden="true"></i>{{ highlight }}</li>
+                    }
+                </ul>
+
+                <ul class="project-tech" aria-label="Technologies">
+                    @for (tech of project.tech; track tech) {
+                    <li class="chip">{{ tech }}</li>
+                    }
+                </ul>
+
+                <div class="project-links">
+                    <a class="btn btn-primary" [href]="project.liveUrl" target="_blank" rel="noopener noreferrer">
+                        Visit live site <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                    </a>
+                    <a class="btn btn-ghost" [href]="project.repoUrl" target="_blank" rel="noopener noreferrer">
+                        <i class="bi bi-github" aria-hidden="true"></i> View code
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-preview">
+                @if (embedded) {
+                <div class="preview-placeholder">
+                    <i class="bi bi-window-stack" aria-hidden="true"></i>
+                    <span>{{ project.displayUrl }}</span>
+                </div>
+                } @else {
+                <app-live-preview [url]="project.previewUrl" [title]="project.title" [displayUrl]="project.displayUrl"
+                    [frameHeight]="project.previewHeight"></app-live-preview>
+                }
+            </div>
+        </article>
+        }
+    </div>
+</section>

@@ -15,7 +15,7 @@ describe('ExperienceViewModel', () => {
     viewModel.init().subscribe();
 
     expect(viewModel.timeline()).toEqual([
-      { title: 'Siemens', subtitle: 'Angular UI Developer · 2023', bullets: ['A'] }
+      { title: 'Siemens', subtitle: 'Angular UI Developer', meta: '2023', bullets: ['A'] }
     ]);
   });
 });
