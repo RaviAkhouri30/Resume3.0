@@ -28,7 +28,7 @@ export const environment: IEnvironment = {
   // Photo and resume are served from Cloudinary; until `cloudName` is set the
   // bundled files in `src/assets` are used. Upload with `npm run upload:media`.
   media: {
-    cloudName: '',
+    cloudName: 'tzyizldi',
     profilePhotoId: 'portfolio/profile',
     resumeId: 'portfolio/Ravi_Akhouri_Resume'
   }

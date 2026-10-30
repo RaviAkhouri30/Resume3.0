@@ -21,7 +21,7 @@
   <meta property="og:description"
     content="7 years building scalable, enterprise-grade Angular applications. Angular architecture · RxJS · Signals · SOLID · AI-first development.">
   <meta property="og:url" content="https://raviakhouri.in/">
-  <meta property="og:image" content="https://raviakhouri.in/assets/profile.jpg">
+  <meta property="og:image" content="https://res.cloudinary.com/tzyizldi/image/upload/f_jpg,q_auto,c_fill,g_face,ar_1:1,w_600/portfolio/profile">
   <meta property="og:image:alt" content="Portrait of Ravi Akhouri">
   <meta property="og:locale" content="en_IN">
   <meta property="profile:first_name" content="Ravi">
@@ -30,12 +30,15 @@
   <meta name="twitter:title" content="Ravi Akhouri | Senior Angular Developer">
   <meta name="twitter:description"
     content="7 years building scalable, enterprise-grade Angular applications with an AI-first engineering approach.">
-  <meta name="twitter:image" content="https://raviakhouri.in/assets/profile.jpg">
+  <meta name="twitter:image" content="https://res.cloudinary.com/tzyizldi/image/upload/f_jpg,q_auto,c_fill,g_face,ar_1:1,w_600/portfolio/profile">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <!-- Start fetching the hero image and Firestore connection before the app boots. -->
-  <link rel="preload" as="image" href="assets/profile.avif" type="image/avif" fetchpriority="high">
+  <!-- Start fetching the hero image and Firestore connection before the app boots.
+       The preload URLs must match profilePhoto(environment.media, 270) in media.ts. -->
+  <link rel="preconnect" href="https://res.cloudinary.com">
+  <link rel="preload" as="image" href="https://res.cloudinary.com/tzyizldi/image/upload/f_auto,q_auto,c_fill,g_face,ar_1:1,w_540/portfolio/profile"
+    imagesrcset="https://res.cloudinary.com/tzyizldi/image/upload/f_auto,q_auto,c_fill,g_face,ar_1:1,w_270/portfolio/profile 1x, https://res.cloudinary.com/tzyizldi/image/upload/f_auto,q_auto,c_fill,g_face,ar_1:1,w_540/portfolio/profile 2x" fetchpriority="high">
   <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +51,7 @@
     "name": "Ravi Akhouri",
     "jobTitle": "Senior Angular Developer",
     "url": "https://raviakhouri.in/",
-    "image": "https://raviakhouri.in/assets/profile.jpg",
+    "image": "https://res.cloudinary.com/tzyizldi/image/upload/f_jpg,q_auto,c_fill,g_face,ar_1:1,w_600/portfolio/profile",
     "email": "mailto:contact@raviakhouri.in",
     "address": {
       "@type": "PostalAddress",
@@ -80,7 +83,7 @@
     <h1>Ravi Akhouri – Senior Angular Developer</h1>
     <p>Senior Angular Developer with 7 years of experience building enterprise-grade frontend applications.
       Please enable JavaScript to view the full portfolio, or
-      <a href="assets/Ravi_Akhouri_Resume.pdf">download the resume (PDF)</a>.</p>
+      <a href="https://res.cloudinary.com/tzyizldi/image/upload/fl_attachment:Ravi_Akhouri_Resume/portfolio/Ravi_Akhouri_Resume.pdf">download the resume (PDF)</a>.</p>
   </noscript>
 </body>
 
