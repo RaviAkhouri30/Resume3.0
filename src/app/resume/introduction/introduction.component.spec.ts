@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { resumeDownload } from 'src/app/shared-module/helper-functions/media';
 import { provideStubHttpBackend, PROFILE_FIXTURE } from 'src/app/shared-module/testing/stub-http-backend';
+import { environment } from 'src/environments/environment';
 import { IntroductionComponent } from './introduction.component';
 
 describe('IntroductionComponent', () => {
@@ -15,7 +17,8 @@ describe('IntroductionComponent', () => {
     expect(element.querySelector('h1')?.textContent).toContain("I'm Ravi");
     expect(element.querySelector('h1')?.textContent).toContain('Senior Angular Developer');
     const link = element.querySelector('a');
-    expect(link?.getAttribute('href')).toBe('assets/Ravi_Akhouri_Resume.pdf');
-    expect(link?.getAttribute('download')).toBe('Ravi_Akhouri_Resume.pdf');
+    const resume = resumeDownload(environment.media);
+    expect(link?.getAttribute('href')).toBe(resume.url);
+    expect(link?.getAttribute('download')).toBe(resume.fileName);
   });
 });
