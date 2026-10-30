@@ -1,217 +1,53 @@
 import { IAwardAchievements } from "../interfaces/i-awards-achievements";
-import { IPersonDataModel as IPersonDataModel } from "../interfaces/i-person-data-model";
+import { IHighlight } from "../interfaces/i-highlight";
+import { IPersonDataModel } from "../interfaces/i-person-data-model";
 
+/** Immutable profile; missing fields from the backend are normalised to safe defaults. */
 export class PersonDataModel implements IPersonDataModel {
-    // Private properties
-    private _firstName: string;
-    private _name: string;
-    private _email: string;
-    private _secondaryEmail: string;
-    private _phone: string;
-    private _jobTitle: string;
-    private _address: string;
-    private _city: string;
-    private _state: string;
-    private _zip: string;
-    private _country: string;
-    private _summary: string;
-    private _linkedin: string;
-    private _github: string;
-    private _twitter: string;
-    private _dateOfBirth: string;
-    private _profilePic: string;
-    private _resume: string;
-    private _uid: string;
-    private _hobbies: string[];
-    private _awardsAndAchievements: IAwardAchievements[];
+    public readonly firstName: string;
+    public readonly name: string;
+    public readonly email: string;
+    public readonly secondaryEmail: string;
+    public readonly phone: string;
+    public readonly jobTitle: string;
+    public readonly city: string;
+    public readonly state: string;
+    public readonly country: string;
+    public readonly summary: string;
+    public readonly linkedin: string;
+    public readonly github: string;
+    public readonly uid: string;
+    public readonly careerStartDate: string;
+    public readonly highlights: IHighlight[];
+    public readonly awardsAndAchievements: IAwardAchievements[];
 
-    constructor(data: IPersonDataModel) {
-        // Initialize properties with default values
-        this._firstName = data.firstName;
-        this._name = data.name;
-        this._email = data.email;
-        this._secondaryEmail = data.secondaryEmail;
-        this._phone = data.phone;
-        this._jobTitle = data.jobTitle;
-        this._address = data.address;
-        this._city = data.city;
-        this._state = data.state;
-        this._zip = data.zip;
-        this._country = data.country;
-        this._summary = data.summary;
-        this._linkedin = data.linkedin;
-        this._github = data.github;
-        this._twitter = data.twitter;
-        this._dateOfBirth = data.dateOfBirth;
-        this._profilePic = data.profilePic;
-        this._resume = data.resume;
-        this._uid = data.uid;
-        this._hobbies = data.hobbies;
-        this._awardsAndAchievements = data.awardsAndAchievements;
+    constructor(data: Partial<IPersonDataModel>) {
+        this.firstName = data.firstName ?? '';
+        this.name = data.name ?? '';
+        this.email = data.email ?? '';
+        this.secondaryEmail = data.secondaryEmail ?? '';
+        this.phone = data.phone ?? '';
+        this.jobTitle = data.jobTitle ?? '';
+        this.city = data.city ?? '';
+        this.state = data.state ?? '';
+        this.country = data.country ?? '';
+        this.summary = data.summary ?? '';
+        this.linkedin = data.linkedin ?? '';
+        this.github = data.github ?? '';
+        this.uid = data.uid ?? '';
+        this.careerStartDate = data.careerStartDate ?? '';
+        this.highlights = [...(data.highlights ?? [])];
+        this.awardsAndAchievements = [...(data.awardsAndAchievements ?? [])];
     }
 
-    // Getter and setter methods for each property
-    get firstName(): string {
-        return this._firstName;
-    }
+    /** Whole years elapsed since `careerStartDate`, or `null` when it is unknown. */
+    public yearsOfExperience(today: Date = new Date()): number | null {
+        const start = new Date(this.careerStartDate);
+        if (Number.isNaN(start.getTime())) {
+            return null;
+        }
 
-    set firstName(value: string) {
-        this._firstName = value;
-    }
-
-    get name(): string {
-        return this._name;
-    }
-
-    set name(value: string) {
-        this._name = value;
-    }
-
-    get email(): string {
-        return this._email;
-    }
-
-    set email(value: string) {
-        this._email = value;
-    }
-
-    get phone(): string {
-        return this._phone;
-    }
-
-    set phone(value: string) {
-        this._phone = value;
-    }
-
-    get jobTitle(): string {
-        return this._jobTitle;
-    }
-
-    set jobTitle(value: string) {
-        this._jobTitle = value;
-    }
-
-    get address(): string {
-        return this._address;
-    }
-
-    set address(value: string) {
-        this._address = value;
-    }
-
-    get city(): string {
-        return this._city;
-    }
-
-    set city(value: string) {
-        this._city = value;
-    }
-
-    get state(): string {
-        return this._state;
-    }
-
-    set state(value: string) {
-        this._state = value;
-    }
-
-    get zip(): string {
-        return this._zip;
-    }
-
-    set zip(value: string) {
-        this._zip = value;
-    }
-
-    get country(): string {
-        return this._country;
-    }
-
-    set country(value: string) {
-        this._country = value;
-    }
-
-    get summary(): string {
-        return this._summary;
-    }
-
-    set summary(value: string) {
-        this._summary = value;
-    }
-
-    get linkedin(): string {
-        return this._linkedin;
-    }
-
-    set linkedin(value: string) {
-        this._linkedin = value;
-    }
-
-    get github(): string {
-        return this._github;
-    }
-
-    set github(value: string) {
-        this._github = value;
-    }
-
-    get twitter(): string {
-        return this._twitter;
-    }
-
-    set twitter(value: string) {
-        this._twitter = value;
-    }
-
-    get dateOfBirth(): string {
-        return this._dateOfBirth;
-    }
-
-    set dateOfBirth(value: string) {
-        this._dateOfBirth = value;
-    }
-
-    get profilePic(): string {
-        return this._profilePic;
-    }
-
-    set profilePic(value: string) {
-        this._profilePic = value;
-    }
-
-    get resume(): string {
-        return this._resume;
-    }
-
-    set resume(value: string) {
-        this._resume = value;
-    }
-
-    get uid(): string {
-        return this._uid;
-    }
-
-    get secondaryEmail(): string {
-        return this._secondaryEmail;
-    }
-
-    set secondaryEmail(value: string) {
-        this._secondaryEmail = value;
-    }
-
-    get hobbies(): string[] {
-        return this._hobbies;
-    }
-
-    set hobbies(value: string[]) {
-        this._hobbies = value;
-    }
-
-    get awardsAndAchievements(): IAwardAchievements[] {
-        return this._awardsAndAchievements;
-    }
-
-    set awardsAndAchievements(value: IAwardAchievements[]) {
-        this._awardsAndAchievements = value;
+        const months = (today.getFullYear() - start.getFullYear()) * 12 + (today.getMonth() - start.getMonth());
+        return Math.max(0, Math.floor(months / 12));
     }
 }

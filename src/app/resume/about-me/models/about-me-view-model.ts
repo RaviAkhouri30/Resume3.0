@@ -1,37 +1,37 @@
-import { inject, Injectable } from "@angular/core";
-import { map, Observable, tap } from "rxjs";
-import { IPersonDataModel } from "src/app/shared-module/interfaces/i-person-data-model";
-import { ViewModel } from "src/app/shared-module/models/view-model";
-import { AboutMeService } from "../services/about-me.service";
+import { computed, inject, Injectable, Signal } from "@angular/core";
+import { Observable, tap } from "rxjs";
+import { IHighlight } from "src/app/shared-module/interfaces/i-highlight";
 import { PersonDataModel } from "src/app/shared-module/models/person-data-model";
-import { CommonService } from "src/app/shared-module/services/common.service";
-import { CommandService } from "src/app/shared-module/services/command-service";
+import { ViewModel } from "src/app/shared-module/models/view-model";
+import { ProfileStore } from "../services/profile.store";
 
 @Injectable()
-export class AboutMeViewModel extends ViewModel<PersonDataModel> {
+export class AboutMeViewModel extends ViewModel<PersonDataModel | null> {
 
-    // Private property to hold the AboutMeService instance
-    private readonly _aboutMeService: AboutMeService = inject(AboutMeService);
-    private readonly _commonService: CommonService = inject(CommonService);
-    private readonly _commandService: CommandService = inject(CommandService);
+    private readonly profileStore: ProfileStore = inject(ProfileStore);
 
-    // Method to attach view handler and fetch data from the API
-    protected override attachViewHandler = (): Observable<void> => {
-        return this._aboutMeService.attachViewDataHandler<IPersonDataModel>().pipe(
-            // Use tap to assign the result to the data property
-            tap(result => this.data = new PersonDataModel(result)),
-            tap(result => this._commonService.aboutMeData = result),
-            // Map the result to void
-            map(() => { })
-        );
+    /**
+     * Headline figures. Years of experience are derived from the career start
+     * date, so the number stays correct without editing the data every year.
+     */
+    public readonly highlights: Signal<IHighlight[]> = computed(() => {
+        const person = this.data();
+        if (!person) {
+            return [];
+        }
+
+        const years = person.yearsOfExperience();
+        const experience: IHighlight[] = years === null ? [] : [{ value: years, label: 'Years of Experience' }];
+        return [...experience, ...person.highlights];
+    });
+
+    constructor() {
+        super(null);
     }
 
-    // Method to attach command handler and execute commands via the API
-    protected override attachCommandHandler = (): Observable<void> => {
-        return this._commandService.attachCommandApiHandler<any>().pipe(
-            // Map the result to void
-            map(() => { })
+    protected override attachViewHandler(): Observable<unknown> {
+        return this.profileStore.profile$.pipe(
+            tap(profile => this.setData(profile))
         );
     }
-
 }

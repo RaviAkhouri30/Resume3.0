@@ -1,39 +1,50 @@
-import { EMPTY, merge, Observable } from "rxjs";
+import { Signal, signal, WritableSignal } from "@angular/core";
+import { EMPTY, ignoreElements, merge, Observable } from "rxjs";
 import { IViewModel } from "../interfaces/i-view-model";
 
+/**
+ * Base class for MVVM view models.
+ *
+ * - `data` is a read-only signal, so OnPush/zoneless views re-render exactly when
+ *   the state changes and templates cannot mutate it.
+ * - Subclasses override `attachViewHandler` / `attachCommandHandler` (as methods,
+ *   so they participate in normal inheritance and can call `super`).
+ */
 export abstract class ViewModel<T> implements IViewModel<T> {
-    private _data!: T;
+    private readonly _data: WritableSignal<T>;
 
-    /**
-     * @discription This method is used to initialize the view model
-     * @returns Observable<void>
-     */
-    inIt = (): Observable<void> => {
-        return this.observe();
+    /** Current view state. */
+    public readonly data: Signal<T>;
+
+    protected constructor(initialData: T) {
+        this._data = signal(initialData);
+        this.data = this._data.asReadonly();
     }
 
-    protected attachViewHandler = (): Observable<any> => {
-        return EMPTY.pipe();
-    };
-
-    protected attachCommandHandler = (): Observable<any> => {
-        return EMPTY.pipe();
+    /** Starts the data and command streams for the lifetime of the subscription. */
+    public init(): Observable<void> {
+        return merge(this.attachViewHandler(), this.attachCommandHandler()).pipe(ignoreElements());
     }
 
-    get data(): T {
-        return this._data;
+    /** Loads the view state. */
+    protected attachViewHandler(): Observable<unknown> {
+        return EMPTY;
     }
 
-    set data(value: T) {
-        this._data = value;
+    /** Executes commands issued by the view. */
+    protected attachCommandHandler(): Observable<unknown> {
+        return EMPTY;
     }
 
-    /**
-     * @description This method is used to observe the view model
-     * @returns Observable<void>
-     */
-    private observe = (): Observable<any> => {
-        return merge(this.attachViewHandler(), this.attachCommandHandler());
+    /** Replaces the view state. */
+    protected setData(value: T): void {
+        this._data.set(value);
     }
+}
 
+/** View model whose state is a list, starting empty until data arrives. */
+export abstract class CollectionViewModel<T> extends ViewModel<T[]> {
+    protected constructor() {
+        super([]);
+    }
 }

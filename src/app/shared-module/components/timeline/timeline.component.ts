@@ -6,7 +6,7 @@ import { TextMagnifierDirective } from '../../directives/text-magnifier.directiv
   selector: 'app-timeline',
   imports: [TextMagnifierDirective],
   templateUrl: './timeline.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './timeline.component.css',
 })
 export class TimelineComponent {

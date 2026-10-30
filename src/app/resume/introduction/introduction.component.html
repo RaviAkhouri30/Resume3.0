@@ -1,11 +1,15 @@
+@let person = model.data();
 <div class="intro">
-    <span class="greeting">Hello<span class="color-orange">.</span> <br></span>
-    <span
-        class="decoration-line color-orange">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <span class="name"> I'm {{model.data.firstName}} </span> <br>
-    <span class="designation"> {{model.data.jobTitle}}</span>
+    <p class="greeting">Hello<span class="color-orange">.</span></p>
+    <h1 class="headline">
+        <span class="decoration-line color-orange"
+            aria-hidden="true">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="name"> I'm {{ person?.firstName }} </span> <br>
+        <span class="designation">{{ person?.jobTitle }}</span>
+    </h1>
 
     <div class="action">
-        <button type="button" class="custom-btn" matButton="outlined" (click)="downloadResume()">My Resume</button>
+        <a class="custom-btn" matButton="outlined" [href]="model.resume.url" [attr.download]="model.resume.fileName"
+            type="application/pdf">My Resume</a>
     </div>
 </div>

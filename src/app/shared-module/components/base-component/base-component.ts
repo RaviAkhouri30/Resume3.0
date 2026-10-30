@@ -1,49 +1,25 @@
-import { Directive, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { DestroyRef, Directive, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IViewModel } from '../../interfaces/i-view-model';
 
 /**
- * BaseComponent is an abstract class that provides a base implementation for components.
- * It handles the initialization and automatic unsubscription of the model's observable.
- * 
- * @template T - The type of the data model exposed to the component template.
+ * Base class for views bound to a view model.
+ *
+ * The concrete component only declares which view model it uses; this class
+ * starts the view model when the view initialises and stops it automatically
+ * when the view is destroyed.
+ *
+ * @template TViewModel - The view model exposed to the component template as `model`.
  */
 @Directive()
-export abstract class BaseComponent<T> implements OnDestroy {
-  // Private property to hold the model
-  private _model!: IViewModel<T>;
+export abstract class BaseComponent<TViewModel extends IViewModel<unknown>> implements OnInit {
 
-  // Keep teardown safe when a component is destroyed before initialization.
-  private subscription?: Subscription;
+  /** View model bound to the template. */
+  protected abstract readonly model: TViewModel;
 
-  /** Starts the view-model stream after the concrete component has injected it. */
-  inIt() {
-    this.autoUnsubscribe();
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
+
+  ngOnInit(): void {
+    this.model.init().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
-
-  /**
-   * Lifecycle hook that is called when the component is destroyed.
-   * Unsubscribes from the observable to prevent memory leaks.
-   */
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-  }
-
-  /** Subscribes once so the view model can load data and listen for commands. */
-  private autoUnsubscribe = () => this.subscription = this.model.inIt().subscribe();
-
-  /**
-   * Getter for the model property.
-   * 
-   * @returns The model instance.
-   */
-  get model(): IViewModel<T> {
-    return this._model;
-  }
-
-  set model(value: IViewModel<T>) {
-    this._model = value;
-  }
-
-
 }

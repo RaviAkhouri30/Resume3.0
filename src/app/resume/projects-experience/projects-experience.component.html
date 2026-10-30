@@ -1,10 +1,6 @@
-<section class="project-experience">
-    <div class="title" aria-label="Projects Experience">
-        <h3> Projects Experience</h3>
+<section class="project-experience" aria-labelledby="projects-heading">
+    <div class="title">
+        <h2 id="projects-heading" class="section-heading">Projects</h2>
     </div>
-    <div class="experience-container">
-        <div class="experience">
-            <app-timeline [timelineList]="transformedTimelineItems"></app-timeline>
-        </div>
-    </div>
+    <app-timeline [timelineList]="model.timeline()"></app-timeline>
 </section>

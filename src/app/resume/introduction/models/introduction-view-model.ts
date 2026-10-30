@@ -1,19 +1,26 @@
-import { inject, Service } from "@angular/core";
-import { map, Observable, tap } from "rxjs";
-import { ViewModel } from "src/app/shared-module/models/view-model";
-import { IntroductionService } from "../services/introduction.service";
+import { inject, Injectable } from "@angular/core";
+import { Observable, tap } from "rxjs";
 import { PersonDataModel } from "src/app/shared-module/models/person-data-model";
+import { ViewModel } from "src/app/shared-module/models/view-model";
+import { IDownloadLink, resumeDownload } from "src/app/shared-module/helper-functions/media";
+import { environment } from "src/environments/environment";
+import { ProfileStore } from "../../about-me/services/profile.store";
 
-@Service()
-export class IntroductionViewModel extends ViewModel<PersonDataModel> {
+@Injectable()
+export class IntroductionViewModel extends ViewModel<PersonDataModel | null> {
 
-    private readonly introductionService: IntroductionService = inject(IntroductionService);
+    private readonly profileStore: ProfileStore = inject(ProfileStore);
 
-    protected override attachViewHandler = (): Observable<void> => {
-        return this.introductionService.attachViewDataHandler().pipe(
-            tap(result => this.data = new PersonDataModel(result)),
-            map(() => { })
-        );
+    /** Downloadable resume (Cloudinary, or the bundled asset when not configured). */
+    public readonly resume: IDownloadLink = resumeDownload(environment.media);
+
+    constructor() {
+        super(null);
     }
 
+    protected override attachViewHandler(): Observable<unknown> {
+        return this.profileStore.profile$.pipe(
+            tap(profile => this.setData(profile))
+        );
+    }
 }

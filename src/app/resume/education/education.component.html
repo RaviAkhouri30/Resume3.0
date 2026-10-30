@@ -1,6 +1,6 @@
-<section class="education">
-    <div class="title" aria-label="Education">
-        <h3> Education</h3>
+<section class="education" aria-labelledby="education-heading">
+    <div class="title">
+        <h2 id="education-heading" class="section-heading">Education &amp; Certifications</h2>
     </div>
-    <app-timeline [timelineList]="transformedTimelineItems"></app-timeline>
+    <app-timeline [timelineList]="model.timeline()"></app-timeline>
 </section>

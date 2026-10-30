@@ -1,15 +1,23 @@
 # RaviResume3
 
 ## Project Description
-This project is a resume builder application developed using Angular. It is designed to showcase personal and professional details in a structured and visually appealing format. The application follows modern web development practices and is built with modularity and scalability in mind.
+This project is the personal portfolio and resume site for Ravi Akhouri, built with Angular 22 and published at
+[raviakhouri.in](https://raviakhouri.in). Content is stored in Firebase Firestore and rendered by a zoneless,
+signal-based Angular application that follows MVVM, OOP and SOLID principles.
 
 ## Development and Security Checks
 
 Install dependencies and run the production build with:
 
 ```bash
-npm install
+npm ci
 npm run build
+```
+
+Run the unit tests once in headless Chrome (this is what CI runs):
+
+```bash
+npm run test:ci
 ```
 
 Check dependencies for known vulnerabilities with:
@@ -18,34 +26,44 @@ Check dependencies for known vulnerabilities with:
 npm audit
 ```
 
-The `overrides` section in `package.json` pins vulnerable transitive dependencies to patched versions. The `body-parser` override is scoped to Karma so it does not change the major version required by Express. Hono is used by Angular's development tooling, and UUID is used by the Firebase Admin development/import chain; these overrides keep those development-only paths on patched releases. After dependency changes, verify both the audit and build before committing:
+The expected result is zero reported vulnerabilities. `package.json` keeps a single override,
+`@grpc/grpc-js`, because the Firebase SDKs pin an older, vulnerable range of it. Avoid pinning other
+transitive versions: a pinned override does not receive later security fixes (a stale `fast-uri`
+override was the cause of several reported vulnerabilities).
 
-```bash
-npm audit
-npm run build
-```
+The CI workflow (`.github/workflows/`) runs `npm audit --omit=dev --audit-level=high` and the unit tests
+before building and deploying.
 
-The expected result is zero reported vulnerabilities for both the complete
-tree and production dependencies (`npm audit --omit=dev`).
+## Architecture
 
-Run the unit tests once in a headless browser with:
+### Overview
 
-```bash
-npm test -- --watch=false --browsers=ChromeHeadless
-```
+- **Standalone components**, bootstrapped with `bootstrapApplication` (`src/main.ts`, `src/app/app.config.ts`).
+- **Zoneless change detection** with `OnPush` components; view state is exposed as signals, so views update
+  exactly when their data changes.
+- **MVVM**: every resume section is a thin component bound to a component-scoped view model that owns its
+  state, derived values (`computed`) and commands.
+- **Single page, no router**: navigation uses in-page anchors. The contact form is loaded with
+  `@defer (on viewport)`, which keeps Angular Forms and the Material form field out of the initial bundle.
 
-The test target uses `src/polyfills.ts` as an array entry because this project
-uses Angular 22's application and Karma builders.
+### Backend abstraction
 
-## Backend Architecture
+The application separates feature logic from persistence details through the read-only contract in
+`src/app/shared-module/interfaces/i-http-backend.ts`.
 
-The application separates feature logic from persistence details through the shared contract in `src/app/shared-module/interfaces/i-http-backend.ts`.
-
-- `BaseService` consumes `IHttpBackend` instead of depending on a specific storage implementation.
-- `FakeHttpsService` provides a local JSON-backed mock implementation for development and demos.
-- `FirebaseBackendService` adapts Firestore document operations to the same Angular `HttpResponse` shape used elsewhere in the app.
-- `FirebaseDatabaseService` initializes the Firebase app and exposes the shared `Firestore` and `Auth` instances.
-- Environment flags allow the app to switch between the local mock backend and Firebase without changing the resume feature services.
+- `ApiBaseService<T>` is a Template Method base class: a feature service only declares its `endpoint` and
+  payload type, and inherits fetching, loading state and error handling.
+- `provideHttpBackend()` binds `IHttpBackend` to an adapter chosen by `environment.backend`
+  (`'fake' | 'firebase'`). Adding a backend means adding one entry to its registry.
+- `FakeHttpsService` serves `src/app/shared-module/fake-db/fake-db.json` (placeholder data) for local development.
+- `FirebaseBackendService` reads Firestore documents with the **Firestore Lite** SDK (one-off reads, much
+  smaller than the full SDK) and maps results and failures to `HttpResponse`. Adapters never throw
+  synchronously, so they are interchangeable.
+- `HttpsErrorHandler` wraps every request: it shows the loader on subscribe, applies a per-request timeout,
+  reports non-2xx responses and errors through `NotificationService`, and always releases the loader in
+  `finalize`. `LoaderService` counts in-flight requests, so concurrent requests are handled correctly.
+- `ProfileStore` fetches the profile (`about-me`) document once and shares it with the introduction,
+  about, awards and social-link view models.
 
 ### Resume data path
 
@@ -63,42 +81,42 @@ resumes/RS-1/resume/education
 resumes/RS-1/resume/experience
 ```
 
-The feature services request only a section name. `baseUrl` supplies the shared
-`resumes/{userId}/resume` prefix, and `FirebaseBackendService` validates and
-resolves the complete document path. Sections that are arrays are stored in
-Firestore as `{ items: [...] }` because a Firestore document must be an object;
-the adapter unwraps `items` before returning the response to the application.
+The feature services request only a section name. `baseUrl` supplies the shared `resumes/{userId}/resume`
+prefix, and `FirebaseBackendService` validates and resolves the complete document path. Sections that are
+arrays are stored in Firestore as `{ items: [...] }` because a Firestore document must be an object; the
+adapter unwraps `items` before returning the response to the application.
 
-The local data source mirrors the same hierarchy in
-`src/app/shared-module/fake-db/fake-db.json`, so switching backends does not
-change the payload shape consumed by the feature view models.
+The local data source mirrors the same hierarchy in `src/app/shared-module/fake-db/fake-db.json`, so
+switching backends does not change the payload shape consumed by the view models.
 
-### Firebase import and rules
+### Firestore rules
 
-The local importer reads the fake database and writes each section document to
-the hierarchy above. The importer is intentionally ignored by Git because it
-is a local administrative utility; keep service-account JSON files outside the
-repository and never commit them.
+The security rules are versioned in [`firestore.rules`](firestore.rules): anyone may `get` an individual
+resume section document; listing collections and **all writes from browsers are denied**. Content is managed
+with the Admin SDK, which bypasses the rules.
+
+### Updating resume content
+
+`scripts/import-resume.cjs` is a local administrative utility (ignored by Git, as are the data files and
+backups next to it). It writes a JSON file of sections to Firestore and can release the rules at the same time.
+Before writing it backs up the current documents and rules to `scripts/backups/<timestamp>/`.
 
 ```bash
-npm run import:resume -- "$HOME/Downloads/<service-account-file>.json"
+# Preview what would be written
+node scripts/import-resume.cjs <service-account.json> scripts/resume-RS-1.json --dry-run
+
+# Write the sections (and optionally release firestore.rules)
+node scripts/import-resume.cjs <service-account.json> scripts/resume-RS-1.json --user RS-1 --rules firestore.rules
 ```
 
-When Firebase CLI configuration is added, deploy rules that allow public reads
-for published resume content and restrict writes to an authenticated user whose
-Firebase UID matches the `{userId}` path segment. Keep deployment rules in the
-repository so the permission model is reviewable and repeatable.
+Keep service-account JSON files outside the repository and never commit them.
 
-The browser Firebase API key is supplied at deployment time rather than stored
-in Git. Copy `src/assets/firebase-config.js.example` to
-`src/assets/firebase-config.js`, set the restricted key, and keep the copied
-file ignored. Restrict the key in Google Cloud by HTTP referrer and API scope;
-also rotate the key that was previously committed and review its usage before
-closing the secret-scanning alert.
+### Runtime configuration
 
-For the Azure deployment, add a GitHub Actions repository secret named
-`FIREBASE_API_KEY`. The workflow creates the ignored runtime file automatically
-before the production build. For a local production build, run:
+The browser Firebase API key is supplied at deployment time rather than stored in Git. For the Azure
+deployment, add a GitHub Actions repository secret named `FIREBASE_API_KEY`; the workflow writes the ignored
+`src/assets/firebase-config.js` before the production build. Restrict the key in Google Cloud by HTTP referrer
+(`raviakhouri.in`) and API scope (Cloud Firestore API). For a local production build:
 
 ```bash
 cp src/assets/firebase-config.js.example src/assets/firebase-config.js
@@ -106,33 +124,45 @@ cp src/assets/firebase-config.js.example src/assets/firebase-config.js
 npm run build -- --configuration production
 ```
 
-Local development uses the fake backend by default, so `npm start` does not
-need this file.
+Local development uses the fake backend by default, so `npm start` does not need this file.
 
-Example environment state:
+### Media (Cloudinary)
 
-```ts
-export const environment = {
-    production: false,
-    fakeBackend: true,
-    firebaseBackend: false,
-    baseUrl: 'resumes/RS-1/resume'
-};
+The profile photo and resume PDF are served from Cloudinary under fixed public IDs (`environment.media`).
+The photo is delivered with `f_auto,q_auto` (AVIF/WebP per browser), cropped around the face, at 1x/2x
+sizes; the resume uses `fl_attachment` so it downloads as `Ravi_Akhouri_Resume.pdf`. While
+`media.cloudName` is empty the bundled files in `src/assets` are used instead
+(`src/app/shared-module/helper-functions/media.ts`).
+
+Upload or replace the files (re-uploading overwrites the same IDs and invalidates the CDN, so URLs never change):
+
+```bash
+export CLOUDINARY_URL=cloudinary://<api_key>:<api_secret>@<cloud_name>   # Dashboard → API Keys
+npm run upload:media -- --photo scripts/media/profile.png --resume scripts/media/Ravi_Akhouri_Resume.pdf
 ```
 
-This keeps the resume modules stable while the data source remains replaceable and testable.
+Then set `media.cloudName` in both environment files. Cloudinary blocks PDF delivery on new accounts until
+**Settings → Security → "Allow delivery of PDF and ZIP files"** is enabled. `scripts/media/` is ignored by Git.
+
+### Hosting, security headers and SEO
+
+`src/staticwebapp.config.json` configures Azure Static Web Apps: a Content-Security-Policy, HSTS,
+`X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, long-lived caching for hashed bundles, and a
+redirect of unknown paths to `/`. `src/robots.txt` and `src/sitemap.xml` are copied to the site root.
+`src/index.html` contains the title, description, canonical URL, Open Graph/Twitter metadata and
+`schema.org/Person` structured data. Update these when the job title or experience changes.
 
 ### View-model lifecycle
 
-Resume components extend `BaseComponent<T>` and obtain their section view model
-with Angular dependency injection in the component constructor. `ngOnInit`
-calls `inIt()` once to subscribe to the view and command handlers; the base
-class releases that subscription during `ngOnDestroy`.
+Resume components extend `BaseComponent<TViewModel>` and declare their view model with
+`protected readonly model = inject(SomeViewModel)`, listing it in the component `providers` so its state is
+scoped to the view. `BaseComponent.ngOnInit` subscribes to `model.init()`, and `takeUntilDestroyed` stops it
+when the view is destroyed.
 
-View models use Angular's `inject()` API for their service dependencies and are
-registered with `@Service()`. Do not instantiate these classes with `new` or
-call the deprecated `ViewModelFactory`; tests should use `TestBed.inject(...)`
-so they run inside an Angular injection context.
+View models extend `ViewModel<T>` (or `CollectionViewModel<T>` for lists). They expose state through the
+read-only `data` signal, update it with `setData`, and override the `attachViewHandler` /
+`attachCommandHandler` methods. Tests should create them with `TestBed.inject(...)` so they run inside an
+injection context.
 
 ## Shared Presentation Components
 
@@ -145,72 +175,66 @@ The reusable timeline presentation component is located at:
 It accepts a required `ITimeline[]` input through `timelineList`:
 
 ```html
-<app-timeline [timelineList]="transformedTimelineItems"></app-timeline>
+<app-timeline [timelineList]="model.timeline()"></app-timeline>
 ```
 
-The consuming resume section is responsible for transforming its own domain
-model into `ITimeline`. This keeps the timeline component presentational and
-allows it to be reused by awards, education, experience, hobbies, and projects.
-The shared contract is defined in:
-
-`src/app/shared-module/interfaces/i-timeline.ts`
+Each view model maps its own domain model to `ITimeline` (see
+`src/app/shared-module/helper-functions/transform-to-timeline.ts`). This keeps the timeline component
+presentational and allows it to be reused by awards, education, experience, hobbies, and projects.
 
 ### Text magnifier
 
-`TextMagnifierDirective` is a shared standalone directive located at:
-
-`src/app/shared-module/directives/text-magnifier.directive.ts`
-
-It is registered by `SharedModule` and applies to common text elements such as
-headings, paragraphs, list items, links, labels, and table cells. Hovering or
-focusing readable text displays one floating, magnified glass-style preview.
-The directive manages the active tooltip globally so nested text elements and
-adjacent list items do not display duplicate previews.
+`TextMagnifierDirective` (`src/app/shared-module/directives/text-magnifier.directive.ts`) is a standalone
+directive imported by each component that should use it. It applies to common text elements such as
+headings, paragraphs, list items, links and labels; hovering or focusing readable text displays one floating,
+magnified preview. Its listeners are bound natively so they never trigger change detection, a single shared
+scroll listener hides the active preview, and animations are disabled for users who prefer reduced motion.
 
 ## Folder Structure
 ```
 Resume3.0/
-├── .github/workflows/             # Azure Static Web Apps workflow
-├── .vscode/                       # Recommended IDE configuration
-├── code-review/                   # Review notes and implementation plan
+├── .github/workflows/             # Azure Static Web Apps workflow (audit, test, build, deploy)
+├── code-review/                   # Review notes and implementation plans
+├── scripts/                       # Local Firestore import utility (ignored by Git)
 ├── src/
 │   ├── app/
-│   │   ├── app.component.*        # Root component
-│   │   ├── app.module.ts          # Root Angular module
-│   │   ├── app-routing.module.ts  # Application routes
+│   │   ├── app.component.*        # Root component and loading overlay
+│   │   ├── app.config.ts          # Application providers (zoneless, backend)
 │   │   ├── resume/
-│   │   │   ├── about-me/                  # Component, view model, and service
+│   │   │   ├── about-me/                  # Component, view model, service, ProfileStore
 │   │   │   ├── awards-and-achievements/   # Component and view model
-│   │   │   ├── contact/                   # Contact details component, model, service
-│   │   │   ├── contact-me/                # Contact form component and view model
+│   │   │   ├── contact/                   # Contact details component, view model, service
+│   │   │   ├── contact-me/                # Deferred contact form, view model, EmailJS service
 │   │   │   ├── education/                 # Component, view model, and service
 │   │   │   ├── experience/                # Component, view model, and service
-│   │   │   ├── experience-graph/          # Experience visualization component
 │   │   │   ├── hobbies/                   # Component, view model, and service
-│   │   │   ├── introduction/              # Component, view model, and service
+│   │   │   ├── introduction/              # Component and view model
 │   │   │   ├── professional-skills/       # Component, view model, and service
 │   │   │   ├── projects-experience/       # Component, view model, and service
-│   │   │   ├── resume-container/          # Composes all resume sections
-│   │   │   ├── social-media/              # Component and view model
-│   │   │   ├── resume-routing.module.ts
-│   │   │   └── resume.module.ts
+│   │   │   ├── resume-container/          # Page layout composing all sections
+│   │   │   └── social-media/              # Component and view model
 │   │   └── shared-module/
-│   │       ├── commands/                  # Copy and download commands
-│   │       ├── components/                # Base, progress bar, and dialog components
-│   │       ├── constants/                 # API endpoint constants
-│   │       ├── enums/                     # Application contexts and command types
-│   │       ├── factories/                 # View-model, HTTP, and error factories
-│   │       ├── fake-db/                   # Local JSON data source
-│   │       ├── functions/                 # Shared helper functions
+│   │       ├── commands/                  # Copy command
+│   │       ├── components/                # Base component and timeline
+│   │       ├── constants/                 # Resume section endpoints
+│   │       ├── directives/                # Text magnifier
+│   │       ├── enums/                     # Command, context and contact types
+│   │       ├── fake-db/                   # Local placeholder data source
+│   │       ├── helper-functions/          # Timeline mappers
 │   │       ├── interfaces/                # Application contracts
-│   │       ├── models/                    # Reusable data and view-model classes
-│   │       ├── services/                  # HTTP, loader, notification, and base services
-│   │       └── shared.module.ts
-│   ├── assets/                    # Images, icons, and resume PDFs
+│   │       ├── models/                    # Data models and view-model base classes
+│   │       ├── providers/                 # provideHttpBackend()
+│   │       ├── services/                  # Backends, request handling, loader, notifications, commands
+│   │       └── testing/                   # Test helpers (stub backend)
+│   ├── assets/                    # Profile image (AVIF + JPEG) and resume PDF
 │   ├── environments/              # Development and production settings
+│   ├── index.html                 # SEO metadata and structured data
+│   ├── robots.txt / sitemap.xml
+│   ├── staticwebapp.config.json   # Azure headers, caching and redirects
 │   ├── custom-theme.scss
 │   ├── main.ts
 │   └── styles.css
+├── firestore.rules                 # Firestore security rules
 ├── angular.json                    # Angular CLI configuration
 ├── karma.conf.js                   # Karma test runner configuration
 ├── LICENSE                         # GNU GPL v3.0
@@ -220,206 +244,156 @@ Resume3.0/
 └── README.md
 ```
 
-### Key Folders
-- **app/**: Contains the main application logic, including components, modules, and routing.
-- **resume/**: Houses the resume feature module and its section-specific components, view models, and services.
-- **shared-module/**: Contains shared utilities, models, services, factories, and reusable UI components.
-- **assets/**: Stores static assets like images and icons.
-- **environments/**: Configuration files for different environments (e.g., development and production).
-
 ## Class Diagram
 ```mermaid
 classDiagram
     class AppComponent {
-        +isLoaderActive() boolean
+        #loader LoaderService
     }
 
     class LoaderService {
-        +isLoading boolean
+        +isLoading Signal~boolean~
         +show() void
         +hide() void
     }
 
     class ResumeContainerComponent
 
-    class BaseComponent~T~ {
-        +inIt() void
-        +model IViewModel~T~
-        +ngOnDestroy() void
-    }
-
-    class AboutMeComponent {
-        +ngOnInit() void
-        +onCopy(data, message) void
-    }
-    class ExperienceComponent {
+    class BaseComponent~TViewModel~ {
+        #model TViewModel
         +ngOnInit() void
     }
-    class ContactMeComponent {
-        +form FormGroup
-        +onSend() void
-    }
-    class IntroductionComponent
-    class ProfessionalSkillsComponent
-    class ProjectsExperienceComponent
-    class AwardsAndAchievementsComponent
-    class HobbiesComponent
-    class EducationComponent
-    class ContactComponent
-    class SocialMediaComponent
 
-    class ViewModelFactory {
-        +getViewModelInstance(context, injector) ViewModel
-    }
     class ViewModel~T~ {
-        +data T
-        +inIt() Observable~void~
+        +data Signal~T~
+        +init() Observable~void~
         #attachViewHandler() Observable
         #attachCommandHandler() Observable
+        #setData(value) void
     }
-    class AboutMeViewModel
-    class ExperienceViewModel
-    class EducationViewModel
-    class ProfessionalSkillsViewModel
-    class ProjectsExperienceViewModel
-    class AwardsAndAchievemntsViewModel
-    class HobbiesViewModel
-    class IntroductionViewModel
-    class SocialMediaModel
-    class ContactViewModel
-    class ContactMeViewModel
+    class CollectionViewModel~T~
+    class AboutMeViewModel {
+        +highlights Signal
+    }
+    class ExperienceViewModel {
+        +timeline Signal
+    }
+    class ContactViewModel {
+        +copiedDetails Signal
+        +copy(contact) void
+    }
+    class ContactMeViewModel {
+        +form FormGroup
+        +submit() void
+    }
 
-    class BaseService {
-        +attachViewDataHandler~T~() Observable~T~
-        +attachViewApiHandler~T~(url) Observable~T~
-        +attachCommandApiHandler~T~() Observable~T~
-        +copyCommand(data, message) void
-        +downloadCommand(url, fileName) void
+    class ApiBaseService~T~ {
+        #endpoint UrlConstants
+        +attachViewDataHandler() Observable~T~
     }
     class AboutMeService
     class ExperienceService
-    class FakeHttpsService {
+    class ProfileStore {
+        +profile$ Observable~PersonDataModel~
+    }
+    class HttpsErrorHandler {
+        +handleHttpsError(request$) Observable~T~
+    }
+    class IHttpBackend {
+        <<abstract>>
         +get~T~(url) Observable~HttpResponse~T~~
     }
-    class NotificationService {
-        +showMessage(message, action) void
+    class FakeHttpsService
+    class FirebaseBackendService
+    class CommandService {
+        +attachCommandApiHandler() Observable
+        +copyCommand(data, label) void
     }
+    class NotificationService
 
+    AppComponent --> LoaderService : reads state
+    AppComponent *-- ResumeContainerComponent
     BaseComponent <|-- AboutMeComponent
     BaseComponent <|-- ExperienceComponent
-    BaseComponent <|-- ContactMeComponent
-    BaseComponent <|-- IntroductionComponent
-    BaseComponent <|-- ProfessionalSkillsComponent
-    BaseComponent <|-- ProjectsExperienceComponent
-    BaseComponent <|-- AwardsAndAchievementsComponent
-    BaseComponent <|-- HobbiesComponent
-    BaseComponent <|-- EducationComponent
     BaseComponent <|-- ContactComponent
-    BaseComponent <|-- SocialMediaComponent
-    AppComponent --> LoaderService : reads state
-    ResumeContainerComponent *-- AboutMeComponent : renders
-    ResumeContainerComponent *-- ExperienceComponent : renders
-    ResumeContainerComponent *-- ContactMeComponent : renders
-    ResumeContainerComponent *-- IntroductionComponent : renders
-    ResumeContainerComponent *-- ProfessionalSkillsComponent : renders
-    ResumeContainerComponent *-- ProjectsExperienceComponent : renders
-    ResumeContainerComponent *-- AwardsAndAchievementsComponent : renders
-    ResumeContainerComponent *-- HobbiesComponent : renders
-    ResumeContainerComponent *-- EducationComponent : renders
-    ResumeContainerComponent *-- ContactComponent : renders
-    ResumeContainerComponent *-- SocialMediaComponent : renders
-    AboutMeComponent --> AboutMeViewModel : injects
-    ExperienceComponent --> ExperienceViewModel : injects
-    EducationComponent --> EducationViewModel : injects
-    ProfessionalSkillsComponent --> ProfessionalSkillsViewModel : injects
-    ProjectsExperienceComponent --> ProjectsExperienceViewModel : injects
-    AwardsAndAchievementsComponent --> AwardsAndAchievemntsViewModel : injects
-    HobbiesComponent --> HobbiesViewModel : injects
-    IntroductionComponent --> IntroductionViewModel : injects
-    SocialMediaComponent --> SocialMediaModel : injects
-    ContactComponent --> ContactViewModel : injects
-    ContactMeComponent --> ContactMeViewModel : injects
+    BaseComponent <|-- ContactMeComponent
+    AboutMeComponent --> AboutMeViewModel : provides and injects
+    ExperienceComponent --> ExperienceViewModel : provides and injects
+    ContactComponent --> ContactViewModel : provides and injects
+    ContactMeComponent --> ContactMeViewModel : provides and injects
+    ViewModel <|-- CollectionViewModel
     ViewModel <|-- AboutMeViewModel
-    ViewModel <|-- ExperienceViewModel
-    ViewModel <|-- EducationViewModel
-    ViewModel <|-- ProfessionalSkillsViewModel
-    ViewModel <|-- ProjectsExperienceViewModel
-    ViewModel <|-- AwardsAndAchievemntsViewModel
-    ViewModel <|-- HobbiesViewModel
-    ViewModel <|-- IntroductionViewModel
-    ViewModel <|-- SocialMediaModel
-    ViewModel <|-- ContactViewModel
     ViewModel <|-- ContactMeViewModel
-    ViewModelFactory ..> ViewModel : deprecated compatibility adapter
-    AboutMeViewModel --> AboutMeService
+    CollectionViewModel <|-- ExperienceViewModel
+    CollectionViewModel <|-- ContactViewModel
+    AboutMeViewModel --> ProfileStore
+    ProfileStore --> AboutMeService
     ExperienceViewModel --> ExperienceService
-    BaseService <|-- AboutMeService
-    BaseService <|-- ExperienceService
-    BaseService --> FakeHttpsService : retrieves view data
-    BaseService --> NotificationService : handles commands
+    ContactViewModel --> CommandService
+    ApiBaseService <|-- AboutMeService
+    ApiBaseService <|-- ExperienceService
+    ApiBaseService --> IHttpBackend
+    ApiBaseService --> HttpsErrorHandler
+    HttpsErrorHandler --> LoaderService
+    HttpsErrorHandler --> NotificationService
+    IHttpBackend <|.. FakeHttpsService
+    IHttpBackend <|.. FirebaseBackendService
 ```
 
 ## Flow Diagram
 ```mermaid
 flowchart TD
-    A[User opens the application] --> B[AppComponent initializes]
-    B --> C{Loader is active?}
-    C -- Yes --> D[Show loading spinner]
-    C -- No --> E[Load ResumeContainerComponent]
-    E --> F[Display AboutMeComponent]
-    E --> G[Display other resume section components]
-    F --> H[Angular injects AboutMeViewModel]
-    G --> I[Each component injects its own view model]
-    H --> J[BaseComponent.inIt subscribes to model streams]
-    I --> J
-    J --> K[View model calls feature service]
-    K --> L{Configured backend}
-    L -- Development --> M[FakeHttpsService and fake-db.json]
-    L -- Production --> N[FirebaseBackendService and Firestore]
-    M --> O[View model maps response to component data]
-    N --> O
-    O --> P[Template renders resume section]
-    P --> Q[BaseComponent unsubscribes on destroy]
+    A[User opens the application] --> B[bootstrapApplication with zoneless change detection]
+    B --> C[ResumeContainerComponent renders the page layout]
+    C --> D[Each section component provides and injects its view model]
+    D --> E[BaseComponent.ngOnInit subscribes to model.init]
+    E --> F[View model calls its feature service or ProfileStore]
+    F --> G[HttpsErrorHandler shows loader and applies timeout]
+    G --> H{environment.backend}
+    H -- fake --> I[FakeHttpsService and fake-db.json]
+    H -- firebase --> J[FirebaseBackendService and Firestore Lite]
+    I --> K[View model sets its data signal]
+    J --> K
+    K --> L[OnPush template re-renders the section]
+    C --> M[Footer scrolls into view]
+    M --> N[@defer loads the contact form chunk]
 ```
 
 ## Sequence Diagram
 ```mermaid
 sequenceDiagram
     actor User
-    participant AboutMe as AboutMeComponent
+    participant Contact as ContactComponent
     participant Base as BaseComponent
-    participant VM as AboutMeViewModel
-    participant Service as AboutMeService
+    participant VM as ContactViewModel
+    participant Service as ContactService
+    participant Handler as HttpsErrorHandler
     participant HTTP as IHttpBackend
-    participant DB as fake-db.json or Firestore
+    participant Commands as CommandService
     participant Clipboard
     participant Notice as NotificationService
 
-    User->>AboutMe: Open resume section
-    AboutMe->>AboutMe: inject(AboutMeViewModel)
-    AboutMe->>Base: ngOnInit() / inIt()
-    Base->>VM: inIt() and subscribe()
+    User->>Contact: Open page
+    Contact->>Base: ngOnInit()
+    Base->>VM: init().subscribe() until destroyed
     par Load section data
         VM->>Service: attachViewDataHandler()
-        Service->>HTTP: get('resumes/RS-1/resume/about-me')
-        HTTP->>DB: read the about-me section document
-        DB-->>HTTP: response body
-        HTTP-->>Service: HttpResponse after delay
-        Service-->>VM: Person data
-        VM->>VM: create PersonDataModel and set data
-        VM-->>AboutMe: template reads model.data
+        Service->>Handler: handleHttpsError(get(...))
+        Handler->>HTTP: get('resumes/RS-1/resume/contact-details')
+        HTTP-->>Handler: HttpResponse
+        Handler-->>VM: contact list
+        VM->>VM: setData(ContactDetailsDataModel[])
     and Listen for commands
-        VM->>Service: attachCommandApiHandler()
+        VM->>Commands: attachCommandApiHandler()
     end
 
-    User->>AboutMe: Click copy button
-    AboutMe->>Service: copyCommand(data, message)
-    Service->>Clipboard: copy(data without spaces)
-    Service->>Notice: showMessage(message, 'copy')
-    Notice-->>User: Display snackbar notification
-    User->>AboutMe: Leave section
-    AboutMe->>Base: ngOnDestroy()
-    Base->>Base: unsubscribe()
+    User->>Contact: Click copy button
+    Contact->>VM: copy(contact)
+    VM->>VM: copiedDetails.set(details)
+    VM->>Commands: copyCommand(details, label)
+    Commands->>Clipboard: copy(details)
+    Commands->>Notice: showMessage('Email copied!', 'Copy')
+    Notice-->>User: Snackbar notification
 ```
 
 ## How to Build the Project
@@ -430,7 +404,7 @@ sequenceDiagram
    ```
 2. Install dependencies:
    ```bash
-   npm install
+   npm ci
    ```
 3. Start the development server:
    ```bash
@@ -439,16 +413,16 @@ sequenceDiagram
    Navigate to `http://localhost:4200/` to view the application.
 4. Build the project for production:
    ```bash
-    npm run build
+   npm run build
    ```
 
 ## Running Tests
-- **Unit Tests**: Run `npm test` to execute unit tests via Karma.
+- **Unit tests**: `npm test` (watch mode) or `npm run test:ci` (single headless run).
 - The repository does not currently define an end-to-end test script.
 
 ## Additional Notes
-- Ensure that you have Node.js and Angular CLI installed on your system.
-- The diagrams describe the current view-model and backend flow; update them when the provider or data-path contract changes.
+- The diagrams describe the current view-model and backend flow; update them when the provider or data-path
+  contract changes.
 
 ### Reference
-- color palattes ---- https://colorhunt.co/palette/0000001f150c412d15e1dcc9
+- Colour palette: https://colorhunt.co/palette/0000001f150c412d15e1dcc9

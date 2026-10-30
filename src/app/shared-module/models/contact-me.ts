@@ -1,47 +1,14 @@
 import { IContactMe } from "../interfaces/i-contact-me";
 
+/** Contact-form submission; values are trimmed so whitespace-only input is not sent. */
 export class ContactMe implements IContactMe {
-    private _name: string;
-    private _email: string;
-    private _message: string;
+    public readonly name: string;
+    public readonly email: string;
+    public readonly message: string;
 
-    constructor() {
-        this._name = '';
-        this._email = '';
-        this._message = ''
+    constructor(data: Partial<IContactMe>) {
+        this.name = (data.name ?? '').trim();
+        this.email = (data.email ?? '').trim();
+        this.message = (data.message ?? '').trim();
     }
-
-    public get name(): string {
-        return this._name;
-    }
-
-    public set name(name: string) {
-        if (typeof name !== 'string') {
-            return;
-        }
-        this._name = name;
-    }
-
-    public get email(): string {
-        return this._email;
-    }
-
-    public set email(email: string) {
-        if (typeof email !== 'string') {
-            return;
-        }
-        this._email = email;
-    }
-
-    public get message(): string {
-        return this._message;
-    }
-
-    public set message(message: string) {
-        if (typeof message !== 'string') {
-            return;
-        }
-        this._message = message;
-    }
-
 }

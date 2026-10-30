@@ -1,81 +1,91 @@
+<a class="skip-link" href="#main">Skip to main content</a>
 <div class="container">
   <header class="header" id="header">
-    <h3 class="title">Ravi Akhouri</h3>
-    <ul>
-      <li><a href="#introduction-section">Home</a></li>
-      <li><a href="#about-me-section">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contacts</a></li>
-    </ul>
+    <a class="title" href="#introduction-section">Ravi Akhouri</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#introduction-section">Home</a></li>
+        <li><a href="#about-me-section">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
   </header>
-  <div class="row" id="introduction-section">
 
-    <div class="col-sm-6" id="intro">
-      <app-introduction></app-introduction>
+  <main id="main">
+    <div class="row" id="introduction-section">
+
+      <div class="col-sm-6" id="intro">
+        <app-introduction></app-introduction>
+      </div>
+
+      <div class="col-sm-6" id="profile-image-section">
+
+        <div class="profile-image-container">
+
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+          <i class="bi bi-chevron-right" aria-hidden="true"></i>
+
+          <div class="outer-circle-design">
+            <picture>
+              @for (source of photo.sources; track source.type) {
+              <source [srcset]="source.srcset" [type]="source.type">
+              }
+              <img [src]="photo.src" [attr.srcset]="photo.srcset || null" alt="Portrait of Ravi Akhouri"
+                class="profile-image" width="270" height="270" fetchpriority="high">
+            </picture>
+          </div>
+
+          <div class="inner-circle-design" aria-hidden="true">
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <div class="col-sm-6" id="profile-image-section">
+    <div class="professional-skills-section" id="professional-skills-section">
+      <app-professional-skills></app-professional-skills>
+    </div>
 
-      <div class="profile-image-container">
+    <div class="row" id="about-me-section">
 
-        <i class="bi bi-chevron-left"></i>
-        <i class="bi bi-chevron-right"></i>
+      <div class="col-sm-6">
+        <app-awards-and-achievements></app-awards-and-achievements>
+      </div>
 
-        <div class="outer-circle-design">
-          <img src="assets/IMG_2300.png" alt="Ravi Akhouri" class="profile-image">
-        </div>
-
-        <div class="inner-circle-design">
-        </div>
+      <div class="col-sm-6">
+        <app-about-me></app-about-me>
       </div>
 
     </div>
-  </div>
 
-  <div class="professional-skills-section" id="professional-skills-section">
-    <app-professional-skills></app-professional-skills>
-  </div>
-
-  <div class="row" id="about-me-section">
-
-    <div class="col-sm-6">
-      <app-awards-and-achievements></app-awards-and-achievements>
+    <div class="row" id="experience">
+      <div class="col-sm-12">
+        <app-experience></app-experience>
+      </div>
     </div>
 
-    <div class="col-sm-6">
-      <app-about-me></app-about-me>
+    <div class="row" id="projects">
+      <div class="col-sm-12">
+        <app-projects-experience></app-projects-experience>
+      </div>
     </div>
 
-  </div>
-
-  <div class="row" id="experience">
-    <div class="col-sm-12">
-      <app-experience></app-experience>
+    <div class="row">
+      <div class="col-sm-6">
+        <app-hobbies></app-hobbies>
+      </div>
+      <div class="col-sm-6">
+        <app-education></app-education>
+      </div>
     </div>
-  </div>
-
-  <div class="row" id="projects">
-    <div class="col-sm-12">
-      <app-projects-experience></app-projects-experience>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-6">
-      <app-hobbies></app-hobbies>
-    </div>
-    <div class="col-sm-6">
-      <app-education></app-education>
-    </div>
-  </div>
+  </main>
 
   <footer>
     <div class="row">
       <div class="col-sm-4">
-        <h5>
-          Contacts
-        </h5>
+        <h2 class="footer-heading">Contacts</h2>
         <div class="contact-details">
           <app-contact></app-contact>
         </div>
@@ -83,26 +93,29 @@
       <hr class="mob-hr">
       <div class="col-sm-4 developer">
         <div>
-          <strong>Developed by me with love <i class="bi bi-heart-fill"></i> in India
+          <strong>Developed by me with love <i class="bi bi-heart-fill" aria-hidden="true"></i> in India
             <span class="india-flag" role="img" aria-label="Flag of India">
               <span class="india-flag-chakra" aria-hidden="true"></span>
             </span>
           </strong> <br>
-          <p> <a href="https://github.com/RaviAkhouri30/Resume3.0">source code</a> </p>
+          <p><a href="https://github.com/RaviAkhouri30/Resume3.0" target="_blank" rel="noopener noreferrer">source
+              code</a></p>
         </div>
       </div>
       <hr class="mob-hr">
       <div class="col-sm-4">
-        <h5>
-          Contact me
-        </h5>
+        <h2 class="footer-heading">Contact me</h2>
         <div class="social-media" id="contact">
+          @defer (on viewport) {
           <app-contact-me></app-contact-me>
+          } @placeholder {
+          <div class="contact-form-placeholder" aria-hidden="true"></div>
+          }
         </div>
       </div>
       <hr>
       <div class="col-sm-12 copyright">
-        <p>Copyright &copy; 2024 Ravi Akhouri</p>
+        <p>Copyright &copy; {{ currentYear }} Ravi Akhouri</p>
         <app-social-media></app-social-media>
       </div>
     </div>

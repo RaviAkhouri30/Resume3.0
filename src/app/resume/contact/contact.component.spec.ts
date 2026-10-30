@@ -1,23 +1,28 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Clipboard } from '@angular/cdk/clipboard';
+import { TestBed } from '@angular/core/testing';
+import { provideStubHttpBackend } from 'src/app/shared-module/testing/stub-http-backend';
 import { ContactComponent } from './contact.component';
 
 describe('ContactComponent', () => {
-  let component: ContactComponent;
-  let fixture: ComponentFixture<ContactComponent>;
+  it('renders contact links and swaps the icon after copying', async () => {
+    TestBed.configureTestingModule({
+      imports: [ContactComponent],
+      providers: [provideStubHttpBackend({
+        'contact-details': [{ icon: 'bi bi-phone-fill', details: '+91 88048 04868', type: 'mobile' }]
+      })]
+    });
+    const clipboard = TestBed.inject(Clipboard);
+    spyOn(clipboard, 'copy').and.returnValue(true);
+    const fixture = TestBed.createComponent(ContactComponent);
+    await fixture.whenStable();
+    const element: HTMLElement = fixture.nativeElement;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ContactComponent]
-    })
-    .compileComponents();
+    expect(element.querySelector('a')?.getAttribute('href')).toBe('tel:+918804804868');
 
-    fixture = TestBed.createComponent(ContactComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    element.querySelector('button')!.click();
+    await fixture.whenStable();
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(clipboard.copy).toHaveBeenCalledWith('+91 88048 04868');
+    expect(element.querySelector('button i')?.className).toContain('bi-clipboard-check-fill');
   });
 });

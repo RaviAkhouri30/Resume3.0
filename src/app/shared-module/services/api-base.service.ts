@@ -1,27 +1,26 @@
-import { inject, Injectable } from '@angular/core';
-import { filter, map, Observable } from 'rxjs';
-import { IApiBaseService } from '../interfaces/i-base-service';
-import { GetEndPointUrl } from '../helper-functions/get-end-point-url';
+import { inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { UrlConstants } from '../constants/url-constants';
 import { IHttpBackend } from '../interfaces/i-http-backend';
 import { HttpsErrorHandler } from './https-error-handler';
 
-@Injectable({
-  providedIn: 'root'
-})
-export abstract class ApiBaseService implements IApiBaseService {
-  private readonly $https: IHttpBackend = inject(IHttpBackend);
-  private readonly $httpsErrorHandler: HttpsErrorHandler = inject(HttpsErrorHandler);
+/**
+ * Base class for read-only feature data services (Template Method pattern).
+ *
+ * A concrete service only declares its endpoint and payload type; fetching,
+ * loading state and error handling are inherited. The payload type is fixed by
+ * the subclass, so callers cannot request an arbitrary `T` from an endpoint.
+ */
+export abstract class ApiBaseService<T> {
+  private readonly backend: IHttpBackend = inject(IHttpBackend);
+  private readonly errorHandler: HttpsErrorHandler = inject(HttpsErrorHandler);
 
-  /** Retrieves the view data required by a feature service. */
-  public abstract attachViewDataHandler<T>(): Observable<T>;
+  /** Resume section that this service reads. */
+  protected abstract readonly endpoint: UrlConstants;
 
-  /** Retrieves typed data from the configured backend endpoint. */
-  public attachViewApiHandler<T>(url: UrlConstants): Observable<T> {
-    return this.$httpsErrorHandler.handleHttpsError(this.$https.get<T>(GetEndPointUrl.getEndPointUrl(url))).pipe(
-      filter((res) => res?.ok && res?.body !== null),
-      map((res) => res.body as T)
-    );
-  };
-
+  /** Retrieves the view data for this feature from the configured backend. */
+  public attachViewDataHandler(): Observable<T> {
+    return this.errorHandler.handleHttpsError(this.backend.get<T>(`${environment.baseUrl}/${this.endpoint}`));
+  }
 }

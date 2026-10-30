@@ -1,10 +1,6 @@
-<section class="experience">
-  <div class="title" aria-label="Work Experience">
-    <h1> Work Experience</h1>
-  </div>
-  <div class="experience-container">
-    <div class="experience">
-      <app-timeline [timelineList]="transformedTimelineItems"></app-timeline>
+<section class="experience" aria-labelledby="experience-heading">
+    <div class="title">
+        <h2 id="experience-heading" class="section-heading">Work Experience</h2>
     </div>
-  </div>
+    <app-timeline [timelineList]="model.timeline()"></app-timeline>
 </section>

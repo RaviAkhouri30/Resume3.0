@@ -3,7 +3,7 @@
     padding: 60px 24px;
 }
 
-h1 {
+.section-heading {
     color: rgb(255, 119, 0);
     margin-bottom: 60px;
 }
@@ -23,13 +23,10 @@ i {
     font-weight: 1000;
 }
 
-ul {
+.experience-parameters {
     list-style-type: none;
-    padding: 5px 5px;
+    padding: 5px;
     overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-    margin-left: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -46,7 +43,7 @@ ul {
         font-size: 15px !important;
     }
 
-    ul li {
+    .experience-parameters li {
         max-width: 70px;
     }
 

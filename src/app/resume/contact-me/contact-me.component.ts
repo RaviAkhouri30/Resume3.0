@@ -1,84 +1,19 @@
-import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { BaseComponent } from 'src/app/shared-module/components/base-component/base-component';
-import { ContactMe } from 'src/app/shared-module/models/contact-me';
-import emailjs from '@emailjs/browser'
-import { NotificationService } from 'src/app/shared-module/services/notification.service';
+import { TextMagnifierDirective } from 'src/app/shared-module/directives/text-magnifier.directive';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { ContactMeViewModel } from './models/contact-me-view-model';
 
 @Component({
   selector: 'app-contact-me',
-  standalone: false,
   templateUrl: './contact-me.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './contact-me.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ReactiveFormsModule, MatInputModule, MatButtonModule, TextMagnifierDirective],
+  providers: [ContactMeViewModel]
 })
-/** Displays and validates the contact form. Submission is currently local only. */
-export class ContactMeComponent extends BaseComponent<ContactMe> implements OnInit {
-
-  private readonly fb: FormBuilder = inject(FormBuilder);
-  private readonly notificationService: NotificationService = inject(NotificationService);
-  private _form!: FormGroup;
-
-  constructor() {
-    super();
-    // The component selects its model; BaseComponent manages its subscription.
-    this.model = inject(ContactMeViewModel);
-  }
-
-  /** Creates the form and initializes its view model when the component loads. */
-  ngOnInit(): void {
-    this.inIt();
-    this.createForm();
-  }
-
-  /** Returns the reactive form used by the contact section. */
-  get form(): FormGroup {
-    return this._form;
-  }
-
-  /** Copies validated form values into the contact view model. */
-  public onSend() {
-    if (!this.form.valid) {
-      return;
-    }
-    this.model.data = new ContactMe();
-    const formVal = this.form.value as ContactMe;
-    this.model.data.name = formVal.name;
-    this.model.data.email = formVal.email;
-    this.model.data.message = formVal.message;
-    this.sendEmail();
-
-    // Reset the form after submit.
-    this.form.reset();
-  }
-
-  /**
-   * @description Method to send emails, if someone contact via contact me
-   */
-  public sendEmail() {
-    emailjs.send(
-      'service_g7pwa8r',
-      'template_1bvzelf',
-      {
-        title: this.model.data.email,
-        name: this.model.data.name,
-        message: this.model.data.message,
-      },
-      { publicKey: '2kOpwVxV45AwOcykd' }
-    ).then(
-      () => {
-        this.notificationService.showSuccess('message send');
-      },
-      (error) => this.notificationService.showError(400, error));
-  }
-
-  /** Builds the required name, email, and message controls. */
-  private createForm(): void {
-    this._form = this.fb.group({
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      message: ['', Validators.required]
-    });
-  }
+export class ContactMeComponent extends BaseComponent<ContactMeViewModel> {
+  protected readonly model = inject(ContactMeViewModel);
 }

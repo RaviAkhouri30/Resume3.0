@@ -1,16 +1,19 @@
-import { TestBed } from '@angular/core/testing';
-
 import { LoaderService } from './loader-service';
 
-describe('LoaderServiceService', () => {
-  let service: LoaderService;
+describe('LoaderService', () => {
+  it('stays visible until every request has finished and never goes negative', () => {
+    const loader = new LoaderService();
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(LoaderService);
-  });
+    loader.show();
+    loader.show();
+    loader.hide();
+    expect(loader.isLoading()).toBeTrue();
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+    loader.hide();
+    loader.hide();
+    expect(loader.isLoading()).toBeFalse();
+
+    loader.show();
+    expect(loader.isLoading()).toBeTrue();
   });
 });

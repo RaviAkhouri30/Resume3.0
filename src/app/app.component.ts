@@ -1,21 +1,18 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ResumeContainerComponent } from './resume/resume-container/resume-container.component';
 import { LoaderService } from './shared-module/services/loader-service';
 
+/** Root component that hosts the resume page and the global loading overlay. */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false
+  styleUrl: './app.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ResumeContainerComponent, MatProgressSpinner]
 })
-/** Root component that exposes the global loading state to its template. */
-export class AppComponent { 
+export class AppComponent {
 
-  private loaderService: LoaderService = inject(LoaderService);
-
-  /** Returns whether the application loader should be visible. */
-  public isLoaderActive(): boolean {
-    return this.loaderService.isLoading;
-  }
+  protected readonly loader: LoaderService = inject(LoaderService);
 
 }

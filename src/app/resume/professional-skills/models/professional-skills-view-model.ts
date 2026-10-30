@@ -1,20 +1,21 @@
+import { inject, Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
-import { IProfessionalSkillsDataModel } from "src/app/shared-module/interfaces/i-professional-skills";
-import { ViewModel } from "src/app/shared-module/models/view-model";
-import { ProfessionalSkillsService } from "../services/professional-skills.service";
-import { inject, Service } from "@angular/core";
 import { ProfessionalSkillsDataModel } from "src/app/shared-module/models/professional-skills-data-model";
+import { CollectionViewModel } from "src/app/shared-module/models/view-model";
+import { ProfessionalSkillsService } from "../services/professional-skills.service";
 
-@Service()
-export class ProfessionalSkillsViewModel extends ViewModel<ProfessionalSkillsDataModel[]> {
+@Injectable()
+export class ProfessionalSkillsViewModel extends CollectionViewModel<ProfessionalSkillsDataModel> {
 
-    private readonly _professionalSkillsService: ProfessionalSkillsService = inject(ProfessionalSkillsService);
+    private readonly service: ProfessionalSkillsService = inject(ProfessionalSkillsService);
 
-    protected override attachViewHandler = (): Observable<any> => {
-        return this._professionalSkillsService.attachViewDataHandler<IProfessionalSkillsDataModel[]>()
-            .pipe(
-                tap(result => this.data = result.map(e => new ProfessionalSkillsDataModel(e)))
-            );
+    constructor() {
+        super();
     }
 
+    protected override attachViewHandler(): Observable<unknown> {
+        return this.service.attachViewDataHandler().pipe(
+            tap(result => this.setData(result.map(skill => new ProfessionalSkillsDataModel(skill))))
+        );
+    }
 }

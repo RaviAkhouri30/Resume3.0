@@ -27,3 +27,10 @@
     background-color: rgb(255, 119, 0);
     color: #E1DCC9;
 }
+.honeypot {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}

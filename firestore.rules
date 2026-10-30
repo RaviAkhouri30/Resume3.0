@@ -1,0 +1,15 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Public portfolio: anyone may read an individual resume section document.
+    // `get` (not `read`) also blocks listing/enumerating collections.
+    match /resumes/{userId}/resume/{section} {
+      allow get: if true;
+    }
+
+    // Everything else is denied, including every write from browsers.
+    // Content is managed with the Admin SDK (scripts/import-resume.cjs), which bypasses these rules.
+  }
+}

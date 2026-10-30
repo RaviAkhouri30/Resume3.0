@@ -1,6 +1,6 @@
-<router-outlet></router-outlet>
-@if (!!isLoaderActive()) {
-<div class="overlay">
+<app-resume-container></app-resume-container>
+@if (loader.isLoading()) {
+<div class="overlay" role="status" aria-label="Loading portfolio">
     <mat-spinner></mat-spinner>
 </div>
 }
