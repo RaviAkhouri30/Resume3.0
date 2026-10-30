@@ -1,6 +1,7 @@
-<section class="awards-and-achievements" aria-labelledby="awards-heading">
-    <div class="title">
-        <h2 id="awards-heading" class="section-heading">Awards &amp; Achievements</h2>
+<section class="section page-width" aria-labelledby="awards-heading">
+    <div class="section-header reveal">
+        <h2 id="awards-heading" class="section-heading">Awards &amp; <em>Achievements</em></h2>
+        <p class="section-lead">Recognition from the teams and organisations I've worked with.</p>
     </div>
-    <app-timeline [timelineList]="model.timeline()"></app-timeline>
+    <app-card-grid [items]="model.timeline()" icon="bi bi-award"></app-card-grid>
 </section>

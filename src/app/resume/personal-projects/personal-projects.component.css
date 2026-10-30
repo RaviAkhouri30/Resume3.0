@@ -1,0 +1,139 @@
+.projects {
+    display: grid;
+    gap: clamp(72px, 10vw, 128px);
+}
+
+.project {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    align-items: center;
+    gap: clamp(36px, 5vw, 64px);
+}
+
+/* Alternate sides, keeping the preview in the wider column. */
+.project.reverse {
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+}
+
+.project.reverse .project-info {
+    order: 2;
+}
+
+.project-info {
+    display: grid;
+    justify-items: start;
+    gap: 18px;
+}
+
+.project-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.label-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.project-title {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: var(--text);
+}
+
+.project-summary {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--text);
+}
+
+.project-highlights {
+    display: grid;
+    gap: 10px;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.project-highlights li {
+    position: relative;
+    padding-left: 28px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+.project-highlights li i {
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    font-size: 1.05rem;
+    color: var(--accent);
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 6px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.project-tech .chip {
+    padding: 4px 12px;
+    font-size: 0.8rem;
+}
+
+.project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.preview-placeholder {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 12px;
+    aspect-ratio: 16 / 10;
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+}
+
+.preview-placeholder i {
+    font-size: 2rem;
+    color: var(--accent);
+}
+
+@media (max-width: 960px) {
+    .project,
+    .project.reverse {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Preview first on small screens, so each project opens with something to look at. */
+    .project .project-preview {
+        order: -1;
+    }
+
+    .project.reverse .project-info {
+        order: 0;
+    }
+}

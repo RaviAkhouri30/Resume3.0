@@ -1,8 +1,8 @@
 @let form = model.form;
 <form class="contact-me" [formGroup]="form" (ngSubmit)="model.submit()" novalidate>
 
-    <mat-form-field class="full-width">
-        <mat-label class="form-label">Name</mat-label>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Name</mat-label>
         <input type="text" matInput id="contact-name" formControlName="name" autocomplete="name"
             [maxlength]="model.limits.name" required />
         @if (form.controls.name.hasError('required')) {
@@ -10,8 +10,8 @@
         }
     </mat-form-field>
 
-    <mat-form-field class="full-width">
-        <mat-label class="form-label">Email</mat-label>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Email</mat-label>
         <input type="email" matInput id="contact-email" formControlName="email" autocomplete="email"
             [maxlength]="model.limits.email" required />
         @if (form.controls.email.hasError('required')) {
@@ -21,8 +21,8 @@
         }
     </mat-form-field>
 
-    <mat-form-field class="full-width">
-        <mat-label class="form-label">Message</mat-label>
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Message</mat-label>
         <textarea matInput id="contact-message" formControlName="message" rows="4" [maxlength]="model.limits.message"
             required></textarea>
         <mat-hint align="end">{{ form.controls.message.value.length }} / {{ model.limits.message }}</mat-hint>
@@ -37,10 +37,11 @@
         <input type="text" id="contact-website" formControlName="website" tabindex="-1" autocomplete="off" />
     </div>
 
-    <section class="button-submit">
-        <button type="submit" matButton="outlined" [disabled]="model.data() === 'sending'">
-            {{ model.data() === 'sending' ? 'Sending…' : 'Send' }}
+    <div class="button-submit">
+        <button type="submit" class="btn btn-primary" [disabled]="model.data() === 'sending'">
+            {{ model.data() === 'sending' ? 'Sending…' : 'Send message' }}
+            <i class="bi bi-send" aria-hidden="true"></i>
         </button>
-    </section>
+    </div>
 
 </form>

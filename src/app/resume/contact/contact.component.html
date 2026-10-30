@@ -1,12 +1,13 @@
 <ul class="contacts">
     @for (contact of model.data(); track contact.details) {
-    <li>
-        <a [href]="contact.href">
-            <i class="{{ contact.icon }}" aria-hidden="true"></i> {{ contact.details }}
+    <li class="contact-row">
+        <a class="contact-link" [href]="contact.href">
+            <span class="contact-icon" aria-hidden="true"><i class="{{ contact.icon }}"></i></span>
+            <span class="contact-details">{{ contact.details }}</span>
         </a>
-        <button type="button" class="action" (click)="model.copy(contact)"
+        <button type="button" class="copy" (click)="model.copy(contact)"
             [attr.aria-label]="'Copy ' + contact.details">
-            <i [class]="model.copiedDetails() === contact.details ? 'bi bi-clipboard-check-fill' : 'bi bi-clipboard'"
+            <i [class]="model.copiedDetails() === contact.details ? 'bi bi-check2' : 'bi bi-copy'"
                 aria-hidden="true"></i>
         </button>
     </li>

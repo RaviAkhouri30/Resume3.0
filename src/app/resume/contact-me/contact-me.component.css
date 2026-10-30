@@ -1,32 +1,33 @@
-::ng-deep .mat-mdc-text-field-wrapper,
-.mat-mdc-form-field,
-.mdc-text-field__input {
-    background: transparent !important;
-    color: #E1DCC9 !important;
+.contact-me {
+    display: grid;
+    gap: 4px;
+    --mat-form-field-outlined-outline-color: var(--border-strong);
+    --mat-form-field-outlined-hover-outline-color: var(--text-muted);
+    --mat-form-field-outlined-focus-outline-color: var(--accent);
+    --mat-form-field-outlined-label-text-color: var(--text-muted);
+    --mat-form-field-outlined-focus-label-text-color: var(--accent);
+    --mat-form-field-outlined-input-text-color: var(--text);
+    --mat-form-field-outlined-container-shape: 12px;
 }
 
 .full-width {
     width: 100%;
 }
 
-.form-label {
-    color: #E1DCC9 !important;
-}
-
 .button-submit {
-    padding: 32px 0;
+    padding-top: 12px;
 }
 
-.button-submit>button {
-    color: rgb(255, 119, 0);
-    min-width: 150px;
-    transition: 0.6s ease-in-out, color 0.6s ease-in-out;
+.button-submit .btn {
+    width: 100%;
 }
 
-.button-submit>button:hover {
-    background-color: rgb(255, 119, 0);
-    color: #E1DCC9;
+.button-submit .btn:disabled {
+    opacity: 0.6;
+    cursor: progress;
+    transform: none;
 }
+
 .honeypot {
     position: absolute;
     left: -10000px;

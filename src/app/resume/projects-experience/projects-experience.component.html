@@ -1,6 +1,7 @@
-<section class="project-experience" aria-labelledby="projects-heading">
-    <div class="title">
-        <h2 id="projects-heading" class="section-heading">Projects</h2>
+<section class="section page-width" aria-labelledby="projects-heading">
+    <div class="section-header reveal">
+        <h2 id="projects-heading" class="section-heading"><em>Projects</em></h2>
+        <p class="section-lead">A selection of products I've helped design, build and ship.</p>
     </div>
-    <app-timeline [timelineList]="model.timeline()"></app-timeline>
+    <app-card-grid [items]="model.timeline()" [numbered]="true" [visibleBullets]="3"></app-card-grid>
 </section>

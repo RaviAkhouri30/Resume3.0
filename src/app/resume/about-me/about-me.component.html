@@ -1,14 +1,20 @@
-<section class="about-me-section" aria-labelledby="about-me-heading">
-  <h2 id="about-me-heading" class="section-heading">About Me</h2>
-  @if (model.data(); as person) {
-  <p class="summary">{{ person.summary }}</p>
-  }
-  <ul class="experience-parameters">
-    @for (highlight of model.highlights(); track highlight.label) {
-    <li>
-      <span class="years">{{ highlight.value }}</span>&nbsp;<i class="bi bi-plus" aria-hidden="true"></i>
-      <p class="parameter-label">{{ highlight.label }}</p>
-    </li>
+<section class="section page-width" aria-labelledby="about-me-heading">
+  <div class="section-header reveal">
+    <h2 id="about-me-heading" class="section-heading">About <em>Me</em></h2>
+  </div>
+
+  <div class="about-grid">
+    @if (model.data(); as person) {
+    <p class="summary reveal">{{ person.summary }}</p>
     }
-  </ul>
+
+    <ul class="stats">
+      @for (highlight of model.highlights(); track highlight.label) {
+      <li class="stat reveal">
+        <span class="stat-value">{{ highlight.value }}<span class="stat-plus" aria-hidden="true">+</span></span>
+        <span class="stat-label">{{ highlight.label }}</span>
+      </li>
+      }
+    </ul>
+  </div>
 </section>

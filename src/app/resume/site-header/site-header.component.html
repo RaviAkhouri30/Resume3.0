@@ -1,0 +1,25 @@
+<header class="site-header">
+  <div class="page-width header-inner">
+    <a class="brand" href="#home" aria-label="Ravi Akhouri, back to top">
+      <span class="brand-mark" aria-hidden="true">RA</span>
+      <span class="brand-name">Ravi Akhouri</span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Primary" [class.open]="menuOpen()">
+      <ul>
+        @for (link of navLinks; track link.id) {
+        <li>
+          <a [href]="'#' + link.id" [class.active]="activeSection() === link.id"
+            [attr.aria-current]="activeSection() === link.id ? 'true' : null" (click)="menuOpen.set(false)">{{ link.label }}</a>
+        </li>
+        }
+      </ul>
+    </nav>
+    <a class="btn btn-primary header-cta" [href]="resume.url" [attr.download]="resume.fileName" type="application/pdf">
+      Résumé <i class="bi bi-arrow-down" aria-hidden="true"></i>
+    </a>
+    <button type="button" class="menu-toggle" aria-controls="site-nav" [attr.aria-expanded]="menuOpen()"
+      [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'" (click)="menuOpen.update(open => !open)">
+      <i [class]="menuOpen() ? 'bi bi-x-lg' : 'bi bi-list'" aria-hidden="true"></i>
+    </button>
+  </div>
+</header>

@@ -1,24 +1,79 @@
-.col-1 {
-    margin: 10px auto;
+:host {
+    display: block;
 }
 
-.skill-title {
-    margin-bottom: 5px;
+.skills {
+    border-block: 1px solid var(--border);
+    background: var(--bg-raised);
 }
 
-ul {
-    list-style-type: none;
-    padding: 5px 30px;
+.marquee {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 10px 15px;
-    color: #E1DCC9;
-    margin: auto;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
 
-li {
+.track {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
     margin: 0;
-    display: inline-block;
+    padding: 22px 0;
+    list-style: none;
+    animation: marquee 70s linear infinite;
+}
+
+.marquee:hover .track {
+    animation-play-state: paused;
+}
+
+.track li {
+    display: flex;
+    align-items: center;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    font-weight: 500;
+    color: var(--text-muted);
+    white-space: nowrap;
+    transition: color 0.25s ease;
+}
+
+.track li:hover {
+    color: var(--text);
+}
+
+/* Star separator after every item, including the last, so the two copies join seamlessly. */
+.track li::after {
+    content: '✦';
+    margin-inline: clamp(14px, 1.6vw, 20px);
+    font-size: 0.7em;
+    color: var(--accent);
+}
+
+@keyframes marquee {
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Without motion, show every skill once as a wrapped list. */
+@media (prefers-reduced-motion: reduce) {
+    .marquee {
+        mask-image: none;
+        -webkit-mask-image: none;
+    }
+
+    .track {
+        flex-wrap: wrap;
+        flex-shrink: 1;
+        justify-content: center;
+        gap: 8px 0;
+        padding-inline: var(--gutter);
+        animation: none;
+    }
+
+    .track[aria-hidden='true'],
+    .track li[aria-hidden='true'] {
+        display: none;
+    }
 }

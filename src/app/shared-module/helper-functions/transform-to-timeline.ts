@@ -12,7 +12,7 @@ function joinParts(parts: (string | undefined)[], separator: string): string {
 
 export function mapAwardAndAchievementToTimelineItem(item: IAwardAchievements): ITimeline {
     return {
-        subtitle: item.title,
+        title: item.title,
         description: item.desc
     };
 }
@@ -20,7 +20,8 @@ export function mapAwardAndAchievementToTimelineItem(item: IAwardAchievements): 
 export function mapExperienceToTimelineItem(item: IExperienceDataModel): ITimeline {
     return {
         title: item.companyName,
-        subtitle: joinParts([item.designation, item.tenure], ' · '),
+        subtitle: item.designation,
+        meta: item.tenure,
         bullets: item.responsibilities
     };
 }
@@ -28,8 +29,9 @@ export function mapExperienceToTimelineItem(item: IExperienceDataModel): ITimeli
 export function mapEducationToTimelineItem(item: IEducationDataModel): ITimeline {
     const degree = item.major ? `${item.degree} in ${item.major}` : item.degree;
     return {
-        title: item.graduationYear ? `${degree} (${item.graduationYear})` : degree,
+        title: degree,
         subtitle: joinParts([item.instituteName, item.university], ', '),
+        meta: item.graduationYear || undefined,
         description: item.grade ? `Grade: ${item.grade}` : undefined
     };
 }
@@ -43,7 +45,7 @@ export function mapProjectsToTimelineItem(item: IProjectsExperienceDataModel): I
 
 export function mapHobbiesToTimelineItem(item: IHobbiesDataModel): ITimeline {
     return {
-        subtitle: item.hobby,
+        title: item.hobby,
         description: item.description,
         icon: item.icon
     };

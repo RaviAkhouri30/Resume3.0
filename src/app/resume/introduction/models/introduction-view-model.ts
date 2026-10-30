@@ -1,4 +1,4 @@
-import { inject, Injectable } from "@angular/core";
+import { computed, inject, Injectable, Signal } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { PersonDataModel } from "src/app/shared-module/models/person-data-model";
 import { ViewModel } from "src/app/shared-module/models/view-model";
@@ -13,6 +13,9 @@ export class IntroductionViewModel extends ViewModel<PersonDataModel | null> {
 
     /** Downloadable resume (Cloudinary, or the bundled asset when not configured). */
     public readonly resume: IDownloadLink = resumeDownload(environment.media);
+
+    /** Whole years since the career start date, or null when it is unknown. */
+    public readonly yearsOfExperience: Signal<number | null> = computed(() => this.data()?.yearsOfExperience() ?? null);
 
     constructor() {
         super(null);

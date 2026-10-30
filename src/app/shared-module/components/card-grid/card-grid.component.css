@@ -1,0 +1,147 @@
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 24px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: card;
+}
+
+.card-grid.three-columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* An odd last card in a two-column grid spans the full row. */
+.card-grid:not(.three-columns)>.grid-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+}
+
+.grid-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    counter-increment: card;
+    overflow: hidden;
+}
+
+/* Soft accent spotlight that follows the pointer (position set from the component). */
+.grid-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(420px circle at var(--spot-x, 50%) var(--spot-y, 0%), rgba(255, 122, 26, 0.1), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
+    pointer-events: none;
+}
+
+.grid-card:hover::after {
+    opacity: 1;
+}
+
+.numbered>.grid-card::before {
+    content: counter(card, decimal-leading-zero);
+    font-family: var(--font-serif);
+    font-size: 2.6rem;
+    line-height: 1;
+    color: var(--accent);
+}
+
+.card-icon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 4px;
+    border: 1px solid rgba(255, 122, 26, 0.25);
+    border-radius: 14px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 1.3rem;
+    transition: transform 0.4s var(--ease);
+}
+
+.grid-card:hover .card-icon {
+    transform: rotate(-6deg) scale(1.06);
+}
+
+.card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.card-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--text);
+}
+
+.card-meta {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+}
+
+.card-subtitle {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--accent);
+}
+
+.card-description {
+    margin: 0;
+    font-size: 0.97rem;
+    color: var(--text-muted);
+}
+
+.card-bullets {
+    display: grid;
+    gap: 8px;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.card-bullets li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+.card-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 0.72em;
+    width: 7px;
+    height: 2px;
+    background: var(--accent);
+}
+
+.show-more .card-bullets {
+    margin-top: 8px;
+}
+
+@media (max-width: 960px) {
+    .card-grid.three-columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 680px) {
+
+    .card-grid,
+    .card-grid.three-columns {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

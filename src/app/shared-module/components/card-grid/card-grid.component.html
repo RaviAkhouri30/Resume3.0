@@ -1,0 +1,49 @@
+<ul class="card-grid" #grid [class.three-columns]="columns() === 3" [class.numbered]="numbered()">
+    @for (item of items(); track $index) {
+    @let iconClass = item.icon || icon();
+    <li class="card grid-card reveal">
+        @if (iconClass) {
+        <span class="card-icon" aria-hidden="true"><i [class]="iconClass"></i></span>
+        }
+
+        <div class="card-head">
+            @if (item.title) {
+            <h3 class="card-title">{{ item.title }}</h3>
+            }
+            @if (item.meta) {
+            <span class="chip card-meta">{{ item.meta }}</span>
+            }
+        </div>
+
+        @if (item.subtitle) {
+        <p class="card-subtitle">{{ item.subtitle }}</p>
+        }
+        @if (item.description) {
+        <p class="card-description">{{ item.description }}</p>
+        }
+        @let bullets = item.bullets ?? [];
+        @let visible = visibleBullets() ?? bullets.length;
+        @if (bullets.length) {
+        <ul class="card-bullets">
+            @for (bullet of bullets.slice(0, visible); track $index) {
+            <li>{{ bullet }}</li>
+            }
+        </ul>
+        @if (bullets.length > visible) {
+        <details class="show-more">
+            <summary>
+                <span class="more-label">Show {{ bullets.length - visible }} more</span>
+                <span class="less-label">Show less</span>
+                <i class="bi bi-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="card-bullets">
+                @for (bullet of bullets.slice(visible); track $index) {
+                <li>{{ bullet }}</li>
+                }
+            </ul>
+        </details>
+        }
+        }
+    </li>
+    }
+</ul>

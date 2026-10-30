@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ResumeContainerComponent } from './resume/resume-container/resume-container.component';
 import { LoaderService } from './shared-module/services/loader-service';
 
@@ -9,7 +8,7 @@ import { LoaderService } from './shared-module/services/loader-service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ResumeContainerComponent, MatProgressSpinner]
+  imports: [ResumeContainerComponent]
 })
 export class AppComponent {
 
