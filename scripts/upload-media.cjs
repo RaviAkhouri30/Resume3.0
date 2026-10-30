@@ -42,10 +42,13 @@ function parseArgs(argv) {
     return files;
 }
 
-/** Cloudinary signature: sorted `key=value` pairs joined by `&`, followed by the API secret, SHA-1 hashed. */
+/**
+ * Cloudinary signature: sorted `key=value` pairs joined by `&`, followed by the API secret, SHA-256 hashed.
+ * Cloudinary accepts SHA-256 by default; SHA-1 is avoided because it is a weak hash.
+ */
 function sign(params, apiSecret) {
     const payload = Object.keys(params).sort().map(key => `${key}=${params[key]}`).join('&');
-    return crypto.createHash('sha1').update(payload + apiSecret).digest('hex');
+    return crypto.createHash('sha256').update(payload + apiSecret).digest('hex');
 }
 
 async function upload(credentials, filePath, publicId) {
