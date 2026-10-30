@@ -1,5 +1,7 @@
+import { Signal } from "@angular/core";
+
 export interface ILoader {
-  isLoading: boolean;
+  readonly isLoading: Signal<boolean>;
   show(): void;
   hide(): void;
 }

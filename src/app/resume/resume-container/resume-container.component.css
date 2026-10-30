@@ -14,8 +14,13 @@
 .title {
     margin-top: 5px;
     color: rgb(255, 119, 0);
-    cursor: pointer;
+    font-size: 1.75rem;
+    font-weight: 500;
     transition: color 0.3s ease-in-out;
+}
+
+nav {
+    margin-left: auto;
 }
 
 .title:hover {
@@ -24,22 +29,22 @@
 
 ul {
     list-style-type: none;
-    padding: 5px 5px;
+    padding: 5px;
     overflow: hidden;
     display: flex;
     justify-content: center;
-    margin-left: auto;
 }
 
 li {
-    float: left;
     margin: 5px 10px;
-    cursor: pointer;
-    transition: color 0.3s ease-in-out;
     color: #E1DCC9;
 }
 
-li:hover {
+.header li a {
+    transition: color 0.3s ease-in-out;
+}
+
+.header li a:hover {
     color: rgb(255, 119, 0);
 }
 
@@ -94,6 +99,8 @@ li:hover {
     height: 270px;
     object-fit: cover;
     border-radius: 50%;
+    /* Positioned so z-index applies and the photo sits above the tinted .inner-circle-design glow. */
+    position: relative;
     z-index: 1;
 }
 
@@ -123,6 +130,10 @@ li:hover {
     .header {
         flex-direction: column;
         align-items: center;
+    }
+
+    nav {
+        margin-left: 0;
     }
 
     .row {
@@ -185,8 +196,10 @@ footer {
     transform: translate(-50%, -50%);
 }
 
-h5 {
+.footer-heading {
     color: rgb(255, 119, 0);
+    font-size: 1.25rem;
+    font-weight: 500;
 }
 
 .copyright {
@@ -268,7 +281,7 @@ a {
         justify-content: center;
     }
 
-    .header ul {
+    .header nav {
         display: none;
     }
 }
@@ -334,4 +347,8 @@ a {
     .bi-chevron-right {
         font-size: 60px;
     }
+}
+/* Reserves the deferred contact form's space so loading it does not shift the layout. */
+.contact-form-placeholder {
+    min-height: 320px;
 }

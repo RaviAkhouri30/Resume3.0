@@ -1,24 +1,46 @@
-<section class="contact-me">
-    <form [formGroup]="form">
+@let form = model.form;
+<form class="contact-me" [formGroup]="form" (ngSubmit)="model.submit()" novalidate>
 
-        <mat-form-field class="full-width">
-            <mat-label class="form-label">Name</mat-label>
-            <input type="text" matInput name="name" id="name" formControlName="name" />
-        </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label class="form-label">Name</mat-label>
+        <input type="text" matInput id="contact-name" formControlName="name" autocomplete="name"
+            [maxlength]="model.limits.name" required />
+        @if (form.controls.name.hasError('required')) {
+        <mat-error>Please enter your name.</mat-error>
+        }
+    </mat-form-field>
 
-        <mat-form-field class="full-width">
-            <mat-label class="form-label">Email</mat-label>
-            <input type="email" matInput name="email" id="email" formControlName="email" />
-        </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label class="form-label">Email</mat-label>
+        <input type="email" matInput id="contact-email" formControlName="email" autocomplete="email"
+            [maxlength]="model.limits.email" required />
+        @if (form.controls.email.hasError('required')) {
+        <mat-error>Please enter your email.</mat-error>
+        } @else if (form.controls.email.hasError('email')) {
+        <mat-error>Please enter a valid email address.</mat-error>
+        }
+    </mat-form-field>
 
-        <mat-form-field class="full-width">
-            <mat-label class="form-label">Message</mat-label>
-            <textarea matInput formControlName="message"></textarea>
-        </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label class="form-label">Message</mat-label>
+        <textarea matInput id="contact-message" formControlName="message" rows="4" [maxlength]="model.limits.message"
+            required></textarea>
+        <mat-hint align="end">{{ form.controls.message.value.length }} / {{ model.limits.message }}</mat-hint>
+        @if (form.controls.message.hasError('required')) {
+        <mat-error>Please enter a message.</mat-error>
+        }
+    </mat-form-field>
 
-        <section class="button-submit">
-            <button type="submit" matButton="outlined" (click)="onSend()">Send</button>
-        </section>
+    <!-- Honeypot field: visually hidden and skipped by keyboard and screen readers. -->
+    <div class="honeypot" aria-hidden="true">
+        <label for="contact-website">Website</label>
+        <input type="text" id="contact-website" formControlName="website" tabindex="-1" autocomplete="off" />
+    </div>
 
-    </form>
-</section>
+    <section class="button-submit">
+        <button type="submit" matButton="outlined" [disabled]="model.data() === 'sending'">
+            {{ model.data() === 'sending' ? 'Sending…' : 'Send' }}
+        </button>
+    </section>
+
+</form>

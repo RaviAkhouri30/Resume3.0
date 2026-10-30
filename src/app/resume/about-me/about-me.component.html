@@ -1,19 +1,14 @@
-<section class="about-me-section">
-  <h1>About Me</h1>
-  @if(model.data) {
-  <p class="summary">{{model.data.summary}}</p>
+<section class="about-me-section" aria-labelledby="about-me-heading">
+  <h2 id="about-me-heading" class="section-heading">About Me</h2>
+  @if (model.data(); as person) {
+  <p class="summary">{{ person.summary }}</p>
   }
-  <section class="experience-parameters">
-    <ul>
-      <li> <span class="years">6</span> &nbsp; <i class="bi bi-plus"></i> <br>
-        <p class="parameter-label">Years of Experience</p>
-      </li>
-      <li> <span class="years">10</span> &nbsp; <i class="bi bi-plus"></i> <br>
-        <p class="parameter-label">Projects</p>
-      </li>
-      <li> <span class="years">7</span> &nbsp; <i class="bi bi-plus"></i> <br>
-        <p class="parameter-label">Rewards and Achievements</p>
-      </li>
-    </ul>
-  </section>
+  <ul class="experience-parameters">
+    @for (highlight of model.highlights(); track highlight.label) {
+    <li>
+      <span class="years">{{ highlight.value }}</span>&nbsp;<i class="bi bi-plus" aria-hidden="true"></i>
+      <p class="parameter-label">{{ highlight.label }}</p>
+    </li>
+    }
+  </ul>
 </section>

@@ -10,6 +10,17 @@
     text-underline-offset: 4px;
 }
 
+.headline {
+    font-size: inherit;
+    font-weight: normal;
+    line-height: inherit;
+    margin: 0;
+}
+
+.greeting {
+    margin: 0;
+}
+
 .greeting,
 .designation {
     font-size: 48px;

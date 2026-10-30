@@ -1,23 +1,57 @@
-import { Directive, ElementRef, HostListener, OnDestroy, Renderer2 } from '@angular/core';
+import { DestroyRef, Directive, ElementRef, inject, Renderer2 } from '@angular/core';
 
 const textElementSelector = 'h1, h2, h3, h4, h5, h6, p, li, strong, span, a, label, small, em, b, td, th';
 
+/**
+ * Shows a floating, enlarged copy of the hovered text.
+ *
+ * Performance notes: the directive matches every text element, so listeners are
+ * bound natively (they only touch the DOM and must not trigger change detection),
+ * events that bubble are handled once per element, and a single shared, passive
+ * scroll listener hides the active tooltip instead of one listener per instance.
+ */
 @Directive({
-    standalone: true,
     selector: textElementSelector
 })
-export class TextMagnifierDirective implements OnDestroy {
+export class TextMagnifierDirective {
     private static activeDirective: TextMagnifierDirective | null = null;
+    private static scrollListenerAttached = false;
+
+    private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+    private readonly renderer: Renderer2 = inject(Renderer2);
+    private readonly reducedMotion = globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
     private tooltip: HTMLDivElement | null = null;
     private tooltipText: HTMLSpanElement | null = null;
 
-    constructor(
-        private readonly elementRef: ElementRef<HTMLElement>,
-        private readonly renderer: Renderer2
-    ) { }
+    constructor() {
+        const element = this.elementRef.nativeElement;
+        const listeners: [string, (event: Event) => void][] = [
+            ['mouseover', event => this.onMouseOver(event)],
+            ['mousemove', event => this.onMouseMove(event)],
+            ['mouseleave', () => this.hideTooltip()],
+            ['focusin', () => this.onFocusIn()],
+            ['focusout', () => this.hideTooltip()]
+        ];
 
-    @HostListener('mouseover', ['$event'])
-    onMouseEnter(event: Event): void {
+        listeners.forEach(([type, handler]) => element.addEventListener(type, handler, { passive: true }));
+        TextMagnifierDirective.attachScrollListener();
+
+        inject(DestroyRef).onDestroy(() => {
+            listeners.forEach(([type, handler]) => element.removeEventListener(type, handler));
+            this.hideTooltip();
+        });
+    }
+
+    private static attachScrollListener(): void {
+        if (TextMagnifierDirective.scrollListenerAttached) {
+            return;
+        }
+
+        TextMagnifierDirective.scrollListenerAttached = true;
+        globalThis.addEventListener?.('scroll', () => TextMagnifierDirective.activeDirective?.hideTooltip(), { passive: true });
+    }
+
+    private onMouseOver(event: Event): void {
         if (!this.isListItemHover(event)) {
             if (TextMagnifierDirective.activeDirective === this) {
                 this.hideTooltip();
@@ -39,37 +73,7 @@ export class TextMagnifierDirective implements OnDestroy {
         this.showTooltipFromElement(this.elementRef.nativeElement.getBoundingClientRect(), text);
     }
 
-    @HostListener('pointerenter', ['$event'])
-    onPointerEnter(event: Event): void {
-        this.onMouseEnter(event);
-    }
-
-    @HostListener('mouseenter', ['$event'])
-    onMouseEnterDirectly(event: Event): void {
-        this.onMouseEnter(event);
-    }
-
-    @HostListener('document:mouseover', ['$event'])
-    onDocumentMouseOver(event: Event): void {
-        if (this.elementRef.nativeElement.tagName !== 'LI' || !(event instanceof MouseEvent)) {
-            return;
-        }
-
-        const target = event.target instanceof Element ? event.target : null;
-        if (!target || !this.elementRef.nativeElement.contains(target)) {
-            return;
-        }
-
-        this.onMouseEnter(event);
-    }
-
-    @HostListener('window:scroll')
-    onWindowScroll(): void {
-        TextMagnifierDirective.activeDirective?.hideTooltip();
-    }
-
-    @HostListener('mousemove', ['$event'])
-    onMouseMove(event: Event): void {
+    private onMouseMove(event: Event): void {
         if (!this.isListItemHover(event)) {
             if (TextMagnifierDirective.activeDirective === this) {
                 this.hideTooltip();
@@ -79,13 +83,6 @@ export class TextMagnifierDirective implements OnDestroy {
         }
 
         if (!(event instanceof MouseEvent)) {
-            if (!this.tooltip) {
-                const text = this.getText();
-                if (text) {
-                    this.showTooltipFromElement(this.elementRef.nativeElement.getBoundingClientRect(), text);
-                }
-            }
-
             return;
         }
 
@@ -105,13 +102,7 @@ export class TextMagnifierDirective implements OnDestroy {
         this.positionTooltip(event);
     }
 
-    @HostListener('mouseleave')
-    onMouseLeave(): void {
-        this.hideTooltip();
-    }
-
-    @HostListener('focusin')
-    onFocusIn(): void {
+    private onFocusIn(): void {
         if (!this.isLeafListItem()) {
             return;
         }
@@ -121,17 +112,7 @@ export class TextMagnifierDirective implements OnDestroy {
             return;
         }
 
-        const rect = this.elementRef.nativeElement.getBoundingClientRect();
-        this.showTooltipFromElement(rect, text);
-    }
-
-    @HostListener('focusout')
-    onFocusOut(): void {
-        this.hideTooltip();
-    }
-
-    ngOnDestroy(): void {
-        this.hideTooltip();
+        this.showTooltipFromElement(this.elementRef.nativeElement.getBoundingClientRect(), text);
     }
 
     private getText(): string {
@@ -230,6 +211,8 @@ export class TextMagnifierDirective implements OnDestroy {
         }
 
         const tooltip = this.renderer.createElement('div');
+        // Decorative duplicate of visible text; hide it from assistive technology.
+        this.renderer.setAttribute(tooltip, 'aria-hidden', 'true');
         this.renderer.setStyle(tooltip, 'position', 'fixed');
         this.renderer.setStyle(tooltip, 'isolation', 'isolate');
         this.renderer.setStyle(tooltip, 'left', '0px');
@@ -252,7 +235,9 @@ export class TextMagnifierDirective implements OnDestroy {
         this.renderer.setStyle(tooltip, 'pointerEvents', 'none');
         this.renderer.setStyle(tooltip, 'opacity', '0');
         this.renderer.setStyle(tooltip, 'transform', 'translateY(6px) scale(0.96)');
-        this.renderer.setStyle(tooltip, 'transition', 'opacity 180ms ease, transform 180ms ease');
+        if (!this.reducedMotion) {
+            this.renderer.setStyle(tooltip, 'transition', 'opacity 180ms ease, transform 180ms ease');
+        }
         this.renderer.setStyle(tooltip, 'zIndex', '99999');
         this.renderer.setStyle(tooltip, 'whiteSpace', 'normal');
         this.renderer.setStyle(tooltip, 'wordBreak', 'break-word');
@@ -268,7 +253,9 @@ export class TextMagnifierDirective implements OnDestroy {
         this.renderer.setStyle(reflection, 'mixBlendMode', 'screen');
         this.renderer.setStyle(reflection, 'opacity', '0.72');
         this.renderer.setStyle(reflection, 'transform', 'rotate(24deg)');
-        this.renderer.setStyle(reflection, 'animation', 'textMagnifierReflection 2.2s ease-in-out infinite');
+        if (!this.reducedMotion) {
+            this.renderer.setStyle(reflection, 'animation', 'textMagnifierReflection 2.2s ease-in-out infinite');
+        }
         this.renderer.setStyle(reflection, 'pointerEvents', 'none');
 
         const tooltipText = this.renderer.createElement('span');

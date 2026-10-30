@@ -5,6 +5,11 @@ import { IHobbiesDataModel } from "../interfaces/i-hobbies";
 import { IProjectsExperienceDataModel } from "../interfaces/i-projects-experience-data-model";
 import { ITimeline } from "../interfaces/i-timeline";
 
+/** Joins the non-empty parts with a separator. */
+function joinParts(parts: (string | undefined)[], separator: string): string {
+    return parts.map(part => part?.trim()).filter(Boolean).join(separator);
+}
+
 export function mapAwardAndAchievementToTimelineItem(item: IAwardAchievements): ITimeline {
     return {
         subtitle: item.title,
@@ -15,16 +20,17 @@ export function mapAwardAndAchievementToTimelineItem(item: IAwardAchievements): 
 export function mapExperienceToTimelineItem(item: IExperienceDataModel): ITimeline {
     return {
         title: item.companyName,
-        subtitle: item.tenure,
+        subtitle: joinParts([item.designation, item.tenure], ' · '),
         bullets: item.responsibilities
     };
 }
 
 export function mapEducationToTimelineItem(item: IEducationDataModel): ITimeline {
+    const degree = item.major ? `${item.degree} in ${item.major}` : item.degree;
     return {
-        title: item.degree + " in " + item.major + ' (' + item.graduationYear + ')',
-        subtitle: item.instituteName + ', ' + item.university,
-        description: 'Grade: ' + item.grade
+        title: item.graduationYear ? `${degree} (${item.graduationYear})` : degree,
+        subtitle: joinParts([item.instituteName, item.university], ', '),
+        description: item.grade ? `Grade: ${item.grade}` : undefined
     };
 }
 

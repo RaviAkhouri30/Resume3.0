@@ -1,17 +1,80 @@
-body {
-    height: 100%;
+html {
+    scroll-behavior: smooth;
+    /* Keep in-page anchor targets clear of the sticky header. */
+    scroll-padding-top: 80px;
 }
 
 body {
+    min-height: 100%;
     width: 100%;
-    overflow: auto;
     padding: 0;
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
     color: #E1DCC9;
     background: linear-gradient(90deg, #412D15 0%, #1F150C 50%, #000000 100%);
+    background-color: #1F150C;
     background-size: cover;
-    font-family: 'Inter', sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid rgb(255, 119, 0);
+    outline-offset: 3px;
+}
+
+.section-heading {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.skip-link {
+    position: absolute;
+    left: 8px;
+    top: -60px;
+    z-index: 2000;
+    padding: 8px 16px;
+    background: rgb(255, 119, 0);
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    top: 8px;
+}
+
+.success-msg {
+    --mat-snack-bar-button-color: #8be28b;
+}
+
+.error-msg {
+    --mat-snack-bar-button-color: #ff8a80;
 }
 
 @keyframes textMagnifierReflection {

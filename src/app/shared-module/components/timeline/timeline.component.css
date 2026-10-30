@@ -1,6 +1,11 @@
 .heading-container {
-    font-size: 6px;
     color: rgb(255, 119, 0);
+}
+
+.item-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
 }
 
 .content,
@@ -8,18 +13,13 @@ li {
     font-size: 12px !important;
 }
 
-.experience {
-    padding: 10px 0 20px;
-}
-
-
 .list-items {
     font-size: 16px;
 }
 
 .list-items>i {
     display: inline-block;
-    transition: all ease-in-out 0.3s;
+    transition: transform 0.3s ease-in-out;
 }
 
 .list-items>i:hover {
@@ -38,5 +38,4 @@ li {
     ul {
         padding: 10px;
     }
-
 }

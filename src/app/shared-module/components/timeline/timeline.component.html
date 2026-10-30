@@ -3,29 +3,32 @@
     <li>
         <div class="heading">
             <div class="heading-container">
+                @if (item.title) {
+                <h3 class="item-title">{{ item.title }}</h3>
+                }
                 @if (item.subtitle) {
                 <span class="list-items">
-                    <strong class="sub-title">{{item.subtitle}}</strong> &nbsp; <i class="{{item.icon}}"></i>
+                    <strong class="sub-title">{{ item.subtitle }}</strong>
+                    @if (item.icon) {
+                    &nbsp;<i class="{{ item.icon }}" aria-hidden="true"></i>
+                    }
                 </span>
-                }
-                @if(item.title) {
-                <h5>{{ item.title }}</h5>
                 }
             </div>
         </div>
         <div class="content-container">
-            <article class="content">
-                @if(item.description) {
+            <div class="content">
+                @if (item.description) {
                 <p>{{ item.description }}</p>
                 }
-                @if(item.bullets) {
+                @if (item.bullets?.length) {
                 <ul>
                     @for (bullet of item.bullets; track $index) {
                     <li>{{ bullet }}</li>
                     }
                 </ul>
                 }
-            </article>
+            </div>
         </div>
     </li>
     }

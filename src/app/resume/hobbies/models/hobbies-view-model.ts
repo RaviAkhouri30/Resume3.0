@@ -1,20 +1,26 @@
-import { inject, Service } from "@angular/core";
-import { map, Observable, tap } from "rxjs";
+import { computed, inject, Injectable, Signal } from "@angular/core";
+import { Observable, tap } from "rxjs";
 import { Hobbies } from "src/app/shared-module/models/hobbies";
-import { ViewModel } from "src/app/shared-module/models/view-model";
+import { CollectionViewModel } from "src/app/shared-module/models/view-model";
+import { mapHobbiesToTimelineItem } from "src/app/shared-module/helper-functions/transform-to-timeline";
+import { ITimeline } from "src/app/shared-module/interfaces/i-timeline";
 import { HobbiesService } from "../services/hobbies.service";
-import { IHobbiesDataModel } from "src/app/shared-module/interfaces/i-hobbies";
 
-@Service()
-export class HobbiesViewModel extends ViewModel<Hobbies[]> {
+@Injectable()
+export class HobbiesViewModel extends CollectionViewModel<Hobbies> {
 
-    private readonly _hobbiesService: HobbiesService = inject(HobbiesService);
+    private readonly service: HobbiesService = inject(HobbiesService);
 
-    protected override attachViewHandler = (): Observable<Hobbies[]> => {
-        return this._hobbiesService.attachViewDataHandler<IHobbiesDataModel[]>().pipe(
-            tap(result => this.data = result.map(hobby => new Hobbies(hobby))),
-            map(() => this.data)
-        );
+    /** Items prepared for the shared timeline component. */
+    public readonly timeline: Signal<ITimeline[]> = computed(() => this.data().map(mapHobbiesToTimelineItem));
+
+    constructor() {
+        super();
     }
 
+    protected override attachViewHandler(): Observable<unknown> {
+        return this.service.attachViewDataHandler().pipe(
+            tap(result => this.setData(result.map(item => new Hobbies(item))))
+        );
+    }
 }

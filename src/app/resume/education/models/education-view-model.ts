@@ -1,25 +1,26 @@
+import { computed, inject, Injectable, Signal } from "@angular/core";
 import { Observable, tap } from "rxjs";
-import { IEducationDataModel } from "src/app/shared-module/interfaces/i-education-data-model";
-import { ViewModel } from "src/app/shared-module/models/view-model";
-import { EducationService } from "../services/education.service";
-import { inject, Service } from "@angular/core";
-import { ICommand } from "src/app/shared-module/interfaces/i-command";
 import { EducationDataModel } from "src/app/shared-module/models/education-data-model";
-import { CommandService } from "src/app/shared-module/services/command-service";
+import { CollectionViewModel } from "src/app/shared-module/models/view-model";
+import { mapEducationToTimelineItem } from "src/app/shared-module/helper-functions/transform-to-timeline";
+import { ITimeline } from "src/app/shared-module/interfaces/i-timeline";
+import { EducationService } from "../services/education.service";
 
-@Service()
-export class EducationViewModel extends ViewModel<IEducationDataModel[]> {
+@Injectable()
+export class EducationViewModel extends CollectionViewModel<EducationDataModel> {
 
-    private _educationService: EducationService = inject(EducationService);
-    private _commandService: CommandService = inject(CommandService);
+    private readonly service: EducationService = inject(EducationService);
 
-    override attachViewHandler = (): Observable<any> => {
-        return this._educationService.attachViewDataHandler<IEducationDataModel[]>().pipe(
-            tap(result => this.data = result.map(education => new EducationDataModel(education)))
-        );
+    /** Items prepared for the shared timeline component. */
+    public readonly timeline: Signal<ITimeline[]> = computed(() => this.data().map(mapEducationToTimelineItem));
+
+    constructor() {
+        super();
     }
 
-    override attachCommandHandler = (): Observable<ICommand<any>> => {
-        return this._commandService.attachCommandApiHandler().pipe();
+    protected override attachViewHandler(): Observable<unknown> {
+        return this.service.attachViewDataHandler().pipe(
+            tap(result => this.setData(result.map(item => new EducationDataModel(item))))
+        );
     }
 }

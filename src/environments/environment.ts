@@ -2,11 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+import { IEnvironment } from './i-environment';
+
+export const environment: IEnvironment = {
   // Local development uses the nested fake database by default.
   production: false,
-  fakeBackend: true,
-  firebaseBackend: false,
+  backend: 'fake',
   // Shared prefix; feature endpoints append section names such as `education`.
   baseUrl: 'resumes/RS-PLACEHOLDER/resume',
   firebase: {
@@ -16,14 +17,19 @@ export const environment = {
     messagingSenderId: '1002190712619',
     appId: '1:1002190712619:web:6f469add4ed4781556df6e',
     measurementId: 'G-MNR44JEJM5'
+  },
+  // EmailJS identifiers are public by design; abuse is limited by the
+  // allowed-origins and rate-limit settings in the EmailJS dashboard.
+  emailJs: {
+    serviceId: 'service_g7pwa8r',
+    templateId: 'template_1bvzelf',
+    publicKey: '2kOpwVxV45AwOcykd'
+  },
+  // Photo and resume are served from Cloudinary; until `cloudName` is set the
+  // bundled files in `src/assets` are used. Upload with `npm run upload:media`.
+  media: {
+    cloudName: '',
+    profilePhotoId: 'portfolio/profile',
+    resumeId: 'portfolio/Ravi_Akhouri_Resume'
   }
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

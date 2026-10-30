@@ -1,24 +1,43 @@
-import { inject, Service } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { Observable, tap } from "rxjs";
-import { IContactDetails } from "src/app/shared-module/interfaces/i-contact-details";
-import { ViewModel } from "src/app/shared-module/models/view-model";
-import { ContactService } from "../services/contact.service";
+import { ContactType } from "src/app/shared-module/enums/contact-type";
 import { ContactDetailsDataModel } from "src/app/shared-module/models/contact-details-data-model";
+import { CollectionViewModel } from "src/app/shared-module/models/view-model";
 import { CommandService } from "src/app/shared-module/services/command-service";
+import { ContactService } from "../services/contact.service";
 
-@Service()
-export class ContactViewModel extends ViewModel<IContactDetails[]> {
+const COPY_LABELS: Record<ContactType, string> = {
+    [ContactType.email]: 'Email',
+    [ContactType.mobile]: 'Phone number'
+};
 
-    private readonly _contactService: ContactService = inject(ContactService);
-    private readonly _commandService: CommandService = inject(CommandService);
+@Injectable()
+export class ContactViewModel extends CollectionViewModel<ContactDetailsDataModel> {
 
-    protected override attachViewHandler = (): Observable<any> => {
-        return this._contactService.attachViewDataHandler<IContactDetails[]>().pipe(
-            tap(result => this.data = result.map(contact => new ContactDetailsDataModel(contact)))
+    private readonly contactService: ContactService = inject(ContactService);
+    private readonly commandService: CommandService = inject(CommandService);
+    private readonly _copiedDetails = signal<string | null>(null);
+
+    /** The contact value most recently copied to the clipboard. */
+    public readonly copiedDetails = this._copiedDetails.asReadonly();
+
+    constructor() {
+        super();
+    }
+
+    /** Copies a contact value and remembers it so the view can show a confirmation icon. */
+    public copy(contact: ContactDetailsDataModel): void {
+        this._copiedDetails.set(contact.details);
+        this.commandService.copyCommand(contact.details, COPY_LABELS[contact.type] ?? 'Contact');
+    }
+
+    protected override attachViewHandler(): Observable<unknown> {
+        return this.contactService.attachViewDataHandler().pipe(
+            tap(result => this.setData(result.map(contact => new ContactDetailsDataModel(contact))))
         );
     }
 
-    protected override attachCommandHandler = (): Observable<any> => {
-        return this._commandService.attachCommandApiHandler();
+    protected override attachCommandHandler(): Observable<unknown> {
+        return this.commandService.attachCommandApiHandler();
     }
 }

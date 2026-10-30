@@ -6,22 +6,27 @@
                     "firstName": "Lorem",
                     "name": "Lorem Ipsum",
                     "email": "lorem.ipsum@example.com",
+                    "secondaryEmail": "placeholder@example.com",
                     "phone": "+00 000 000 0000",
                     "jobTitle": "Senior Placeholder Developer",
-                    "secondaryEmail": "placeholder@example.com",
-                    "address": "123 Lorem Street",
                     "city": "Lorem City",
                     "state": "Placeholder State",
-                    "zip": "000000",
                     "country": "Placeholder Country",
                     "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere, sapien at consequat cursus, lectus lorem facilisis justo, vitae volutpat ipsum arcu a neque.",
                     "linkedin": "https://example.com/lorem-linkedin",
                     "github": "https://example.com/lorem-github",
-                    "twitter": "https://example.com/lorem-twitter",
-                    "dateOfBirth": "2000-01-01",
-                    "profilePic": "",
-                    "resume": "",
                     "uid": "RS-PLACEHOLDER",
+                    "careerStartDate": "2019-10-01",
+                    "highlights": [
+                        {
+                            "value": 10,
+                            "label": "Projects Delivered"
+                        },
+                        {
+                            "value": 8,
+                            "label": "Awards & Recognitions"
+                        }
+                    ],
                     "awardsAndAchievements": [
                         {
                             "title": "Lorem Achievement Award",
@@ -67,6 +72,7 @@
                         "personUid": "RS-PLACEHOLDER",
                         "uid": "work-placeholder-1",
                         "companyName": "Lorem Ipsum Technologies",
+                        "designation": "Senior Placeholder Engineer",
                         "tenure": "January 2024 - Present",
                         "responsibilities": [
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -78,6 +84,7 @@
                         "personUid": "RS-PLACEHOLDER",
                         "uid": "work-placeholder-2",
                         "companyName": "Placeholder Solutions",
+                        "designation": "Placeholder Engineer",
                         "tenure": "July 2021 - December 2023",
                         "responsibilities": [
                             "Donec ullamcorper nulla non metus auctor fringilla.",
@@ -134,20 +141,17 @@
                     {
                         "personUid": "RS-PLACEHOLDER",
                         "uid": "skill-placeholder-1",
-                        "skill": "Angular",
-                        "proficeincy": 90
+                        "skill": "Angular"
                     },
                     {
                         "personUid": "RS-PLACEHOLDER",
                         "uid": "skill-placeholder-2",
-                        "skill": "TypeScript",
-                        "proficeincy": 85
+                        "skill": "TypeScript"
                     },
                     {
                         "personUid": "RS-PLACEHOLDER",
                         "uid": "skill-placeholder-3",
-                        "skill": "Lorem Communication",
-                        "proficeincy": 80
+                        "skill": "Lorem Communication"
                     }
                 ]
             }

@@ -11,7 +11,7 @@ ul {
     padding: 5px 30px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-end;
     gap: 10px 15px;
     color: #E1DCC9;
@@ -21,10 +21,4 @@ ul {
 li {
     margin: 0;
     display: inline-block;
-}
-
-@media screen and (max-width: 500px) {
-    ul {
-        justify-content: center;
-    }
 }

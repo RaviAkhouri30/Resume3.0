@@ -2,16 +2,16 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    color: rgb(255, 119, 0);
     font-size: 50px;
 }
 
 .social-icons {
     margin: 0 10px;
-    cursor: pointer;
-    transition: all ease-in-out 0.3s;
+    color: rgb(255, 119, 0);
+    transition: transform 0.3s ease-in-out;
 }
 
-.social-icons:hover {
+.social-icons:hover,
+.social-icons:focus-visible {
     transform: scale(1.3);
 }
